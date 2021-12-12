@@ -1,24 +1,21 @@
-﻿namespace ComputerCase
+﻿using ComputerCase.Exceptions;
+
+namespace ComputerCase
 {
     public class CaseParameters
     {
         public const int SPACE_BETWEEN_FRONT_FANS = 15;
-        public const int SPACE_BETWEEN_UPPER_FANS = 15;
+        public const int SPACE_BETWEEN_UPPER_FANS = 5;
         private const int ATX_PLATE_HEIGHT = 305;
-        private const int ATX_PLATE_WIDTH = 244;
+        private const int PLATE_WIDTH = 244;
         private const int MICRO_ATX_PLATE_HEIGHT = 244;
-        private const int MICRO_ATX_PLATE_WIDTH = 244;
-        private const int ATX_POWER_SUPPLY_HEIGHT = 86;
-        private const int MAX_FRONT_FANS_NUMBER = 3;
-        private const int MAX_UPPER_FANS_NUMBER = 2;
-
+        private const int ATX_POWER_SUPPLY_WIDTH = 140;
+        
         private double _height;
         private double _length;
         private double _width;
         private double _frontFanRadius;
         private double _upperFanRadius;
-        private int _upperFansNumber;
-        private int _frontFansNumber;
 
         /// <summary>
         /// Высота корпуса
@@ -26,7 +23,12 @@
         public double Height
         {
             get => _height;
-            set => _height = value;
+            set
+            {
+                var minValue = MotherboardType == MotherboardType.ATX ? ATX_PLATE_HEIGHT : MICRO_ATX_PLATE_HEIGHT;
+                _height = Validator.Validate(500, minValue, value) 
+                    ? value : throw new OutOfBoundsException($"Длина корпуса не может быть больше 500 или меньше {minValue} мм.");
+            }
         }
 
         /// <summary>
@@ -35,7 +37,8 @@
         public double Length
         {
             get => _length;
-            set => _length = value;
+            set => _length = Validator.Validate(500, PLATE_WIDTH, value) 
+                ? value : throw new OutOfBoundsException($"Длина корпуса не может быть больше 500 или меньше {PLATE_WIDTH} мм.");
         }
 
         /// <summary>
@@ -44,7 +47,8 @@
         public double Width
         {
             get => _width;
-            set => _width = value;
+            set => _width = Validator.Validate(500, ATX_POWER_SUPPLY_WIDTH, value) 
+                ? value : throw new OutOfBoundsException($"Ширина корпуса не может быть больше 500 или меньше {ATX_POWER_SUPPLY_WIDTH} мм.");
         }
         
         /// <summary>
@@ -53,7 +57,22 @@
         public double FrontFanRadius
         {
             get => _frontFanRadius;
-            set => _frontFanRadius = value;
+            set
+            {
+                if (_height == default)
+                {
+                    _frontFanRadius = Validator.Validate(140, 40, value)
+                        ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
+                }
+                else
+                {
+                    var fansLength = _frontFanRadius * FrontFansNumber +
+                                     (SPACE_BETWEEN_FRONT_FANS * FrontFansNumber - 1);
+                    _frontFanRadius = Validator.Validate(140, 40, value) &&
+                                      Validator.Validate(_height,40,fansLength) 
+                        ? value : throw new SizeException();
+                }
+            }
         }
 
         /// <summary>
@@ -62,25 +81,33 @@
         public double UpperFanRadius
         {
             get => _upperFanRadius;
-            set => _upperFanRadius = value;
+            set
+            {
+                if (_length == default)
+                {
+                    _upperFanRadius = Validator.Validate(140, 40, value) ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
+                }
+                else
+                {
+                    var fansLength = _upperFanRadius * UpperFansNumber +
+                                     (SPACE_BETWEEN_UPPER_FANS * UpperFansNumber - 1);
+                    _upperFanRadius = Validator.Validate(140, 40, value) &&
+                                      Validator.Validate(_length,40,fansLength) 
+                        ? value : throw new SizeException();
+                }
+            }
         }
 
         /// <summary>
         /// Количество верхних вентиляторов
         /// </summary>
-        public int UpperFansNumber
-        {
-            get => _upperFansNumber;
-            set => _upperFansNumber = value;
-        }
+        public int UpperFansNumber { get; set; }
 
         /// <summary>
         /// Количество передних вентиляторов
         /// </summary>
-        public int FrontFansNumber
-        {
-            get => _frontFansNumber;
-            set => _frontFansNumber = value;
-        }
+        public int FrontFansNumber { get; set; }
+        
+        public MotherboardType MotherboardType { get; set; }
     }
 }
