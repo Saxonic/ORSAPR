@@ -11,7 +11,7 @@
         /// <returns></returns>
         public static bool Validate(double max, double min, double value)
         {
-            return !(max < value) && !(min > value);
+            return !(max <= value) && !(min >= value);
         }
         
     }
