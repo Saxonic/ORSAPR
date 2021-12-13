@@ -14,8 +14,8 @@ namespace ComputerCase
         private double _height;
         private double _length;
         private double _width;
-        private double _frontFanRadius;
-        private double _upperFanRadius;
+        private double _frontFansDiameter;
+        private double _upperFansDiameter;
 
         /// <summary>
         /// Высота корпуса
@@ -27,7 +27,7 @@ namespace ComputerCase
             {
                 var minValue = MotherboardType == MotherboardType.ATX ? ATX_PLATE_HEIGHT : MICRO_ATX_PLATE_HEIGHT;
                 _height = Validator.Validate(500, minValue, value) 
-                    ? value : throw new OutOfBoundsException($"Длина корпуса не может быть больше 500 или меньше {minValue} мм.");
+                    ? value : throw new OutOfBoundsException($"Высота корпуса не может быть больше 500 или меньше {minValue} мм.");
             }
         }
 
@@ -54,21 +54,21 @@ namespace ComputerCase
         /// <summary>
         /// Радиус передних вентиляторов
         /// </summary>
-        public double FrontFanRadius
+        public double FrontFansDiameter
         {
-            get => _frontFanRadius;
+            get => _frontFansDiameter;
             set
             {
                 if (_height == default)
                 {
-                    _frontFanRadius = Validator.Validate(140, 40, value)
+                    _frontFansDiameter = Validator.Validate(140, 40, value)
                         ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
                 }
                 else
                 {
-                    var fansLength = _frontFanRadius * FrontFansNumber +
+                    var fansLength = _frontFansDiameter * FrontFansNumber +
                                      (SPACE_BETWEEN_FRONT_FANS * FrontFansNumber - 1);
-                    _frontFanRadius = Validator.Validate(140, 40, value) &&
+                    _frontFansDiameter = Validator.Validate(140, 40, value) &&
                                       Validator.Validate(_height,40,fansLength) 
                         ? value : throw new SizeException();
                 }
@@ -78,20 +78,21 @@ namespace ComputerCase
         /// <summary>
         /// Радиус верхних вентиляторов
         /// </summary>
-        public double UpperFanRadius
+        public double UpperFansDiameter
         {
-            get => _upperFanRadius;
+            get => _upperFansDiameter;
             set
             {
                 if (_length == default)
                 {
-                    _upperFanRadius = Validator.Validate(140, 40, value) ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
+                    _upperFansDiameter = Validator.Validate(140, 40, value) 
+                        ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
                 }
                 else
                 {
-                    var fansLength = _upperFanRadius * UpperFansNumber +
+                    var fansLength = _upperFansDiameter * UpperFansNumber +
                                      (SPACE_BETWEEN_UPPER_FANS * UpperFansNumber - 1);
-                    _upperFanRadius = Validator.Validate(140, 40, value) &&
+                    _upperFansDiameter = Validator.Validate(140, 40, value) &&
                                       Validator.Validate(_length,40,fansLength) 
                         ? value : throw new SizeException();
                 }
