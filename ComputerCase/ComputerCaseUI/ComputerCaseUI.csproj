@@ -83,5 +83,11 @@
   <ItemGroup>
     <None Include="Resources\Деталь.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ComputerCase\ComputerCase.csproj">
+      <Project>{4b09c16b-c867-4c0f-81f6-9c1b604ddc56}</Project>
+      <Name>ComputerCase</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
