@@ -59,19 +59,13 @@ namespace ComputerCase
             get => _frontFansDiameter;
             set
             {
-                if (_height == default)
-                {
-                    _frontFansDiameter = Validator.Validate(140, 40, value)
+                _frontFansDiameter = Validator.Validate(140, 40, value)
                         ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
-                }
-                else
-                {
-                    var fansLength = _frontFansDiameter * FrontFansNumber +
-                                     (SPACE_BETWEEN_FRONT_FANS * FrontFansNumber - 1);
-                    _frontFansDiameter = Validator.Validate(140, 40, value) &&
-                                      Validator.Validate(_height,40,fansLength) 
-                        ? value : throw new SizeException();
-                }
+                var fansLength = _frontFansDiameter * FrontFansCount +
+                                 (SPACE_BETWEEN_FRONT_FANS * FrontFansCount - 1);
+                    _frontFansDiameter = Validator.Validate(_height,40,fansLength) 
+                        ? value : throw new SizeException("Отверстия под вентиляторы с заданным размером " +
+                                                          "не могут быть умещены на корпусе с указанной шириной");
             }
         }
 
@@ -83,31 +77,26 @@ namespace ComputerCase
             get => _upperFansDiameter;
             set
             {
-                if (_length == default)
-                {
-                    _upperFansDiameter = Validator.Validate(140, 40, value) 
+                _upperFansDiameter = Validator.Validate(140, 40, value)
                         ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше 140 или меньше 40 мм.");
-                }
-                else
-                {
-                    var fansLength = _upperFansDiameter * UpperFansNumber +
-                                     (SPACE_BETWEEN_UPPER_FANS * UpperFansNumber - 1);
-                    _upperFansDiameter = Validator.Validate(140, 40, value) &&
-                                      Validator.Validate(_length,40,fansLength) 
-                        ? value : throw new SizeException();
-                }
+
+                var fansLength = _upperFansDiameter * UpperFansCount +
+                                 (SPACE_BETWEEN_UPPER_FANS * UpperFansCount - 1);
+                    _upperFansDiameter = Validator.Validate(_length,40,fansLength) 
+                        ? value : throw new SizeException("Отверстия под вентиляторы с заданным размером " +
+                                                          "не могут быть умещены на корпусе с указанной длиной");
             }
         }
 
         /// <summary>
         /// Количество верхних вентиляторов
         /// </summary>
-        public int UpperFansNumber { get; set; }
+        public int UpperFansCount { get; set; } = 1;
 
         /// <summary>
         /// Количество передних вентиляторов
         /// </summary>
-        public int FrontFansNumber { get; set; }
+        public int FrontFansCount { get; set; } = 1;
         
         public MotherboardType MotherboardType { get; set; }
     }
