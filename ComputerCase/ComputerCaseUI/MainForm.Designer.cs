@@ -33,23 +33,16 @@ namespace ComputerCaseUI
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.BuildButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.threeFrontFanRadio = new System.Windows.Forms.RadioButton();
-            this.twoFrontFanRadio = new System.Windows.Forms.RadioButton();
-            this.oneFrontFanRadio = new System.Windows.Forms.RadioButton();
             this.frontFansCountLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.FrontFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.frontFansDiametrLabel = new System.Windows.Forms.Label();
             this.fansInfoGroupBox = new System.Windows.Forms.GroupBox();
-            this.twoApperFanRadio = new System.Windows.Forms.RadioButton();
-            this.oneUpperFanRadio = new System.Windows.Forms.RadioButton();
             this.upperFansCountLabel = new System.Windows.Forms.Label();
             this.upperFansDiametrBordersLabel = new System.Windows.Forms.Label();
             this.UpperFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.upperFansDiametrLabel = new System.Windows.Forms.Label();
             this.motherboardGroupBox = new System.Windows.Forms.GroupBox();
-            this.microATXRadio = new System.Windows.Forms.RadioButton();
-            this.ATXRadio = new System.Windows.Forms.RadioButton();
             this.caseInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.lengthBordersLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,6 +55,9 @@ namespace ComputerCaseUI
             this.HeightTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.motherboardComboBox = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -90,14 +86,14 @@ namespace ComputerCaseUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(605, 346);
-            this.splitContainer1.SplitterDistance = 280;
+            this.splitContainer1.Size = new System.Drawing.Size(590, 330);
+            this.splitContainer1.SplitterDistance = 279;
             this.splitContainer1.TabIndex = 0;
             // 
             // BuildButton
             // 
             this.BuildButton.Enabled = false;
-            this.BuildButton.Location = new System.Drawing.Point(198, 316);
+            this.BuildButton.Location = new System.Drawing.Point(198, 300);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(75, 23);
             this.BuildButton.TabIndex = 1;
@@ -106,54 +102,17 @@ namespace ComputerCaseUI
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.threeFrontFanRadio);
-            this.groupBox1.Controls.Add(this.twoFrontFanRadio);
-            this.groupBox1.Controls.Add(this.oneFrontFanRadio);
+            this.groupBox1.Controls.Add(this.comboBox3);
             this.groupBox1.Controls.Add(this.frontFansCountLabel);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.FrontFansDiameterTextBox);
             this.groupBox1.Controls.Add(this.frontFansDiametrLabel);
-            this.groupBox1.Location = new System.Drawing.Point(3, 243);
+            this.groupBox1.Location = new System.Drawing.Point(3, 227);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 67);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Передние вентиляторы";
-            // 
-            // threeFrontFanRadio
-            // 
-            this.threeFrontFanRadio.AutoSize = true;
-            this.threeFrontFanRadio.Location = new System.Drawing.Point(154, 44);
-            this.threeFrontFanRadio.Name = "threeFrontFanRadio";
-            this.threeFrontFanRadio.Size = new System.Drawing.Size(31, 17);
-            this.threeFrontFanRadio.TabIndex = 22;
-            this.threeFrontFanRadio.Text = "3";
-            this.threeFrontFanRadio.UseVisualStyleBackColor = true;
-            this.threeFrontFanRadio.CheckedChanged += new System.EventHandler(this.frontFanCountRadio_CheckedChanged);
-            // 
-            // twoFrontFanRadio
-            // 
-            this.twoFrontFanRadio.AutoSize = true;
-            this.twoFrontFanRadio.Location = new System.Drawing.Point(117, 44);
-            this.twoFrontFanRadio.Name = "twoFrontFanRadio";
-            this.twoFrontFanRadio.Size = new System.Drawing.Size(31, 17);
-            this.twoFrontFanRadio.TabIndex = 21;
-            this.twoFrontFanRadio.Text = "2";
-            this.twoFrontFanRadio.UseVisualStyleBackColor = true;
-            this.twoFrontFanRadio.CheckedChanged += new System.EventHandler(this.frontFanCountRadio_CheckedChanged);
-            // 
-            // oneFrontFanRadio
-            // 
-            this.oneFrontFanRadio.AutoSize = true;
-            this.oneFrontFanRadio.Checked = true;
-            this.oneFrontFanRadio.Location = new System.Drawing.Point(82, 44);
-            this.oneFrontFanRadio.Name = "oneFrontFanRadio";
-            this.oneFrontFanRadio.Size = new System.Drawing.Size(31, 17);
-            this.oneFrontFanRadio.TabIndex = 20;
-            this.oneFrontFanRadio.TabStop = true;
-            this.oneFrontFanRadio.Text = "1";
-            this.oneFrontFanRadio.UseVisualStyleBackColor = true;
-            this.oneFrontFanRadio.CheckedChanged += new System.EventHandler(this.frontFanCountRadio_CheckedChanged);
             // 
             // frontFansCountLabel
             // 
@@ -192,42 +151,17 @@ namespace ComputerCaseUI
             // 
             // fansInfoGroupBox
             // 
-            this.fansInfoGroupBox.Controls.Add(this.twoApperFanRadio);
-            this.fansInfoGroupBox.Controls.Add(this.oneUpperFanRadio);
+            this.fansInfoGroupBox.Controls.Add(this.comboBox2);
             this.fansInfoGroupBox.Controls.Add(this.upperFansCountLabel);
             this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrBordersLabel);
             this.fansInfoGroupBox.Controls.Add(this.UpperFansDiameterTextBox);
             this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrLabel);
-            this.fansInfoGroupBox.Location = new System.Drawing.Point(3, 175);
+            this.fansInfoGroupBox.Location = new System.Drawing.Point(3, 156);
             this.fansInfoGroupBox.Name = "fansInfoGroupBox";
-            this.fansInfoGroupBox.Size = new System.Drawing.Size(271, 69);
+            this.fansInfoGroupBox.Size = new System.Drawing.Size(271, 70);
             this.fansInfoGroupBox.TabIndex = 5;
             this.fansInfoGroupBox.TabStop = false;
             this.fansInfoGroupBox.Text = "Верхние вентиляторы";
-            // 
-            // twoApperFanRadio
-            // 
-            this.twoApperFanRadio.AutoSize = true;
-            this.twoApperFanRadio.Location = new System.Drawing.Point(117, 45);
-            this.twoApperFanRadio.Name = "twoApperFanRadio";
-            this.twoApperFanRadio.Size = new System.Drawing.Size(31, 17);
-            this.twoApperFanRadio.TabIndex = 6;
-            this.twoApperFanRadio.Text = "2";
-            this.twoApperFanRadio.UseVisualStyleBackColor = true;
-            this.twoApperFanRadio.CheckedChanged += new System.EventHandler(this.upperFanCountRadio_CheckedChanged);
-            // 
-            // oneUpperFanRadio
-            // 
-            this.oneUpperFanRadio.AutoSize = true;
-            this.oneUpperFanRadio.Checked = true;
-            this.oneUpperFanRadio.Location = new System.Drawing.Point(82, 45);
-            this.oneUpperFanRadio.Name = "oneUpperFanRadio";
-            this.oneUpperFanRadio.Size = new System.Drawing.Size(31, 17);
-            this.oneUpperFanRadio.TabIndex = 5;
-            this.oneUpperFanRadio.TabStop = true;
-            this.oneUpperFanRadio.Text = "1";
-            this.oneUpperFanRadio.UseVisualStyleBackColor = true;
-            this.oneUpperFanRadio.CheckedChanged += new System.EventHandler(this.upperFanCountRadio_CheckedChanged);
             // 
             // upperFansCountLabel
             // 
@@ -266,39 +200,13 @@ namespace ComputerCaseUI
             // 
             // motherboardGroupBox
             // 
-            this.motherboardGroupBox.Controls.Add(this.microATXRadio);
-            this.motherboardGroupBox.Controls.Add(this.ATXRadio);
+            this.motherboardGroupBox.Controls.Add(this.motherboardComboBox);
             this.motherboardGroupBox.Location = new System.Drawing.Point(3, 110);
             this.motherboardGroupBox.Name = "motherboardGroupBox";
-            this.motherboardGroupBox.Size = new System.Drawing.Size(271, 63);
+            this.motherboardGroupBox.Size = new System.Drawing.Size(271, 46);
             this.motherboardGroupBox.TabIndex = 4;
             this.motherboardGroupBox.TabStop = false;
             this.motherboardGroupBox.Text = "Тип материнской платы";
-            // 
-            // microATXRadio
-            // 
-            this.microATXRadio.AutoSize = true;
-            this.microATXRadio.Location = new System.Drawing.Point(9, 42);
-            this.microATXRadio.Name = "microATXRadio";
-            this.microATXRadio.Size = new System.Drawing.Size(74, 17);
-            this.microATXRadio.TabIndex = 1;
-            this.microATXRadio.TabStop = true;
-            this.microATXRadio.Text = "micro-ATX";
-            this.microATXRadio.UseVisualStyleBackColor = true;
-            this.microATXRadio.CheckedChanged += new System.EventHandler(this.microATXRadio_CheckedChanged);
-            // 
-            // ATXRadio
-            // 
-            this.ATXRadio.AutoSize = true;
-            this.ATXRadio.Checked = true;
-            this.ATXRadio.Location = new System.Drawing.Point(9, 19);
-            this.ATXRadio.Name = "ATXRadio";
-            this.ATXRadio.Size = new System.Drawing.Size(46, 17);
-            this.ATXRadio.TabIndex = 0;
-            this.ATXRadio.TabStop = true;
-            this.ATXRadio.Text = "ATX";
-            this.ATXRadio.UseVisualStyleBackColor = true;
-            this.ATXRadio.CheckedChanged += new System.EventHandler(this.ATXRadio_CheckedChanged);
             // 
             // caseInfoGroupBox
             // 
@@ -403,7 +311,7 @@ namespace ComputerCaseUI
             this.pictureBox1.InitialImage = global::ComputerCaseUI.Properties.Resources.Деталь;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(321, 346);
+            this.pictureBox1.Size = new System.Drawing.Size(307, 330);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -412,11 +320,45 @@ namespace ComputerCaseUI
             // 
             this.toolTip1.AutomaticDelay = 0;
             // 
+            // motherboardComboBox
+            // 
+            this.motherboardComboBox.FormattingEnabled = true;
+            this.motherboardComboBox.Items.AddRange(new object[] {
+            "ATX",
+            "Micro-ATX"});
+            this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
+            this.motherboardComboBox.Name = "motherboardComboBox";
+            this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
+            this.motherboardComboBox.TabIndex = 0;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.comboBox2.Location = new System.Drawing.Point(82, 44);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(63, 21);
+            this.comboBox2.TabIndex = 5;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
+            this.comboBox3.Location = new System.Drawing.Point(82, 43);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(63, 21);
+            this.comboBox3.TabIndex = 20;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 346);
+            this.ClientSize = new System.Drawing.Size(590, 330);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainForm";
             this.Text = "ComputerCase";
@@ -429,7 +371,6 @@ namespace ComputerCaseUI
             this.fansInfoGroupBox.ResumeLayout(false);
             this.fansInfoGroupBox.PerformLayout();
             this.motherboardGroupBox.ResumeLayout(false);
-            this.motherboardGroupBox.PerformLayout();
             this.caseInfoGroupBox.ResumeLayout(false);
             this.caseInfoGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -442,15 +383,11 @@ namespace ComputerCaseUI
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox fansInfoGroupBox;
-        private System.Windows.Forms.RadioButton twoApperFanRadio;
-        private System.Windows.Forms.RadioButton oneUpperFanRadio;
         private System.Windows.Forms.Label upperFansCountLabel;
         private System.Windows.Forms.Label upperFansDiametrBordersLabel;
         private System.Windows.Forms.TextBox UpperFansDiameterTextBox;
         private System.Windows.Forms.Label upperFansDiametrLabel;
         private System.Windows.Forms.GroupBox motherboardGroupBox;
-        private System.Windows.Forms.RadioButton microATXRadio;
-        private System.Windows.Forms.RadioButton ATXRadio;
         private System.Windows.Forms.GroupBox caseInfoGroupBox;
         private System.Windows.Forms.Label lengthBordersLabel;
         private System.Windows.Forms.Label label2;
@@ -462,15 +399,15 @@ namespace ComputerCaseUI
         private System.Windows.Forms.Label heightLabel;
         private System.Windows.Forms.TextBox HeightTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton threeFrontFanRadio;
-        private System.Windows.Forms.RadioButton twoFrontFanRadio;
-        private System.Windows.Forms.RadioButton oneFrontFanRadio;
         private System.Windows.Forms.Label frontFansCountLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox FrontFansDiameterTextBox;
         private System.Windows.Forms.Label frontFansDiametrLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button BuildButton;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox motherboardComboBox;
     }
 }
 
