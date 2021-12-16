@@ -33,16 +33,19 @@ namespace ComputerCaseUI
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.BuildButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.frontFansCountLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.FrontFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.frontFansDiametrLabel = new System.Windows.Forms.Label();
             this.fansInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.upperFansCountLabel = new System.Windows.Forms.Label();
             this.upperFansDiametrBordersLabel = new System.Windows.Forms.Label();
             this.UpperFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.upperFansDiametrLabel = new System.Windows.Forms.Label();
             this.motherboardGroupBox = new System.Windows.Forms.GroupBox();
+            this.motherboardComboBox = new System.Windows.Forms.ComboBox();
             this.caseInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.lengthBordersLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,9 +58,6 @@ namespace ComputerCaseUI
             this.HeightTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.motherboardComboBox = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -114,6 +114,19 @@ namespace ComputerCaseUI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Передние вентиляторы";
             // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
+            this.comboBox3.Location = new System.Drawing.Point(82, 43);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(63, 21);
+            this.comboBox3.TabIndex = 20;
+            // 
             // frontFansCountLabel
             // 
             this.frontFansCountLabel.AutoSize = true;
@@ -163,6 +176,18 @@ namespace ComputerCaseUI
             this.fansInfoGroupBox.TabStop = false;
             this.fansInfoGroupBox.Text = "Верхние вентиляторы";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.comboBox2.Location = new System.Drawing.Point(82, 44);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(63, 21);
+            this.comboBox2.TabIndex = 5;
+            // 
             // upperFansCountLabel
             // 
             this.upperFansCountLabel.AutoSize = true;
@@ -207,6 +232,18 @@ namespace ComputerCaseUI
             this.motherboardGroupBox.TabIndex = 4;
             this.motherboardGroupBox.TabStop = false;
             this.motherboardGroupBox.Text = "Тип материнской платы";
+            // 
+            // motherboardComboBox
+            // 
+            this.motherboardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.motherboardComboBox.FormattingEnabled = true;
+            this.motherboardComboBox.Items.AddRange(new object[] {
+            "ATX",
+            "Micro-ATX"});
+            this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
+            this.motherboardComboBox.Name = "motherboardComboBox";
+            this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
+            this.motherboardComboBox.TabIndex = 0;
             // 
             // caseInfoGroupBox
             // 
@@ -319,40 +356,6 @@ namespace ComputerCaseUI
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 0;
-            // 
-            // motherboardComboBox
-            // 
-            this.motherboardComboBox.FormattingEnabled = true;
-            this.motherboardComboBox.Items.AddRange(new object[] {
-            "ATX",
-            "Micro-ATX"});
-            this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
-            this.motherboardComboBox.Name = "motherboardComboBox";
-            this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
-            this.motherboardComboBox.TabIndex = 0;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.comboBox2.Location = new System.Drawing.Point(82, 44);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(63, 21);
-            this.comboBox2.TabIndex = 5;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
-            this.comboBox3.Location = new System.Drawing.Point(82, 43);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(63, 21);
-            this.comboBox3.TabIndex = 20;
             // 
             // MainForm
             // 
