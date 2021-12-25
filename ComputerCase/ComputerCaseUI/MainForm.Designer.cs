@@ -359,6 +359,9 @@ namespace ComputerCaseUI
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 0;
+            this.toolTip1.AutoPopDelay = 0;
+            this.toolTip1.InitialDelay = 1;
+            this.toolTip1.ReshowDelay = 0;
             // 
             // MainForm
             // 
