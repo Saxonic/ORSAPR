@@ -19,6 +19,9 @@ namespace ComputerCase
         private double _width;
         private double _frontFansDiameter;
         private double _upperFansDiameter;
+        private int _frontFansCount;
+        private int _upperFansCount;
+
 
         /// <summary>
         /// Высота корпуса
@@ -29,9 +32,13 @@ namespace ComputerCase
             set
             {
                 var minValue = MotherboardType == MotherboardType.ATX ? ATX_PLATE_HEIGHT : MICRO_ATX_PLATE_HEIGHT;
-                _height = Validator.Validate(CASE_MAX_SIZE, minValue, value) 
-                    ? value : throw new OutOfBoundsException($"Высота корпуса не может быть больше" +
-                                                             $" {CASE_MAX_SIZE} или меньше {minValue} мм.");
+                if (!Validator.Validate(CASE_MAX_SIZE, minValue, value))
+                {
+                    throw new OutOfBoundsException($"Высота корпуса не может быть больше" +
+                                                   $" {CASE_MAX_SIZE} или меньше {minValue} мм.");
+                }
+                checkFrontValues(value,_frontFansDiameter,_frontFansCount);
+                _height = value;
             }
         }
 
@@ -41,9 +48,16 @@ namespace ComputerCase
         public double Length
         {
             get => _length;
-            set => _length = Validator.Validate(CASE_MAX_SIZE, PLATE_WIDTH, value) 
-                ? value : throw new OutOfBoundsException($"Длина корпуса не может быть больше" +
-                                                         $" {CASE_MAX_SIZE} или меньше {PLATE_WIDTH} мм.");
+            set
+            {
+                if (!Validator.Validate(CASE_MAX_SIZE, PLATE_WIDTH, value))
+                {
+                    throw new OutOfBoundsException($"Длина корпуса не может быть больше" +
+                                                   $" {CASE_MAX_SIZE} или меньше {PLATE_WIDTH} мм.");
+                }
+                checkUpperValues(value, _upperFansDiameter, _upperFansCount);
+                _length = value;
+            }
         }
 
         /// <summary>
@@ -65,14 +79,13 @@ namespace ComputerCase
             get => _frontFansDiameter;
             set
             {
-                _frontFansDiameter = Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value)
-                        ? value : throw new OutOfBoundsException($"Диаметр отверстий не может быть больше" +
-                                                                 $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
-                var fansLength = _frontFansDiameter * FrontFansCount +
-                                 (SPACE_BETWEEN_FRONT_FANS * FrontFansCount - 1);
-                    _frontFansDiameter = Validator.Validate(_height, MIN_FANS_SIZE, fansLength) 
-                        ? value : throw new SizeException("Отверстия под вентиляторы с заданным размером " +
-                                                          "не могут быть умещены на корпусе с указанной шириной");
+                if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
+                {
+                    throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
+                                                   $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
+                }
+                checkFrontValues(_height, value, _frontFansCount);
+                _frontFansDiameter = value;
             }
         }
 
@@ -84,28 +97,70 @@ namespace ComputerCase
             get => _upperFansDiameter;
             set
             {
-                _upperFansDiameter = Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value)
-                        ? value : throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
-                                                                 $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
+                if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
+                {
+                    throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
+                                                   $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
+                }
+                checkUpperValues(_length,value,_upperFansCount);
+                _upperFansDiameter = value;
+            }
+        }
 
-                var fansLength = _upperFansDiameter * UpperFansCount +
-                                 (SPACE_BETWEEN_UPPER_FANS * UpperFansCount - 1);
-                    _upperFansDiameter = Validator.Validate(_length, MIN_FANS_SIZE, fansLength) 
-                        ? value : throw new SizeException("Отверстия под вентиляторы с заданным размером " +
-                                                          "не могут быть умещены на корпусе с указанной длиной");
+        private void checkUpperValues(double length,double upperFansDiameter,int upperFansCount)
+        {
+            if (length != default && upperFansDiameter != default)
+            {
+                var fansLength = upperFansDiameter * upperFansCount +
+                                 (SPACE_BETWEEN_UPPER_FANS * upperFansCount - 1);
+                if (!Validator.Validate(length, MIN_FANS_SIZE, fansLength))
+                {
+                    throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
+                                                      "не могут быть умещены на корпусе с указанной длиной");
+                }
+            }
+        }
+
+        private void checkFrontValues(double height, double frontFansDiameter, int frontFansCount)
+        {
+            if (height != default && frontFansDiameter != default)
+            {
+                var fansLength = frontFansDiameter * frontFansCount +
+                                 (SPACE_BETWEEN_FRONT_FANS * frontFansCount - 1);
+                if (!Validator.Validate(height, MIN_FANS_SIZE, fansLength))
+                {
+                    throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
+                                                      "не могут быть умещены на корпусе с указанной высотой");
+                }
             }
         }
 
         /// <summary>
         /// Количество верхних вентиляторов
         /// </summary>
-        public int UpperFansCount { get; set; } = 1;
+        public int UpperFansCount
+        {
+            get => _upperFansCount;
+            set
+            {
+                _upperFansCount = value;
+                checkUpperValues(_length, _upperFansDiameter, _upperFansCount);
+            }
+        }
 
         /// <summary>
         /// Количество передних вентиляторов
         /// </summary>
-        public int FrontFansCount { get; set; } = 1;
-        
+        public int FrontFansCount
+        {
+            get => _frontFansCount;
+            set
+            {
+                _frontFansCount = value;
+                checkFrontValues(_height,_frontFansDiameter,_frontFansCount);
+            }
+        }
+
         public MotherboardType MotherboardType { get; set; }
     }
 }

@@ -33,16 +33,19 @@ namespace ComputerCaseUI
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.BuildButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.frontFansComboBox = new System.Windows.Forms.ComboBox();
             this.frontFansCountLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.FrontFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.frontFansDiametrLabel = new System.Windows.Forms.Label();
             this.fansInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.upperFansComboBox = new System.Windows.Forms.ComboBox();
             this.upperFansCountLabel = new System.Windows.Forms.Label();
             this.upperFansDiametrBordersLabel = new System.Windows.Forms.Label();
             this.UpperFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.upperFansDiametrLabel = new System.Windows.Forms.Label();
             this.motherboardGroupBox = new System.Windows.Forms.GroupBox();
+            this.motherboardComboBox = new System.Windows.Forms.ComboBox();
             this.caseInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.lengthBordersLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,9 +58,6 @@ namespace ComputerCaseUI
             this.HeightTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.motherboardComboBox = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -102,7 +102,7 @@ namespace ComputerCaseUI
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox3);
+            this.groupBox1.Controls.Add(this.frontFansComboBox);
             this.groupBox1.Controls.Add(this.frontFansCountLabel);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.FrontFansDiameterTextBox);
@@ -113,6 +113,20 @@ namespace ComputerCaseUI
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Передние вентиляторы";
+            // 
+            // frontFansComboBox
+            // 
+            this.frontFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.frontFansComboBox.FormattingEnabled = true;
+            this.frontFansComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
+            this.frontFansComboBox.Location = new System.Drawing.Point(82, 43);
+            this.frontFansComboBox.Name = "frontFansComboBox";
+            this.frontFansComboBox.Size = new System.Drawing.Size(63, 21);
+            this.frontFansComboBox.TabIndex = 20;
+            this.frontFansComboBox.SelectedIndexChanged += new System.EventHandler(this.frontFansComboBox_SelectedIndexChanged);
             // 
             // frontFansCountLabel
             // 
@@ -151,7 +165,7 @@ namespace ComputerCaseUI
             // 
             // fansInfoGroupBox
             // 
-            this.fansInfoGroupBox.Controls.Add(this.comboBox2);
+            this.fansInfoGroupBox.Controls.Add(this.upperFansComboBox);
             this.fansInfoGroupBox.Controls.Add(this.upperFansCountLabel);
             this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrBordersLabel);
             this.fansInfoGroupBox.Controls.Add(this.UpperFansDiameterTextBox);
@@ -162,6 +176,19 @@ namespace ComputerCaseUI
             this.fansInfoGroupBox.TabIndex = 5;
             this.fansInfoGroupBox.TabStop = false;
             this.fansInfoGroupBox.Text = "Верхние вентиляторы";
+            // 
+            // upperFansComboBox
+            // 
+            this.upperFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.upperFansComboBox.FormattingEnabled = true;
+            this.upperFansComboBox.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.upperFansComboBox.Location = new System.Drawing.Point(82, 44);
+            this.upperFansComboBox.Name = "upperFansComboBox";
+            this.upperFansComboBox.Size = new System.Drawing.Size(63, 21);
+            this.upperFansComboBox.TabIndex = 5;
+            this.upperFansComboBox.SelectedIndexChanged += new System.EventHandler(this.upperFansComboBox_SelectedIndexChanged);
             // 
             // upperFansCountLabel
             // 
@@ -207,6 +234,19 @@ namespace ComputerCaseUI
             this.motherboardGroupBox.TabIndex = 4;
             this.motherboardGroupBox.TabStop = false;
             this.motherboardGroupBox.Text = "Тип материнской платы";
+            // 
+            // motherboardComboBox
+            // 
+            this.motherboardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.motherboardComboBox.FormattingEnabled = true;
+            this.motherboardComboBox.Items.AddRange(new object[] {
+            "ATX",
+            "Micro-ATX"});
+            this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
+            this.motherboardComboBox.Name = "motherboardComboBox";
+            this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
+            this.motherboardComboBox.TabIndex = 0;
+            this.motherboardComboBox.SelectedIndexChanged += new System.EventHandler(this.motherboardComboBox_SelectedIndexChanged);
             // 
             // caseInfoGroupBox
             // 
@@ -320,40 +360,6 @@ namespace ComputerCaseUI
             // 
             this.toolTip1.AutomaticDelay = 0;
             // 
-            // motherboardComboBox
-            // 
-            this.motherboardComboBox.FormattingEnabled = true;
-            this.motherboardComboBox.Items.AddRange(new object[] {
-            "ATX",
-            "Micro-ATX"});
-            this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
-            this.motherboardComboBox.Name = "motherboardComboBox";
-            this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
-            this.motherboardComboBox.TabIndex = 0;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.comboBox2.Location = new System.Drawing.Point(82, 44);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(63, 21);
-            this.comboBox2.TabIndex = 5;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
-            this.comboBox3.Location = new System.Drawing.Point(82, 43);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(63, 21);
-            this.comboBox3.TabIndex = 20;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -405,8 +411,8 @@ namespace ComputerCaseUI
         private System.Windows.Forms.Label frontFansDiametrLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button BuildButton;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox frontFansComboBox;
+        private System.Windows.Forms.ComboBox upperFansComboBox;
         private System.Windows.Forms.ComboBox motherboardComboBox;
     }
 }

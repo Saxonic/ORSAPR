@@ -1,6 +1,9 @@
 ﻿using ComputerCase;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Net.Mime;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
 
@@ -16,14 +19,24 @@ namespace ComputerCaseUI
         {
             InitializeComponent();
             _caseParameter = new CaseParameters();
-            
+            motherboardComboBox.SelectedIndex = 0;
+            upperFansComboBox.SelectedIndex = 0;
+            frontFansComboBox.SelectedIndex = 0;
+            //var controls = splitContainer1.Panel1.Controls.Cast<Control>()
+            //    .Where(c => c.GetType() == typeof(GroupBox)).ToList();
+            //List<Control> textBoxes = new List<Control>();
+            //foreach (var control in controls)
+            //{
+            //    textBoxes = control.Controls.Cast<Control>()
+            //        .Where(c => c.GetType() == typeof(TextBox)).Concat(textBoxes).ToList();
+            //}
         }
 
         private void HeightTextBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                var value = int.Parse(HeightTextBox.Text);
+                var value = double.Parse(HeightTextBox.Text);
                 _caseParameter.Height = value;
                 SetSuccessColorAndRemoveToolTip(HeightTextBox);
             }
@@ -37,7 +50,7 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = int.Parse(LengthTextBox.Text);
+                var value = double.Parse(LengthTextBox.Text);
                 _caseParameter.Length = value;
                 SetSuccessColorAndRemoveToolTip(LengthTextBox);
             }
@@ -51,7 +64,7 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = int.Parse(WidthTextBox.Text);
+                var value = double.Parse(WidthTextBox.Text);
                 _caseParameter.Width = value;
                 SetSuccessColorAndRemoveToolTip(WidthTextBox);
             }
@@ -64,7 +77,7 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = int.Parse(UpperFansDiameterTextBox.Text);
+                var value = double.Parse(UpperFansDiameterTextBox.Text);
                 _caseParameter.UpperFansDiameter = value;
                 SetSuccessColorAndRemoveToolTip(UpperFansDiameterTextBox);
             }
@@ -78,7 +91,7 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = int.Parse(FrontFansDiameterTextBox.Text);
+                var value = double.Parse(FrontFansDiameterTextBox.Text);
                 _caseParameter.FrontFansDiameter = value;
                 SetSuccessColorAndRemoveToolTip(FrontFansDiameterTextBox);
             }
@@ -100,31 +113,25 @@ namespace ComputerCaseUI
             textBox.BackColor = errorTextBoxColor;
         }
 
-        private void MotherboardRadio_CheckedChanged(object sender, EventArgs e)
+        private void motherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            _caseParameter.MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
         }
 
-        private void ATXRadio_CheckedChanged(object sender, EventArgs e)
+        private void upperFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _caseParameter.MotherboardType = MotherboardType.ATX;
+            if (int.TryParse(upperFansComboBox.Text, out var upperFansCount))
+            {
+                _caseParameter.UpperFansCount = upperFansCount;
+            }
         }
 
-        private void microATXRadio_CheckedChanged(object sender, EventArgs e)
+        private void frontFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _caseParameter.MotherboardType = MotherboardType.MicroATX;
-        }
-
-        private void upperFanCountRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            var radio = (RadioButton)sender;
-            _caseParameter.UpperFansCount = int.Parse(radio.Text);
-        }
-
-        private void frontFanCountRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            var radio = (RadioButton)sender;
-            _caseParameter.FrontFansCount = int.Parse(radio.Text);
+            if (int.TryParse(frontFansComboBox.Text, out var frontFansCount))
+            {
+                _caseParameter.FrontFansCount = frontFansCount;
+            }
         }
     }
 }
