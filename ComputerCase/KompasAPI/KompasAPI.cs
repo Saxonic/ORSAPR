@@ -18,11 +18,7 @@ namespace KompasAPI
 
         public KompasAPI()
         {
-            _kompasObject = OpenKompas();
-            _document3D = (ksDocument3D)_kompasObject.Document3D();
-            _document3D.Create();
-            _document2D = (ksDocument2D)_kompasObject.Document2D();
-            _part = (ksPart)_document3D.GetPart((int)Part_Type.pTop_Part);
+            
         }
         
         /// <summary>
@@ -87,6 +83,11 @@ namespace KompasAPI
 
         public void CreateRectangle(double startDotX, double startDotY, double endDotX, double endDotY)
         {
+            _kompasObject = OpenKompas();
+            _document3D = (ksDocument3D)_kompasObject.Document3D();
+            _document3D.Create();
+            _document2D = (ksDocument2D)_kompasObject.Document2D();
+            _part = (ksPart)_document3D.GetPart((int)Part_Type.pTop_Part);
             // 1-интерфейс на плоскость XOY
             _plan = (ksEntity)_part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
             _sketch = (ksEntity)_part.NewEntity((short)Obj3dType.o3d_sketch);

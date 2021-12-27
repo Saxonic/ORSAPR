@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
+using KompasAPI = KompasAPI.KompasAPI;
 
 namespace ComputerCaseUI
 {
@@ -14,6 +15,7 @@ namespace ComputerCaseUI
         private Color _errorTextBoxColor = Color.LightSalmon;
         private Color _successTextBoxColor = Color.PaleGreen;
         private CaseParameters _caseParameter;
+        private CaseBuilder _caseBuilder;
 
         private string _upperSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
                                                    "не могут быть умещены на корпусе с указанной длиной";
@@ -24,6 +26,7 @@ namespace ComputerCaseUI
         {
             InitializeComponent();
             _caseParameter = new CaseParameters();
+            _caseBuilder = new CaseBuilder(new global::KompasAPI.KompasAPI());
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
@@ -154,6 +157,7 @@ namespace ComputerCaseUI
                 SetErrorColorAndAddToolTip(LengthTextBox, exception.Message);
                 SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
             }
+            
         }
 
         private void frontFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -171,6 +175,7 @@ namespace ComputerCaseUI
                 SetErrorColorAndAddToolTip(HeightTextBox, exception.Message);
                 SetErrorColorAndAddToolTip(FrontFansDiameterTextBox, exception.Message);
             }
+
         }
 
         private void SetSuccessColorAndRemoveToolTip(TextBox textBox)
@@ -210,6 +215,11 @@ namespace ComputerCaseUI
                 HeightTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(HeightTextBox, null);
             }
+        }
+
+        private void BuildButton_Click(object sender, EventArgs e)
+        {
+            _caseBuilder.CrateCase(_caseParameter);
         }
     }
 }

@@ -99,6 +99,7 @@ namespace ComputerCaseUI
             this.BuildButton.TabIndex = 1;
             this.BuildButton.Text = "Построить";
             this.BuildButton.UseVisualStyleBackColor = true;
+            this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
             // 
             // groupBox1
             // 
