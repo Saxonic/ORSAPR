@@ -4,8 +4,8 @@ namespace ComputerCase
 {
     public class CaseParameters
     {
-        public const int SPACE_BETWEEN_FRONT_FANS = 15;
-        public const int SPACE_BETWEEN_UPPER_FANS = 5;
+        private const int SPACE_BETWEEN_FRONT_FANS = 15;
+        private const int SPACE_BETWEEN_UPPER_FANS = 5;
         private const int ATX_PLATE_HEIGHT = 305;
         private const int PLATE_WIDTH = 244;
         private const int MICRO_ATX_PLATE_HEIGHT = 244;
@@ -21,6 +21,10 @@ namespace ComputerCase
         private double _upperFansDiameter;
         private int _frontFansCount;
         private int _upperFansCount;
+        private MotherboardType _motherboardType;
+
+        public delegate void TryValueChangedContainer();
+        public event TryValueChangedContainer TryValueChange;
 
 
         /// <summary>
@@ -31,13 +35,14 @@ namespace ComputerCase
             get => _height;
             set
             {
+                OnValueTryChange();
                 var minValue = MotherboardType == MotherboardType.ATX ? ATX_PLATE_HEIGHT : MICRO_ATX_PLATE_HEIGHT;
                 if (!Validator.Validate(CASE_MAX_SIZE, minValue, value))
                 {
                     throw new OutOfBoundsException($"Высота корпуса не может быть больше" +
                                                    $" {CASE_MAX_SIZE} или меньше {minValue} мм.");
                 }
-                checkFrontValues(value,_frontFansDiameter,_frontFansCount);
+                CheckFrontValues(value,_frontFansDiameter,_frontFansCount);
                 _height = value;
             }
         }
@@ -50,12 +55,13 @@ namespace ComputerCase
             get => _length;
             set
             {
+                OnValueTryChange();
                 if (!Validator.Validate(CASE_MAX_SIZE, PLATE_WIDTH, value))
                 {
                     throw new OutOfBoundsException($"Длина корпуса не может быть больше" +
                                                    $" {CASE_MAX_SIZE} или меньше {PLATE_WIDTH} мм.");
                 }
-                checkUpperValues(value, _upperFansDiameter, _upperFansCount);
+                CheckUpperValues(value, _upperFansDiameter, _upperFansCount);
                 _length = value;
             }
         }
@@ -66,9 +72,16 @@ namespace ComputerCase
         public double Width
         {
             get => _width;
-            set => _width = Validator.Validate(CASE_MAX_SIZE, ATX_POWER_SUPPLY_WIDTH, value) 
-                ? value : throw new OutOfBoundsException($"Ширина корпуса не может быть больше" +
-                                                         $" {CASE_MAX_SIZE} или меньше {ATX_POWER_SUPPLY_WIDTH} мм.");
+            set
+            {
+                OnValueTryChange();
+                if (!Validator.Validate(CASE_MAX_SIZE, ATX_POWER_SUPPLY_WIDTH, value))
+                {
+                    throw new OutOfBoundsException($"Ширина корпуса не может быть больше" +
+                                                   $" {CASE_MAX_SIZE} или меньше {ATX_POWER_SUPPLY_WIDTH} мм.");
+                }
+                _width = value;
+            }
         }
         
         /// <summary>
@@ -79,12 +92,13 @@ namespace ComputerCase
             get => _frontFansDiameter;
             set
             {
+                OnValueTryChange();
                 if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
                 {
                     throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
                                                    $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
                 }
-                checkFrontValues(_height, value, _frontFansCount);
+                CheckFrontValues(_height, value, _frontFansCount);
                 _frontFansDiameter = value;
             }
         }
@@ -97,41 +111,38 @@ namespace ComputerCase
             get => _upperFansDiameter;
             set
             {
+                OnValueTryChange();
                 if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
                 {
                     throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
                                                    $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
                 }
-                checkUpperValues(_length,value,_upperFansCount);
+                CheckUpperValues(_length,value,_upperFansCount);
                 _upperFansDiameter = value;
             }
         }
 
-        private void checkUpperValues(double length,double upperFansDiameter,int upperFansCount)
+        private void CheckUpperValues(double length,double upperFansDiameter,int upperFansCount)
         {
-            if (length != default && upperFansDiameter != default)
+            if (length == default || upperFansDiameter == default) return;
+            var fansLength = upperFansDiameter * upperFansCount +
+                             (SPACE_BETWEEN_UPPER_FANS * upperFansCount - 1);
+            if (!Validator.Validate(length, MIN_FANS_SIZE, fansLength))
             {
-                var fansLength = upperFansDiameter * upperFansCount +
-                                 (SPACE_BETWEEN_UPPER_FANS * upperFansCount - 1);
-                if (!Validator.Validate(length, MIN_FANS_SIZE, fansLength))
-                {
-                    throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
-                                                      "не могут быть умещены на корпусе с указанной длиной");
-                }
+                throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
+                                                  "не могут быть умещены на корпусе с указанной длиной");
             }
         }
 
-        private void checkFrontValues(double height, double frontFansDiameter, int frontFansCount)
+        private void CheckFrontValues(double height, double frontFansDiameter, int frontFansCount)
         {
-            if (height != default && frontFansDiameter != default)
+            if (height == default || frontFansDiameter == default) return;
+            var fansLength = frontFansDiameter * frontFansCount +
+                             (SPACE_BETWEEN_FRONT_FANS * frontFansCount - 1);
+            if (!Validator.Validate(height, MIN_FANS_SIZE, fansLength))
             {
-                var fansLength = frontFansDiameter * frontFansCount +
-                                 (SPACE_BETWEEN_FRONT_FANS * frontFansCount - 1);
-                if (!Validator.Validate(height, MIN_FANS_SIZE, fansLength))
-                {
-                    throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
-                                                      "не могут быть умещены на корпусе с указанной высотой");
-                }
+                throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
+                                                  "не могут быть умещены на корпусе с указанной высотой");
             }
         }
 
@@ -143,8 +154,9 @@ namespace ComputerCase
             get => _upperFansCount;
             set
             {
+                OnValueTryChange();
+                CheckUpperValues(_length, _upperFansDiameter, value);
                 _upperFansCount = value;
-                checkUpperValues(_length, _upperFansDiameter, _upperFansCount);
             }
         }
 
@@ -156,11 +168,25 @@ namespace ComputerCase
             get => _frontFansCount;
             set
             {
+                OnValueTryChange();
+                CheckFrontValues(_height,_frontFansDiameter,value);
                 _frontFansCount = value;
-                checkFrontValues(_height,_frontFansDiameter,_frontFansCount);
             }
         }
 
-        public MotherboardType MotherboardType { get; set; }
+        public MotherboardType MotherboardType 
+        { 
+            get=>_motherboardType;
+            set
+            {
+                OnValueTryChange();
+                _motherboardType = value;
+            }
+        }
+
+        protected virtual void OnValueTryChange()
+        {
+            TryValueChange?.Invoke();
+        }
     }
 }

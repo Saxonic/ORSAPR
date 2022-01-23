@@ -1,12 +1,8 @@
 ﻿using ComputerCase;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Net.Mime;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
-using KompasAPI = KompasAPI.KompasAPI;
 
 namespace ComputerCaseUI
 {
@@ -17,16 +13,18 @@ namespace ComputerCaseUI
         private CaseParameters _caseParameter;
         private CaseBuilder _caseBuilder;
 
-        private string _upperSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
-                                                   "не могут быть умещены на корпусе с указанной длиной";
-        private string _frontSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
-                                                   "не могут быть умещены на корпусе с указанной высотой";
+        private const string UpperSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " 
+                                                         + "не могут быть умещены на корпусе с указанной длиной";
+
+        private const string FrontSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " 
+                                                         + "не могут быть умещены на корпусе с указанной высотой";
 
         public MainForm()
         {
             InitializeComponent();
             _caseParameter = new CaseParameters();
-            _caseBuilder = new CaseBuilder(new global::KompasAPI.KompasAPI());
+            _caseParameter.TryValueChange += CheckButtonActivation;
+            _caseBuilder = new CaseBuilder(new KompasAPI.KompasAPI());
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
@@ -44,19 +42,19 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = double.Parse(HeightTextBox.Text);
+                var value = double.Parse(heightTextBox.Text);
                 _caseParameter.Height = value;
-                SetSuccessColorAndRemoveToolTip(HeightTextBox);
+                SetSuccessColorAndRemoveToolTip(heightTextBox);
                 
             }
             catch (SizeDependencyException exception)
             {
-                SetErrorColorAndAddToolTip(HeightTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(FrontFansDiameterTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(HeightTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
                 RemoveFrontError();
             }
         }
@@ -65,19 +63,19 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = double.Parse(LengthTextBox.Text);
+                var value = double.Parse(lengthTextBox.Text);
                 _caseParameter.Length = value;
-                SetSuccessColorAndRemoveToolTip(LengthTextBox);
+                SetSuccessColorAndRemoveToolTip(lengthTextBox);
                 
             }
             catch (SizeDependencyException exception)
             {
-                SetErrorColorAndAddToolTip(LengthTextBox,exception.Message);
+                SetErrorColorAndAddToolTip(lengthTextBox,exception.Message);
                 SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(LengthTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
                 RemoveUpperError();
             }
         }
@@ -86,13 +84,13 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = double.Parse(WidthTextBox.Text);
+                var value = double.Parse(widthTextBox.Text);
                 _caseParameter.Width = value;
-                SetSuccessColorAndRemoveToolTip(WidthTextBox);
+                SetSuccessColorAndRemoveToolTip(widthTextBox);
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(WidthTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(widthTextBox, exception.Message);
             }
         }
         private void UpperFansDiameterTextBox_TextChanged(object sender, EventArgs e)
@@ -106,7 +104,7 @@ namespace ComputerCaseUI
             }
             catch (SizeDependencyException exception)
             {
-                SetErrorColorAndAddToolTip(LengthTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
                 SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
             }
             catch (Exception exception)
@@ -120,18 +118,18 @@ namespace ComputerCaseUI
         {
             try
             {
-                var value = double.Parse(FrontFansDiameterTextBox.Text);
+                var value = double.Parse(frontFansDiameterTextBox.Text);
                 _caseParameter.FrontFansDiameter = value;
-                SetSuccessColorAndRemoveToolTip(FrontFansDiameterTextBox);
+                SetSuccessColorAndRemoveToolTip(frontFansDiameterTextBox);
             }
             catch (SizeDependencyException exception)
             {
-                SetErrorColorAndAddToolTip(HeightTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(FrontFansDiameterTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(FrontFansDiameterTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
                 RemoveFrontError();
             }
             
@@ -154,7 +152,7 @@ namespace ComputerCaseUI
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(LengthTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
                 SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
             }
             
@@ -172,8 +170,8 @@ namespace ComputerCaseUI
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(HeightTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(FrontFansDiameterTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
             }
 
         }
@@ -192,28 +190,50 @@ namespace ComputerCaseUI
 
         private void RemoveUpperError()
         {
-            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == _upperSizeExceptionMessage)
+            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == UpperSizeExceptionMessage)
             {
                 UpperFansDiameterTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(UpperFansDiameterTextBox, null);
             }
-            if (toolTip1.GetToolTip(LengthTextBox) == _upperSizeExceptionMessage)
+            if (toolTip1.GetToolTip(lengthTextBox) == UpperSizeExceptionMessage)
             {
-                LengthTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(LengthTextBox, null);
+                lengthTextBox.BackColor = _successTextBoxColor;
+                toolTip1.SetToolTip(lengthTextBox, null);
             }
         }
         private void RemoveFrontError()
         {
-            if (toolTip1.GetToolTip(FrontFansDiameterTextBox) == _frontSizeExceptionMessage)
+            if (toolTip1.GetToolTip(frontFansDiameterTextBox) == FrontSizeExceptionMessage)
             {
-                FrontFansDiameterTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(FrontFansDiameterTextBox, null);
+                frontFansDiameterTextBox.BackColor = _successTextBoxColor;
+                toolTip1.SetToolTip(frontFansDiameterTextBox, null);
             }
-            if (toolTip1.GetToolTip(HeightTextBox) == _frontSizeExceptionMessage)
+            if (toolTip1.GetToolTip(heightTextBox) == FrontSizeExceptionMessage)
             {
-                HeightTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(HeightTextBox, null);
+                heightTextBox.BackColor = _successTextBoxColor;
+                toolTip1.SetToolTip(heightTextBox, null);
+            }
+        }
+
+        private void CheckButtonActivation()
+        {
+            BuildButton.Enabled = true;
+            try
+            {
+                new CaseParameters
+                {
+                    FrontFansCount = int.Parse(frontFansComboBox.Text),
+                    FrontFansDiameter = int.Parse(frontFansDiameterTextBox.Text),
+                    Height = int.Parse(heightTextBox.Text),
+                    Length = int.Parse(lengthTextBox.Text),
+                    Width = int.Parse(widthTextBox.Text),
+                    UpperFansCount = int.Parse(upperFansComboBox.Text),
+                    UpperFansDiameter = int.Parse(UpperFansDiameterTextBox.Text)
+                };
+            }
+            catch (Exception)
+            {
+                BuildButton.Enabled = false;
             }
         }
 
