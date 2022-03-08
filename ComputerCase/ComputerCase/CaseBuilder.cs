@@ -16,7 +16,7 @@
 
         private void CreateBottom(double length, double width,double height)
         {
-            _builderAPI.CreateRectangle(0,0,20,20);
+            _builderAPI.CreateRectangleSketch(0,0,20,20);
         }
     }
 }

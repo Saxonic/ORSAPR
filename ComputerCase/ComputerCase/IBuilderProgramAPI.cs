@@ -6,32 +6,27 @@
     public interface IBuilderProgramAPI
     {
         /// <summary>
-        /// Создать эскиз круга
+        /// Создать дно корпуса
         /// </summary>
-        /// <param name="diameter">Диаметр</param>
-        /// <param name="x">Центр круга по Х</param>
-        /// <param name="y">Центр круга по Y</param>
-        void CreateCircle(double diameter, double x, double y);
+        /// <param name="length">Длина корпуса</param>
+        /// <param name="width">Ширина корпуса</param>
+        public void CreateBottom(double length, double width);
 
         /// <summary>
-        /// Создать эскиз прямоугольника
+        /// Создать стенки корпуса с отверстиями под вентиляторы
         /// </summary>
-        /// <param name="startDotX">начальная точка по X</param>
-        /// <param name="startDotY">начальная точка по Y</param>
-        /// <param name="endDotX">начальная точка по X</param>
-        /// <param name="endDotY">начальная точка по Y</param>
-        void CreateRectangle(double startDotX, double startDotY, double endDotX, double endDotY);
+        /// <param name="length">Длина корпуса</param>
+        /// <param name="width">Ширина корпуса</param>
+        /// <param name="height">Высота корпуса</param>
+        /// <param name="frontFansDiameter">Диаметр передних вентиляторов</param>
+        public void CreateSides(double length, double width, double height, double frontFansDiameter);
 
         /// <summary>
-        /// Выдавить эскиз круга
+        /// Создать крышу корпуса с отверстиями под вентиляторы
         /// </summary>
-        /// <param name="depth">Глубина выдавливания</param>
-        void ExtrudeCutCircle(double depth);
-
-        /// <summary>
-        /// Построить выдавливанием из эскиза прямоугольника
-        /// </summary>
-        /// <param name="depth"></param>
-        void ExtrudeRectangle(double depth);
+        /// <param name="width">Ширина корпуса</param>
+        /// <param name="upperFansDiameter">Диаметр верхних вентиляторов</param>
+        /// <param name="length">Длина корпуса</param>
+        public void CreteRoof(double length, double width, double upperFansDiameter);
     }
 }

@@ -81,7 +81,7 @@ namespace KompasAPI
             throw new System.NotImplementedException();
         }
 
-        public void CreateRectangle(double startDotX, double startDotY, double endDotX, double endDotY)
+        private ksSketchDefinition CreateRectangleSketch()
         {
             _kompasObject = OpenKompas();
             _document3D = (ksDocument3D)_kompasObject.Document3D();
@@ -95,24 +95,52 @@ namespace KompasAPI
             _sketchDefinition.SetPlane(_plan);
             _sketch.Create();
 
-            _document2D = (ksDocument2D)_sketchDefinition.BeginEdit();
-
-            _document2D.ksLineSeg(startDotX, startDotY, endDotX, startDotY, 1);
-            _document2D.ksLineSeg(startDotX, startDotY, startDotX, endDotY, 1);
-            _document2D.ksLineSeg(startDotX, endDotX, endDotX, endDotY, 1);
-            _document2D.ksLineSeg(endDotX, endDotY, endDotX, startDotY, 1);
-
-            _sketchDefinition.EndEdit();
+            return _sketchDefinition;
         }
 
-        public void ExtrudeCutCircle(double depth)
+        public void Cut(ksSketchDefinition sketch, double depth, bool side = true)
         {
-            throw new System.NotImplementedException();
+            var cutExtrusionEntity = (ksEntity)_part.NewEntity((short)ksObj3dTypeEnum.o3d_cutExtrusion);
+            var cutExtrusionDef = (ksCutExtrusionDefinition)cutExtrusionEntity.GetDefinition();
+
+            cutExtrusionDef.SetSideParam(side, (short)End_Type.etBlind, depth);
+            cutExtrusionDef.directionType = side ? (short)Direction_Type.dtNormal :
+                (short)Direction_Type.dtReverse;
+            cutExtrusionDef.cut = true;
+            cutExtrusionDef.SetSketch(sketch);
+
+            cutExtrusionEntity.Create();
         }
 
-        public void ExtrudeRectangle(double depth)
+        private void Extrude(double depth, ksSketchDefinition sketch, bool side = true)
         {
-            throw new System.NotImplementedException();
+            var extrusionEntity = (ksEntity)_part.NewEntity(
+                (short)ksObj3dTypeEnum.o3d_bossExtrusion);
+            var extrusionDef = (ksBossExtrusionDefinition)extrusionEntity
+                .GetDefinition();
+
+            extrusionDef.SetSideParam(side, (short)End_Type.etBlind, depth);
+            extrusionDef.directionType = side ?
+                (short)Direction_Type.dtNormal :
+                (short)Direction_Type.dtReverse;
+            extrusionDef.SetSketch(sketch);
+
+            extrusionEntity.Create();
+        }
+
+        public void CreateBottom(double length, double width)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateSides(double length, double width, double height, double frontFansDiameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreteRoof(double length, double width, double upperFansDiameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }
