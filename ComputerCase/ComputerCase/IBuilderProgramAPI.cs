@@ -18,8 +18,9 @@
         /// <param name="length">Длина корпуса</param>
         /// <param name="width">Ширина корпуса</param>
         /// <param name="height">Высота корпуса</param>
-        /// <param name="frontFansDiameter">Диаметр передних вентиляторов</param>
-        public void CreateSides(double length, double width, double height, double frontFansDiameter);
+        /// <param name="fansDiameter">Диаметр передних вентиляторов</param>
+        /// <param name="fansCount">Кол-во отверстий под вентиляторы</param>
+        public void CreateSides(double length, double width, double height, double fansDiameter,double fansCount);
 
         /// <summary>
         /// Создать крышу корпуса с отверстиями под вентиляторы

@@ -11,12 +11,9 @@
 
         public void CrateCase(CaseParameters caseParameters)
         {
-            CreateBottom(0,0,20);
-        }
-
-        private void CreateBottom(double length, double width,double height)
-        {
-            _builderAPI.CreateRectangleSketch(0,0,20,20);
+            _builderAPI.CreateBottom(caseParameters.Length,caseParameters.Width);
+            _builderAPI.CreateSides(caseParameters.Length,caseParameters.Width,caseParameters.Height,
+                caseParameters.FrontFansDiameter,caseParameters.FrontFansCount);
         }
     }
 }
