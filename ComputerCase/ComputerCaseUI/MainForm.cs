@@ -190,12 +190,12 @@ namespace ComputerCaseUI
 
         private void RemoveUpperError()
         {
-            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == UpperSizeExceptionMessage)
+            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == Validator.HeightDependencyExceptionMessage)
             {
                 UpperFansDiameterTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(UpperFansDiameterTextBox, null);
             }
-            if (toolTip1.GetToolTip(lengthTextBox) == UpperSizeExceptionMessage)
+            if (toolTip1.GetToolTip(lengthTextBox) == Validator.HeightDependencyExceptionMessage)
             {
                 lengthTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(lengthTextBox, null);
@@ -203,12 +203,12 @@ namespace ComputerCaseUI
         }
         private void RemoveFrontError()
         {
-            if (toolTip1.GetToolTip(frontFansDiameterTextBox) == FrontSizeExceptionMessage)
+            if (toolTip1.GetToolTip(frontFansDiameterTextBox) == Validator.WidthDependencyExceptionMessage)
             {
                 frontFansDiameterTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(frontFansDiameterTextBox, null);
             }
-            if (toolTip1.GetToolTip(heightTextBox) == FrontSizeExceptionMessage)
+            if (toolTip1.GetToolTip(heightTextBox) == Validator.WidthDependencyExceptionMessage)
             {
                 heightTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(heightTextBox, null);

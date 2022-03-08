@@ -2,6 +2,12 @@
 {
     public static class Validator
     {
+        public static string HeightDependencyExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
+                                                                "не могут быть умещены на корпусе с указанной длиной";
+
+        public static string WidthDependencyExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
+                                                               "не могут быть умещены на корпусе с указанной высотой";
+
         /// <summary>
         /// Проверка, входит ли указанное число в заданный диапазон 
         /// </summary>
@@ -13,6 +19,5 @@
         {
             return !(max < value) && !(min > value);
         }
-        
     }
 }

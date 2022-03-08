@@ -129,8 +129,7 @@ namespace ComputerCase
                              (SPACE_BETWEEN_UPPER_FANS * upperFansCount - 1);
             if (!Validator.Validate(length, MIN_FANS_SIZE, fansLength))
             {
-                throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
-                                                  "не могут быть умещены на корпусе с указанной длиной");
+                throw new SizeDependencyException(Validator.WidthDependencyExceptionMessage);
             }
         }
 
@@ -141,8 +140,7 @@ namespace ComputerCase
                              (SPACE_BETWEEN_FRONT_FANS * frontFansCount - 1);
             if (!Validator.Validate(height, MIN_FANS_SIZE, fansLength))
             {
-                throw new SizeDependencyException("Отверстия под вентиляторы с заданным размером " +
-                                                  "не могут быть умещены на корпусе с указанной высотой");
+                throw new SizeDependencyException(Validator.HeightDependencyExceptionMessage);
             }
         }
 
