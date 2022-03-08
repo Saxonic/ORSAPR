@@ -129,7 +129,7 @@ namespace ComputerCase
                              (SPACE_BETWEEN_UPPER_FANS * upperFansCount - 1);
             if (!Validator.Validate(length, MIN_FANS_SIZE, fansLength))
             {
-                throw new SizeDependencyException(Validator.WidthDependencyExceptionMessage);
+                throw new SizeDependencyException(Validator.LengthDependencyExceptionMessage);
             }
         }
 

@@ -100,7 +100,6 @@ namespace ComputerCaseUI
                 var value = double.Parse(UpperFansDiameterTextBox.Text);
                 _caseParameter.UpperFansDiameter = value;
                 SetSuccessColorAndRemoveToolTip(UpperFansDiameterTextBox);
-                
             }
             catch (SizeDependencyException exception)
             {
@@ -109,8 +108,8 @@ namespace ComputerCaseUI
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
                 RemoveUpperError();
+                SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
             }
         }
 
@@ -129,8 +128,8 @@ namespace ComputerCaseUI
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
                 RemoveFrontError();
+                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
             }
             
         }
@@ -140,7 +139,7 @@ namespace ComputerCaseUI
             _caseParameter.MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
         }
 
-        private void upperFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpperFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -190,12 +189,12 @@ namespace ComputerCaseUI
 
         private void RemoveUpperError()
         {
-            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == Validator.HeightDependencyExceptionMessage)
+            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == Validator.LengthDependencyExceptionMessage)
             {
                 UpperFansDiameterTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(UpperFansDiameterTextBox, null);
             }
-            if (toolTip1.GetToolTip(lengthTextBox) == Validator.HeightDependencyExceptionMessage)
+            if (toolTip1.GetToolTip(lengthTextBox) == Validator.LengthDependencyExceptionMessage)
             {
                 lengthTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(lengthTextBox, null);
@@ -203,12 +202,12 @@ namespace ComputerCaseUI
         }
         private void RemoveFrontError()
         {
-            if (toolTip1.GetToolTip(frontFansDiameterTextBox) == Validator.WidthDependencyExceptionMessage)
+            if (toolTip1.GetToolTip(frontFansDiameterTextBox) == Validator.HeightDependencyExceptionMessage)
             {
                 frontFansDiameterTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(frontFansDiameterTextBox, null);
             }
-            if (toolTip1.GetToolTip(heightTextBox) == Validator.WidthDependencyExceptionMessage)
+            if (toolTip1.GetToolTip(heightTextBox) == Validator.HeightDependencyExceptionMessage)
             {
                 heightTextBox.BackColor = _successTextBoxColor;
                 toolTip1.SetToolTip(heightTextBox, null);

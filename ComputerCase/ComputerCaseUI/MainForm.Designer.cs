@@ -183,7 +183,7 @@ namespace ComputerCaseUI
             this.upperFansComboBox.Name = "upperFansComboBox";
             this.upperFansComboBox.Size = new System.Drawing.Size(63, 21);
             this.upperFansComboBox.TabIndex = 5;
-            this.upperFansComboBox.SelectedIndexChanged += new System.EventHandler(this.upperFansComboBox_SelectedIndexChanged);
+            this.upperFansComboBox.SelectedIndexChanged += new System.EventHandler(this.UpperFansComboBox_SelectedIndexChanged);
             // 
             // upperFansCountLabel
             // 

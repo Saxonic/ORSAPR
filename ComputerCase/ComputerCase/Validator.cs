@@ -3,10 +3,10 @@
     public static class Validator
     {
         public static string HeightDependencyExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
-                                                                "не могут быть умещены на корпусе с указанной длиной";
+                                                                "не могут быть умещены на корпусе с указанной высотой";
 
-        public static string WidthDependencyExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
-                                                               "не могут быть умещены на корпусе с указанной высотой";
+        public static string LengthDependencyExceptionMessage = "Отверстия под вентиляторы с заданным размером " +
+                                                               "не могут быть умещены на корпусе с указанной длиной";
 
         /// <summary>
         /// Проверка, входит ли указанное число в заданный диапазон 
