@@ -6,6 +6,11 @@
     public interface IBuilderProgramAPI
     {
         /// <summary>
+        /// Запустить необходимую API для построения корпуса
+        /// </summary>
+        public void OpenAPI();
+
+        /// <summary>
         /// Создать дно корпуса
         /// </summary>
         /// <param name="length">Длина корпуса</param>

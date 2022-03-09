@@ -24,6 +24,11 @@ namespace ComputerCaseUI
             frontFansComboBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за высоту корпуса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HeightTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -45,6 +50,11 @@ namespace ComputerCaseUI
             }
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за длину корпуса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LengthTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -66,6 +76,11 @@ namespace ComputerCaseUI
             }
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за ширину корпуса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WidthTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -79,6 +94,12 @@ namespace ComputerCaseUI
                 SetErrorColorAndAddToolTip(widthTextBox, exception.Message);
             }
         }
+        
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за диаметр верхних отверстий под вентиляторы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpperFansDiameterTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -99,6 +120,11 @@ namespace ComputerCaseUI
             }
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за диаметр отверстий под передние вентиляторы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrontFansDiameterTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -120,6 +146,11 @@ namespace ComputerCaseUI
             
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за тип материнской платы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void motherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
@@ -129,6 +160,11 @@ namespace ComputerCaseUI
             
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за кол-во верхних вентиляторов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpperFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -147,6 +183,11 @@ namespace ComputerCaseUI
             
         }
 
+        /// <summary>
+        /// Изменение текста в поле, отвечающем за кол-во передних вентиляторов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frontFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -165,47 +206,62 @@ namespace ComputerCaseUI
 
         }
 
+        /// <summary>
+        /// Установка цвета успешной операции и удаление текста об ошибке
+        /// </summary>
+        /// <param name="textBox"></param>
         private void SetSuccessColorAndRemoveToolTip(TextBox textBox)
         {
             textBox.BackColor = _successTextBoxColor;
             toolTip1.SetToolTip(textBox, null);
         }
 
+        /// <summary>
+        /// Установка цвета ошибки и добавление текста об ошибке
+        /// </summary>
+        /// <param name="textBox">Поле в которое необходимо добавить</param>
+        /// <param name="message">Сообщение об ошибке</param>
         private void SetErrorColorAndAddToolTip(TextBox textBox, string message)
         {
             toolTip1.SetToolTip(textBox, message);
             textBox.BackColor = _errorTextBoxColor;
         }
 
+        /// <summary>
+        /// Проверка и удаление ошибок связанных с зависимыми размерами:
+        /// Длина, диаметр верхних вентиляторов и их кол-во
+        /// </summary>
         private void RemoveUpperError()
         {
             if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == Validator.LengthDependencyExceptionMessage)
             {
-                SetSuccessColorAndRemoveTooltip(UpperFansDiameterTextBox);
+                SetSuccessColorAndRemoveToolTip(UpperFansDiameterTextBox);
             }
             if (toolTip1.GetToolTip(lengthTextBox) == Validator.LengthDependencyExceptionMessage)
             {
-                SetSuccessColorAndRemoveTooltip(lengthTextBox);
+                SetSuccessColorAndRemoveToolTip(lengthTextBox);
             }
         }
         
+        /// <summary>
+        /// Проверка и удаление ошибок связанных с зависимыми размерами:
+        /// Длина, диаметр верхних вентиляторов и их кол-во
+        /// </summary>
         private void RemoveFrontError()
         {
             if (toolTip1.GetToolTip(frontFansDiameterTextBox) == Validator.HeightDependencyExceptionMessage)
             {
-                SetSuccessColorAndRemoveTooltip(frontFansDiameterTextBox);
+                SetSuccessColorAndRemoveToolTip(frontFansDiameterTextBox);
             }
             if (toolTip1.GetToolTip(heightTextBox) == Validator.HeightDependencyExceptionMessage)
             {
-                SetSuccessColorAndRemoveTooltip(heightTextBox);
+                SetSuccessColorAndRemoveToolTip(heightTextBox);
             }
         }
-        private void SetSuccessColorAndRemoveTooltip(TextBox textBox)
-        {
-            UpperFansDiameterTextBox.BackColor = _successTextBoxColor;
-            toolTip1.SetToolTip(textBox, null);
-        }
 
+        /// <summary>
+        /// Проверка данных для активации/деактивации кнопки построения
+        /// </summary>
         private void CheckButtonActivation()
         {
             BuildButton.Enabled = true;

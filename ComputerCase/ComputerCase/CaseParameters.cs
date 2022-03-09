@@ -4,26 +4,108 @@ namespace ComputerCase
 {
     public class CaseParameters
     {
+        #region Constraints
+
+        /// <summary>
+        /// Расстояние между передними вентиляторами
+        /// </summary>
         private const int SPACE_BETWEEN_FRONT_FANS = 15;
-        private const int SPACE_BETWEEN_UPPER_FANS = 5;
-        private const int ATX_PLATE_CASE_MAX_HEIGHT = 391;
-        private const int MICRO_ATX_PLATE_CASE_MAX_HEIGHT = 330;
-        private const int ATX_POWER_SUPPLY_WIDTH = 140;
-        private const int PLATE_WIDTH = 244;
-        private const int CASE_MAX_SIZE = 500;
-        private const int MAX_FANS_SIZE = 140;
-        private const int MIN_FANS_SIZE = 40;
         
+        /// <summary>
+        /// Расстояние между верхними вентиляторами
+        /// </summary>
+        private const int SPACE_BETWEEN_UPPER_FANS = 5;
+        
+        /// <summary>
+        /// Минимальная высота корпуса с ATX платой
+        /// </summary>
+        private const int ATX_PLATE_CASE_MIN_HEIGHT = 391;
+        
+        /// <summary>
+        /// Минимальная высота корпуса с micro-ATX платой
+        /// </summary>
+        private const int MICRO_ATX_PLATE_CASE_MIN_HEIGHT = 330;
+        
+        /// <summary>
+        /// Ширина блока питания. Определяет минимальнудю ширину корпуса
+        /// </summary>
+        private const int ATX_POWER_SUPPLY_WIDTH = 140;
+        
+        /// <summary>
+        /// Ширина материнской платы. Определяет минимальную длину корпуса
+        /// </summary>
+        private const int PLATE_WIDTH = 244;
+        
+        /// <summary>
+        /// Максимальный размер высоты, длины и ширины корпуса
+        /// </summary>
+        private const int CASE_MAX_SIZE = 500;
+        
+        /// <summary>
+        /// Максимальный диаметр отверстий под вентиляторы
+        /// </summary>
+        private const int MAX_FANS_SIZE = 140;
+        
+        /// <summary>
+        /// Минимальный размер отверстий под вентиляторы
+        /// </summary>
+        private const int MIN_FANS_SIZE = 40;
+
+        #endregion
+
+        #region PrivateFields
+
+        /// <summary>
+        /// Высота корпуса
+        /// </summary>
         private double _height;
+        
+        /// <summary>
+        /// Длина корпуса
+        /// </summary>
         private double _length;
+        
+        /// <summary>
+        /// Ширина корпуса
+        /// </summary>
         private double _width;
+        
+        /// <summary>
+        /// Диаметер передних вентиляторов
+        /// </summary>
         private double _frontFansDiameter;
+        
+        /// <summary>
+        /// Диаметр верхних вентиляторов
+        /// </summary>
         private double _upperFansDiameter;
+        
+        /// <summary>
+        /// Кол-во передних вентиляторов
+        /// </summary>
         private int _frontFansCount;
+        
+        /// <summary>
+        /// Кол-во верхних вентиляторов
+        /// </summary>
         private int _upperFansCount;
+        
+        /// <summary>
+        /// Тип материнской платы
+        /// </summary>
         private MotherboardType _motherboardType;
 
+        #endregion
+        
+
+        /// <summary>
+        /// Делегат попытки события попытки изменения данных
+        /// </summary>
         public delegate void TryValueChangedContainer();
+        
+        /// <summary>
+        /// Событие попытки изменения данных
+        /// </summary>
         public event TryValueChangedContainer TryValueChange;
 
 
@@ -37,7 +119,7 @@ namespace ComputerCase
             {
                 OnValueTryChange();
                 var minValue = MotherboardType == MotherboardType.ATX ? 
-                    ATX_PLATE_CASE_MAX_HEIGHT : MICRO_ATX_PLATE_CASE_MAX_HEIGHT;
+                    ATX_PLATE_CASE_MIN_HEIGHT : MICRO_ATX_PLATE_CASE_MIN_HEIGHT;
                 if (!Validator.Validate(CASE_MAX_SIZE, minValue, value))
                 {
                     throw new OutOfBoundsException("Высота корпуса не может быть больше" +
@@ -123,6 +205,13 @@ namespace ComputerCase
             }
         }
 
+        /// <summary>
+        /// Проверка зависимых значений длины, диаметра верхних вентиляторов и их кол-ва
+        /// </summary>
+        /// <param name="length">Длина корпуса</param>
+        /// <param name="upperFansDiameter">Диаметр отверстий под вентиляторы</param>
+        /// <param name="upperFansCount">Кол-во вентиляторов</param>
+        /// <exception cref="SizeDependencyException"></exception>
         private void CheckUpperValues(double length,double upperFansDiameter,int upperFansCount)
         {
             if (length == default || upperFansDiameter == default) return;
@@ -134,6 +223,13 @@ namespace ComputerCase
             }
         }
 
+        /// <summary>
+        /// Проверка зависимых значений высоты, диаметра передних вентиляторов и их кол-ва
+        /// </summary>
+        /// <param name="height">Высота корпуса</param>
+        /// <param name="frontFansDiameter">диаметр передних вентиляторов</param>
+        /// <param name="frontFansCount">Кол-во передних вентиляторов</param>
+        /// <exception cref="SizeDependencyException"></exception>
         private void CheckFrontValues(double height, double frontFansDiameter, int frontFansCount)
         {
             if (height == default || frontFansDiameter == default) return;
@@ -173,6 +269,9 @@ namespace ComputerCase
             }
         }
 
+        /// <summary>
+        /// Тип материнской платы
+        /// </summary>
         public MotherboardType MotherboardType 
         { 
             get=>_motherboardType;
@@ -183,6 +282,9 @@ namespace ComputerCase
             }
         }
 
+        /// <summary>
+        /// Инвок события попытки изменения данных
+        /// </summary>
         protected virtual void OnValueTryChange()
         {
             TryValueChange?.Invoke();
