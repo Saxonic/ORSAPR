@@ -13,12 +13,6 @@ namespace ComputerCaseUI
         private CaseParameters _caseParameter;
         private CaseBuilder _caseBuilder;
 
-        private const string UpperSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " 
-                                                         + "не могут быть умещены на корпусе с указанной длиной";
-
-        private const string FrontSizeExceptionMessage = "Отверстия под вентиляторы с заданным размером " 
-                                                         + "не могут быть умещены на корпусе с указанной высотой";
-
         public MainForm()
         {
             InitializeComponent();
