@@ -7,24 +7,41 @@ using Kompas6Constants3D;
 
 namespace KompasAPI
 {
+    /// <summary>
+    /// Класс, реализующий построение корпуса, используя API компаса
+    /// </summary>
     public class KompasAPI : IBuilderProgramAPI
     {
+        /// <summary>
+        /// Объект интерфейса API КОМПАС-3D
+        /// </summary>
         private KompasObject _kompasObject;
-        private ksDocument3D _document3D;
+        
+        /// <summary>
+        /// Компонент сборки
+        /// </summary>
         private ksPart _part;
+        
+        /// <summary>
+        /// Толщина корпуса
+        /// </summary>
         private const double CaseThickness = 1;
 
         public KompasAPI()
         {
-            
         }
 
+        /// <summary>
+        /// Создать днище корпуса
+        /// </summary>
+        /// <param name="length">Длина корпуса</param>
+        /// <param name="width">Ширина корпуса</param>
         public void CreateBottom(double length, double width)
         {
             _kompasObject = OpenKompas();
-            _document3D = (ksDocument3D)_kompasObject.Document3D();
-            _document3D.Create();
-            _part = (ksPart)_document3D.GetPart((int)Part_Type.pTop_Part);
+            var document3D = (ksDocument3D)_kompasObject.Document3D();
+            document3D.Create();
+            _part = (ksPart)document3D.GetPart((int)Part_Type.pTop_Part);
             var sketch = CreateSketch(Obj3dType.o3d_planeXOY);
             var rectangleParameters = GetRectangleParameters(0, 0, length, width);
             var documents2d = (Document2D)sketch.BeginEdit();
@@ -33,6 +50,14 @@ namespace KompasAPI
             Extrude(CaseThickness,sketch);
         }
 
+        /// <summary>
+        /// Создать стенки корпуса
+        /// </summary>
+        /// <param name="length">Длина корпуса</param>
+        /// <param name="width">Ширина корпуса</param>
+        /// <param name="height">Высота корпуса</param>
+        /// <param name="fansDiameter">Диаметр отверствий под верхние вентиляторы</param>
+        /// <param name="fansCount">Кол-во верхних вентиляторов</param>
         public void CreateSides(double length, double width, double height, double fansDiameter,int fansCount)
         {
             //задняя стенка
@@ -44,12 +69,30 @@ namespace KompasAPI
             CreateFansHoles(width,fansDiameter,fansCount,15,Obj3dType.o3d_planeXOZ,-length);
         }
 
+        /// <summary>
+        /// Создать крышу
+        /// </summary>
+        /// <param name="length">Длина корпуса</param>
+        /// <param name="width">Ширина корпуса</param>
+        /// <param name="height">Высота корпуса</param>
+        /// <param name="upperFansDiameter">Диаметр отверствий под передние вентиляторы</param>
+        /// <param name="fansCount">>Кол-во передних вентиляторов</param>
         public void CreteRoof(double length, double width,double height, double upperFansDiameter,int fansCount)
         {
             CreatePlate(0,0,length,width,CaseThickness,Obj3dType.o3d_planeXOY,-height);
             CreateFansHoles(width,upperFansDiameter,fansCount,5,Obj3dType.o3d_planeXOY,-height,false);
         }
 
+        /// <summary>
+        /// Создать прямоугольную стенку корпуса
+        /// </summary>
+        /// <param name="startX">Начальная точка прямоугольника</param>
+        /// <param name="startY">Конечная точка прямоугольника</param>
+        /// <param name="length">Длина прямоугольника</param>
+        /// <param name="width">Щирина прямоугольника</param>
+        /// <param name="thickness">Толщина прямоугольника</param>
+        /// <param name="planeType">Плоскость, в которой будет строиться стенка</param>
+        /// <param name="offset">сдвиг плоскости</param>
         private void CreatePlate(double startX, double startY, double length, double width, double thickness,
             Obj3dType planeType, double offset = 0)
         {
@@ -61,6 +104,16 @@ namespace KompasAPI
             Extrude(thickness,sketch);
         }
 
+        /// <summary>
+        /// Создать отверстия под вентиляторы
+        /// </summary>
+        /// <param name="width">Ширина корпуса</param>
+        /// <param name="diameter">Диаметр отверстия</param>
+        /// <param name="count">Кол-во отверстий</param>
+        /// <param name="indent">Отсутп между вентиляторами</param>
+        /// <param name="planeType">Плоскость, в которой будет строиться отверстие</param>
+        /// <param name="offset">Свдиг плоскости</param>
+        /// <param name="isReversed">Инвертировать ли Y(в зависимости от того, в каком направлении растет ось Y)</param>
         private void CreateFansHoles(double width,double diameter, int count, double indent,
             Obj3dType planeType,double offset = 0,bool isReversed = true)
         {
