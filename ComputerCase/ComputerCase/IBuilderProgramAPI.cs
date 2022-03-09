@@ -20,7 +20,7 @@
         /// <param name="height">Высота корпуса</param>
         /// <param name="fansDiameter">Диаметр передних вентиляторов</param>
         /// <param name="fansCount">Кол-во отверстий под вентиляторы</param>
-        public void CreateSides(double length, double width, double height, double fansDiameter,double fansCount);
+        public void CreateSides(double length, double width, double height, double fansDiameter,int fansCount);
 
         /// <summary>
         /// Создать крышу корпуса с отверстиями под вентиляторы
@@ -28,6 +28,7 @@
         /// <param name="width">Ширина корпуса</param>
         /// <param name="upperFansDiameter">Диаметр верхних вентиляторов</param>
         /// <param name="length">Длина корпуса</param>
-        public void CreteRoof(double length, double width, double upperFansDiameter);
+        /// <param name="fansCount"></param>
+        public void CreteRoof(double length,double width,double height, double upperFansDiameter,int fansCount);
     }
 }

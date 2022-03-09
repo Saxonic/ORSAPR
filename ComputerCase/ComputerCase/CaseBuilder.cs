@@ -14,6 +14,8 @@
             _builderAPI.CreateBottom(caseParameters.Length,caseParameters.Width);
             _builderAPI.CreateSides(caseParameters.Length,caseParameters.Width,caseParameters.Height,
                 caseParameters.FrontFansDiameter,caseParameters.FrontFansCount);
+            _builderAPI.CreteRoof(caseParameters.Length,caseParameters.Width,caseParameters.Height,
+                caseParameters.UpperFansDiameter,caseParameters.UpperFansCount);
         }
     }
 }

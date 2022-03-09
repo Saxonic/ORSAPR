@@ -33,7 +33,7 @@ namespace KompasAPI
             Extrude(CaseThickness,sketch);
         }
 
-        public void CreateSides(double length, double width, double height, double fansDiameter,double fansCount)
+        public void CreateSides(double length, double width, double height, double fansDiameter,int fansCount)
         {
             //задняя стенка
             CreatePlate(0, 0, CaseThickness, width, height, Obj3dType.o3d_planeXOY);
@@ -41,22 +41,40 @@ namespace KompasAPI
             CreatePlate(0, 1, length-1, CaseThickness, height, Obj3dType.o3d_planeXOY);
             //передняя стенка
             CreatePlate(0, length, CaseThickness, width, height, Obj3dType.o3d_planeXOY);
+            CreateFansHoles(width,fansDiameter,fansCount,15,Obj3dType.o3d_planeXOZ,-length);
         }
 
-        public void CreteRoof(double length, double width, double upperFansDiameter)
+        public void CreteRoof(double length, double width,double height, double upperFansDiameter,int fansCount)
         {
-            throw new NotImplementedException();
+            CreatePlate(0,0,length,width,CaseThickness,Obj3dType.o3d_planeXOY,-height);
+            CreateFansHoles(width,upperFansDiameter,fansCount,15,Obj3dType.o3d_planeXOY,-height,false);
         }
 
-        private void CreatePlate(double startX, double startY, double length, double width, double height,
-            Obj3dType planeType)
+        private void CreatePlate(double startX, double startY, double length, double width, double thickness,
+            Obj3dType planeType, double offset = 0)
         {
-            var sketch = CreateSketch(planeType);
+            var sketch = CreateSketch(planeType,offset);
             var rectangleParameters = GetRectangleParameters(startX, startY, length, width);
             var documents2d = (Document2D)sketch.BeginEdit();
             documents2d.ksRectangle(rectangleParameters);
             sketch.EndEdit();
-            Extrude(height,sketch);
+            Extrude(thickness,sketch);
+        }
+
+        private void CreateFansHoles(double width,double diameter, int count, double indent,
+            Obj3dType planeType,double offset = 0,bool isReversed = true)
+        {
+            var centerY = isReversed? -(indent+diameter/2) : indent+diameter/2;
+            var centerX = width / 2;
+            var sketch = CreateSketch(planeType,offset);
+            var document2d = (Document2D)sketch.BeginEdit();
+            for (var i = 0; i < count; i++)
+            {
+                document2d.ksCircle(centerX, centerY, diameter/2, 1);
+                centerY -= isReversed ? indent + diameter : -(indent+diameter);
+            }
+            sketch.EndEdit();
+            Cut(1,sketch);
         }
 
         /// <summary>
@@ -92,7 +110,7 @@ namespace KompasAPI
         /// <param name="depth"></param>
         /// <param name="sketch"></param>
         /// <param name="side"></param>
-        private void Cut(double depth,ksSketchDefinition sketch, bool side = true)
+        private void Cut(double depth,ksSketchDefinition sketch, bool side = false)
         {
             var cutExtrusionEntity = (ksEntity)_part.NewEntity((short)ksObj3dTypeEnum.o3d_cutExtrusion);
             var cutExtrusionDef = (ksCutExtrusionDefinition)cutExtrusionEntity.GetDefinition();
