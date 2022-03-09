@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,6 +88,10 @@
     <ProjectReference Include="..\ComputerCase\ComputerCase.csproj">
       <Project>{4b09c16b-c867-4c0f-81f6-9c1b604ddc56}</Project>
       <Name>ComputerCase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KompasAPI\KompasAPI.csproj">
+      <Project>{aff4de7d-26c7-41ba-9f93-312dddd2a38c}</Project>
+      <Name>KompasAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
