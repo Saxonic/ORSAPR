@@ -2,17 +2,12 @@
 
 namespace ComputerCase.Exceptions
 {
+    /// <summary>
+    /// Исключение, генерируемое при несоответсвии зависимых размеров
+    /// </summary>
     public class SizeDependencyException : Exception
     {
-        public SizeDependencyException()
-        {
-        }
-        
         public SizeDependencyException(string message) : base(message)
-        {
-        }
-        
-        public SizeDependencyException(string message,Exception innerException) : base(message,innerException)
         {
         }
     }
