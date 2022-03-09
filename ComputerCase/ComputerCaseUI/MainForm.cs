@@ -22,14 +22,6 @@ namespace ComputerCaseUI
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
-            //var controls = splitContainer1.Panel1.Controls.Cast<Control>()
-            //    .Where(c => c.GetType() == typeof(GroupBox)).ToList();
-            //List<Control> textBoxes = new List<Control>();
-            //foreach (var control in controls)
-            //{
-            //    textBoxes = control.Controls.Cast<Control>()
-            //        .Where(c => c.GetType() == typeof(TextBox)).Concat(textBoxes).ToList();
-            //}
         }
 
         private void HeightTextBox_TextChanged(object sender, EventArgs e)
