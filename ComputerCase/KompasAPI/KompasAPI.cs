@@ -31,6 +31,14 @@ namespace KompasAPI
         {
         }
 
+        public void OpenAPI()
+        {
+            _kompasObject = OpenKompas();
+            var document3D = (ksDocument3D)_kompasObject.Document3D();
+            document3D.Create();
+            _part = (ksPart)document3D.GetPart((int)Part_Type.pTop_Part);
+        }
+
         /// <summary>
         /// Создать днище корпуса
         /// </summary>
@@ -38,10 +46,6 @@ namespace KompasAPI
         /// <param name="width">Ширина корпуса</param>
         public void CreateBottom(double length, double width)
         {
-            _kompasObject = OpenKompas();
-            var document3D = (ksDocument3D)_kompasObject.Document3D();
-            document3D.Create();
-            _part = (ksPart)document3D.GetPart((int)Part_Type.pTop_Part);
             var sketch = CreateSketch(Obj3dType.o3d_planeXOY);
             var rectangleParameters = GetRectangleParameters(0, 0, length, width);
             var documents2d = (Document2D)sketch.BeginEdit();
