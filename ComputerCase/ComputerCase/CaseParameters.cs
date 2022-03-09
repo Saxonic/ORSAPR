@@ -6,10 +6,10 @@ namespace ComputerCase
     {
         private const int SPACE_BETWEEN_FRONT_FANS = 15;
         private const int SPACE_BETWEEN_UPPER_FANS = 5;
-        private const int ATX_PLATE_HEIGHT = 305;
-        private const int PLATE_WIDTH = 244;
-        private const int MICRO_ATX_PLATE_HEIGHT = 244;
+        private const int ATX_PLATE_CASE_MAX_HEIGHT = 391;
+        private const int MICRO_ATX_PLATE_CASE_MAX_HEIGHT = 330;
         private const int ATX_POWER_SUPPLY_WIDTH = 140;
+        private const int PLATE_WIDTH = 244;
         private const int CASE_MAX_SIZE = 500;
         private const int MAX_FANS_SIZE = 140;
         private const int MIN_FANS_SIZE = 40;
@@ -36,10 +36,11 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                var minValue = MotherboardType == MotherboardType.ATX ? ATX_PLATE_HEIGHT : MICRO_ATX_PLATE_HEIGHT;
+                var minValue = MotherboardType == MotherboardType.ATX ? 
+                    ATX_PLATE_CASE_MAX_HEIGHT : MICRO_ATX_PLATE_CASE_MAX_HEIGHT;
                 if (!Validator.Validate(CASE_MAX_SIZE, minValue, value))
                 {
-                    throw new OutOfBoundsException($"Высота корпуса не может быть больше" +
+                    throw new OutOfBoundsException("Высота корпуса не может быть больше" +
                                                    $" {CASE_MAX_SIZE} или меньше {minValue} мм.");
                 }
                 CheckFrontValues(value,_frontFansDiameter,_frontFansCount);

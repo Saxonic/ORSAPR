@@ -47,7 +47,7 @@ namespace KompasAPI
         public void CreteRoof(double length, double width,double height, double upperFansDiameter,int fansCount)
         {
             CreatePlate(0,0,length,width,CaseThickness,Obj3dType.o3d_planeXOY,-height);
-            CreateFansHoles(width,upperFansDiameter,fansCount,15,Obj3dType.o3d_planeXOY,-height,false);
+            CreateFansHoles(width,upperFansDiameter,fansCount,5,Obj3dType.o3d_planeXOY,-height,false);
         }
 
         private void CreatePlate(double startX, double startY, double length, double width, double thickness,

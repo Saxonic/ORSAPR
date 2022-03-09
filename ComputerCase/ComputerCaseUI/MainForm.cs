@@ -122,7 +122,11 @@ namespace ComputerCaseUI
 
         private void motherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
+            heightBordersLabel.Text = motherboardType == MotherboardType.ATX
+                ? "(от 391 мм до 500 мм)" : "(от 330 мм до 500 мм)";
             _caseParameter.MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
+            
         }
 
         private void UpperFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,27 +181,29 @@ namespace ComputerCaseUI
         {
             if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == Validator.LengthDependencyExceptionMessage)
             {
-                UpperFansDiameterTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(UpperFansDiameterTextBox, null);
+                SetSuccessColorAndRemoveTooltip(UpperFansDiameterTextBox);
             }
             if (toolTip1.GetToolTip(lengthTextBox) == Validator.LengthDependencyExceptionMessage)
             {
-                lengthTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(lengthTextBox, null);
+                SetSuccessColorAndRemoveTooltip(lengthTextBox);
             }
         }
+        
         private void RemoveFrontError()
         {
             if (toolTip1.GetToolTip(frontFansDiameterTextBox) == Validator.HeightDependencyExceptionMessage)
             {
-                frontFansDiameterTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(frontFansDiameterTextBox, null);
+                SetSuccessColorAndRemoveTooltip(frontFansDiameterTextBox);
             }
             if (toolTip1.GetToolTip(heightTextBox) == Validator.HeightDependencyExceptionMessage)
             {
-                heightTextBox.BackColor = _successTextBoxColor;
-                toolTip1.SetToolTip(heightTextBox, null);
+                SetSuccessColorAndRemoveTooltip(heightTextBox);
             }
+        }
+        private void SetSuccessColorAndRemoveTooltip(TextBox textBox)
+        {
+            UpperFansDiameterTextBox.BackColor = _successTextBoxColor;
+            toolTip1.SetToolTip(textBox, null);
         }
 
         private void CheckButtonActivation()
@@ -207,6 +213,7 @@ namespace ComputerCaseUI
             {
                 new CaseParameters
                 {
+                    MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex,
                     FrontFansCount = int.Parse(frontFansComboBox.Text),
                     FrontFansDiameter = int.Parse(frontFansDiameterTextBox.Text),
                     Height = int.Parse(heightTextBox.Text),
