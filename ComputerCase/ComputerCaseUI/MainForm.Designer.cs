@@ -118,7 +118,10 @@ namespace ComputerCaseUI
             // 
             this.frontFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.frontFansComboBox.FormattingEnabled = true;
-            this.frontFansComboBox.Items.AddRange(new object[] { "1", "2", "3" });
+            this.frontFansComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
             this.frontFansComboBox.Location = new System.Drawing.Point(82, 43);
             this.frontFansComboBox.Name = "frontFansComboBox";
             this.frontFansComboBox.Size = new System.Drawing.Size(63, 21);
@@ -143,7 +146,7 @@ namespace ComputerCaseUI
             this.label3.TabIndex = 18;
             this.label3.Text = "(от 40 мм до 140 мм)";
             // 
-            // FrontFansDiameterTextBox
+            // frontFansDiameterTextBox
             // 
             this.frontFansDiameterTextBox.Location = new System.Drawing.Point(82, 18);
             this.frontFansDiameterTextBox.Name = "frontFansDiameterTextBox";
@@ -178,7 +181,9 @@ namespace ComputerCaseUI
             // 
             this.upperFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.upperFansComboBox.FormattingEnabled = true;
-            this.upperFansComboBox.Items.AddRange(new object[] { "1", "2" });
+            this.upperFansComboBox.Items.AddRange(new object[] {
+            "1",
+            "2"});
             this.upperFansComboBox.Location = new System.Drawing.Point(82, 44);
             this.upperFansComboBox.Name = "upperFansComboBox";
             this.upperFansComboBox.Size = new System.Drawing.Size(63, 21);
@@ -234,7 +239,9 @@ namespace ComputerCaseUI
             // 
             this.motherboardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.motherboardComboBox.FormattingEnabled = true;
-            this.motherboardComboBox.Items.AddRange(new object[] { "ATX", "Micro-ATX" });
+            this.motherboardComboBox.Items.AddRange(new object[] {
+            "ATX",
+            "Micro-ATX"});
             this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
             this.motherboardComboBox.Name = "motherboardComboBox";
             this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
@@ -286,7 +293,7 @@ namespace ComputerCaseUI
             this.heightBordersLabel.TabIndex = 18;
             this.heightBordersLabel.Text = "(от 330 мм до 500 мм)";
             // 
-            // WidthTextBox
+            // widthTextBox
             // 
             this.widthTextBox.Location = new System.Drawing.Point(82, 75);
             this.widthTextBox.Name = "widthTextBox";
@@ -294,7 +301,7 @@ namespace ComputerCaseUI
             this.widthTextBox.TabIndex = 17;
             this.widthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
             // 
-            // LengthTextBox
+            // lengthTextBox
             // 
             this.lengthTextBox.Location = new System.Drawing.Point(82, 49);
             this.lengthTextBox.Name = "lengthTextBox";
@@ -329,7 +336,7 @@ namespace ComputerCaseUI
             this.heightLabel.TabIndex = 13;
             this.heightLabel.Text = "Высота (А)";
             // 
-            // HeightTextBox
+            // heightTextBox
             // 
             this.heightTextBox.Location = new System.Drawing.Point(82, 23);
             this.heightTextBox.Name = "heightTextBox";
@@ -362,8 +369,11 @@ namespace ComputerCaseUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 330);
             this.Controls.Add(this.splitContainer1);
+            this.MaximumSize = new System.Drawing.Size(606, 369);
+            this.MinimumSize = new System.Drawing.Size(606, 369);
             this.Name = "MainForm";
             this.Text = "ComputerCase";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -377,6 +387,7 @@ namespace ComputerCaseUI
             this.caseInfoGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

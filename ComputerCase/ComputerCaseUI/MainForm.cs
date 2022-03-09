@@ -289,5 +289,10 @@ namespace ComputerCaseUI
         {
             _caseBuilder.CrateCase(_caseParameter);
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
