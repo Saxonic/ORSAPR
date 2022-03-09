@@ -9,7 +9,7 @@ namespace ComputerCaseUI
     public partial class MainForm : Form
     {
         private Color _errorTextBoxColor = Color.LightSalmon;
-        private Color _successTextBoxColor = Color.PaleGreen;
+        private Color _successTextBoxColor = Color.LightGreen;
         private CaseParameters _caseParameter;
         private CaseBuilder _caseBuilder;
 
