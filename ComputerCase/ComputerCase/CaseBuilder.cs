@@ -5,8 +5,10 @@
     /// </summary>
     public class CaseBuilder
     {
+        //TODO: XML
         private IBuilderProgramAPI _builderAPI;
 
+        //TODO: XML
         public CaseBuilder(IBuilderProgramAPI builderApi)
         {
             _builderAPI = builderApi;

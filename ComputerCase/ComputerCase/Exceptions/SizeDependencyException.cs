@@ -7,6 +7,7 @@ namespace ComputerCase.Exceptions
     /// </summary>
     public class SizeDependencyException : Exception
     {
+        //TODO: XML
         public SizeDependencyException(string message) : base(message)
         {
         }

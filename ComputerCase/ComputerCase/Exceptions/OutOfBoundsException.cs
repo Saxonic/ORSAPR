@@ -7,6 +7,7 @@ namespace ComputerCase.Exceptions
     /// </summary>
     public class OutOfBoundsException : Exception
     {
+        //TODO: XML
         public OutOfBoundsException(string message) : base(message)
         {
         }

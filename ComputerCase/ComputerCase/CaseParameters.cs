@@ -2,6 +2,7 @@
 
 namespace ComputerCase
 {
+    //TODO: XML
     public class CaseParameters
     {
         #region Constraints
@@ -103,6 +104,7 @@ namespace ComputerCase
         /// </summary>
         public delegate void TryValueChangedContainer();
         
+        //TODO:
         /// <summary>
         /// Событие попытки изменения данных
         /// </summary>
@@ -120,6 +122,7 @@ namespace ComputerCase
                 OnValueTryChange();
                 var minValue = MotherboardType == MotherboardType.ATX ? 
                     ATX_PLATE_CASE_MIN_HEIGHT : MICRO_ATX_PLATE_CASE_MIN_HEIGHT;
+                //TODO: duplication
                 if (!Validator.Validate(CASE_MAX_SIZE, minValue, value))
                 {
                     throw new OutOfBoundsException("Высота корпуса не может быть больше" +
@@ -139,6 +142,7 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
+                //TODO: duplication
                 if (!Validator.Validate(CASE_MAX_SIZE, PLATE_WIDTH, value))
                 {
                     throw new OutOfBoundsException($"Длина корпуса не может быть больше" +
@@ -158,6 +162,7 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
+                //TODO: duplication
                 if (!Validator.Validate(CASE_MAX_SIZE, ATX_POWER_SUPPLY_WIDTH, value))
                 {
                     throw new OutOfBoundsException($"Ширина корпуса не может быть больше" +
@@ -176,6 +181,7 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
+                //TODO: duplication
                 if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
                 {
                     throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
@@ -195,6 +201,7 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
+                //TODO: duplication
                 if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
                 {
                     throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +

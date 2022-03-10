@@ -27,10 +27,12 @@ namespace KompasAPI
         /// </summary>
         private const double CaseThickness = 1;
 
+        //TODO: XML
         public KompasAPI()
         {
         }
 
+        //TODO: XML
         public void OpenAPI()
         {
             _kompasObject = OpenKompas();
@@ -84,7 +86,7 @@ namespace KompasAPI
         public void CreteRoof(double length, double width,double height, double upperFansDiameter,int fansCount)
         {
             CreatePlate(0,0,length,width,CaseThickness,Obj3dType.o3d_planeXOY,-height);
-            CreateFansHoles(width,upperFansDiameter,fansCount,5,Obj3dType.o3d_planeXOY,-height,false);
+            CreateFansHoles(width,upperFansDiameter, fansCount, 5, Obj3dType.o3d_planeXOY,-height,false);
         }
 
         /// <summary>
@@ -173,7 +175,9 @@ namespace KompasAPI
             var cutExtrusionDef = (ksCutExtrusionDefinition)cutExtrusionEntity.GetDefinition();
 
             cutExtrusionDef.SetSideParam(side, (short)End_Type.etBlind, depth);
-            cutExtrusionDef.directionType = side ? (short)Direction_Type.dtNormal : (short)Direction_Type.dtReverse;
+            cutExtrusionDef.directionType = side 
+                ? (short)Direction_Type.dtNormal 
+                : (short)Direction_Type.dtReverse;
             cutExtrusionDef.cut = true;
             cutExtrusionDef.SetSketch(sketch);
 

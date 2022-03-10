@@ -1,5 +1,6 @@
 ﻿namespace ComputerCase
 {
+    //TODO: XML
     public enum MotherboardType
     {
         /// <summary>

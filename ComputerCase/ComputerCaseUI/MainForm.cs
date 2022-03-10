@@ -6,6 +6,7 @@ using ComputerCase.Exceptions;
 
 namespace ComputerCaseUI
 {
+    //TODO: XML
     public partial class MainForm : Form
     {
         private Color _errorTextBoxColor = Color.LightSalmon;
@@ -31,6 +32,7 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void HeightTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: duplication
             try
             {
                 var value = double.Parse(heightTextBox.Text);
@@ -57,12 +59,12 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void LengthTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: duplication
             try
             {
                 var value = double.Parse(lengthTextBox.Text);
                 _caseParameter.Length = value;
-                SetSuccessColorAndRemoveToolTip(lengthTextBox);
-                
+                SetSuccessColorAndRemoveToolTip(lengthTextBox);                
             }
             catch (SizeDependencyException exception)
             {
@@ -102,6 +104,7 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void UpperFansDiameterTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: duplication
             try
             {
                 var value = double.Parse(UpperFansDiameterTextBox.Text);
@@ -127,6 +130,7 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void FrontFansDiameterTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: duplication
             try
             {
                 var value = double.Parse(frontFansDiameterTextBox.Text);
@@ -146,6 +150,7 @@ namespace ComputerCaseUI
             
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Изменение текста в поле, отвечающем за тип материнской платы
         /// </summary>
@@ -153,9 +158,12 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void motherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //TODO:
             var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
-            heightBordersLabel.Text = motherboardType == MotherboardType.ATX
-                ? "(от 391 мм до 500 мм)" : "(от 330 мм до 500 мм)";
+            heightBordersLabel.Text = 
+                motherboardType == MotherboardType.ATX
+                ? "(от 391 мм до 500 мм)" 
+                : "(от 330 мм до 500 мм)";
             _caseParameter.MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
             
         }
@@ -285,11 +293,13 @@ namespace ComputerCaseUI
             }
         }
 
+        //TODO: XML
         private void BuildButton_Click(object sender, EventArgs e)
         {
             _caseBuilder.CrateCase(_caseParameter);
         }
 
+        //TODO:
         private void MainForm_Load(object sender, EventArgs e)
         {
 
