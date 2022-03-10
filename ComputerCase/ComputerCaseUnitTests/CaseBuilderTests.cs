@@ -38,6 +38,7 @@ namespace ComputerCaseUnitTests
             builder.CrateCase(parameter);
             
             //assert
+            builderProgramMock.Verify(b=>b.OpenAPI(),Times.Once);
             builderProgramMock.Verify(b=>b.CreateBottom(length,width),Times.Once);
             builderProgramMock.Verify(b=>b.CreateSides(length,width,height,
                 frontFansDiameter,frontFansCount),Times.Once);

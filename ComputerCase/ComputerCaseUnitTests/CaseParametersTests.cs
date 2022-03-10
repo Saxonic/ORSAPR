@@ -7,7 +7,7 @@ namespace ComputerCaseUnitTests
     [TestFixture]
     public class CaseParametersTests
     {
-        [Test(Description = "Позитивный тест сеттеров параметра")]
+        [Test(Description = "Позитивный тест сеттеров и геттеров параметра")]
         public void CaseParametersSet_ValuesCorrect()
         {
             //arrange
