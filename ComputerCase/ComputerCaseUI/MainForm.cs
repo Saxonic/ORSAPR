@@ -306,11 +306,5 @@ namespace ComputerCaseUI
         {
             _caseBuilder.CrateCase(_caseParameter);
         }
-
-        //TODO:
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
