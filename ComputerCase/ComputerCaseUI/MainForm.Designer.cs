@@ -246,7 +246,7 @@ namespace ComputerCaseUI
             this.motherboardComboBox.Name = "motherboardComboBox";
             this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
             this.motherboardComboBox.TabIndex = 0;
-            this.motherboardComboBox.SelectedIndexChanged += new System.EventHandler(this.motherboardComboBox_SelectedIndexChanged);
+            this.motherboardComboBox.SelectedIndexChanged += new System.EventHandler(this.MotherboardComboBox_SelectedIndexChanged);
             // 
             // caseInfoGroupBox
             // 

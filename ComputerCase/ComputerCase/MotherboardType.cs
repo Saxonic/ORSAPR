@@ -1,6 +1,8 @@
 ﻿namespace ComputerCase
 {
-    //TODO: XML
+    /// <summary>
+    /// Тип материнской платы, устанавливаемой в корпус
+    /// </summary>
     public enum MotherboardType
     {
         /// <summary>

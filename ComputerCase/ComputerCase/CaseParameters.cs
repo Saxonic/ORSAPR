@@ -3,6 +3,9 @@
 namespace ComputerCase
 {
     //TODO: XML
+    /// <summary>
+    /// Класс, содержаший данные корпуса
+    /// </summary>
     public class CaseParameters
     {
         #region Constraints

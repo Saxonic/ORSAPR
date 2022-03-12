@@ -6,9 +6,16 @@
     public class CaseBuilder
     {
         //TODO: XML
+        /// <summary>
+        /// Интерфейс, содержащий класс, ответсвенный за выполнение команд построения
+        /// </summary>
         private IBuilderProgramAPI _builderAPI;
 
         //TODO: XML
+        /// <summary>
+        /// Конструктор класса, отвечающего за построение корпуса
+        /// </summary>
+        /// <param name="builderApi"></param>
         public CaseBuilder(IBuilderProgramAPI builderApi)
         {
             _builderAPI = builderApi;

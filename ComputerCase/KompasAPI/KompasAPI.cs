@@ -28,11 +28,9 @@ namespace KompasAPI
         private const double CaseThickness = 1;
 
         //TODO: XML
-        public KompasAPI()
-        {
-        }
-
-        //TODO: XML
+        /// <summary>
+        /// Открыть компас и создать ноый документ. Если компас уже открыт, создать новый документ
+        /// </summary>
         public void OpenAPI()
         {
             _kompasObject = OpenKompas();

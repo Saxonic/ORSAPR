@@ -7,6 +7,9 @@ using ComputerCase.Exceptions;
 namespace ComputerCaseUI
 {
     //TODO: XML
+    /// <summary>
+    /// Конструктор главной формы
+    /// </summary>
     public partial class MainForm : Form
     {
         private Color _errorTextBoxColor = Color.LightSalmon;
@@ -156,7 +159,7 @@ namespace ComputerCaseUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void motherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void MotherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //TODO:
             var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
@@ -294,6 +297,11 @@ namespace ComputerCaseUI
         }
 
         //TODO: XML
+        /// <summary>
+        /// Обработчик нажатия на кнопку построения корпуса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BuildButton_Click(object sender, EventArgs e)
         {
             _caseBuilder.CrateCase(_caseParameter);

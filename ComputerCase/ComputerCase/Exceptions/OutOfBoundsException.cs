@@ -8,6 +8,10 @@ namespace ComputerCase.Exceptions
     public class OutOfBoundsException : Exception
     {
         //TODO: XML
+        /// <summary>
+        /// Исключение, содержащее в себе пользовательское сообщение
+        /// </summary>
+        /// <param name="message"></param>
         public OutOfBoundsException(string message) : base(message)
         {
         }
