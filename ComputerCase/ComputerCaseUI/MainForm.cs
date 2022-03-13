@@ -1,5 +1,6 @@
 ﻿using ComputerCase;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
@@ -12,11 +13,34 @@ namespace ComputerCaseUI
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Цвет ошибки
+        /// </summary>
         private Color _errorTextBoxColor = Color.LightSalmon;
+        
+        /// <summary>
+        /// Цвет правильно введенного значения
+        /// </summary>
         private Color _successTextBoxColor = Color.LightGreen;
+        
+        /// <summary>
+        /// Данные корпуса
+        /// </summary>
         private CaseParameters _caseParameter;
+        
+        /// <summary>
+        /// Строитель корпуса
+        /// </summary>
         private CaseBuilder _caseBuilder;
+        
+        /// <summary>
+        /// Словарь, содержащий зависимые контролы
+        /// </summary>
+        private Dictionary<Control, List<Control>> _dependentControls; 
 
+        /// <summary>
+        /// Конструктор главной формы
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -26,6 +50,33 @@ namespace ComputerCaseUI
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
+            _dependentControls[heightTextBox] = new List<Control> { frontFansDiameterTextBox };
+            _dependentControls[frontFansDiameterTextBox] = new List<Control> { heightTextBox };
+            _dependentControls[widthTextBox] = new List<Control> { UpperFansDiameterTextBox };
+            _dependentControls[UpperFansDiameterTextBox] = new List<Control> { widthTextBox };
+        }
+
+        private void CheckDependencyInfo(Control control, ref double field)
+        {
+            try
+            {
+                var value = double.Parse(control.Text);
+                field = value;
+                SetSuccessColorAndRemoveToolTip(control);
+            }
+            catch (SizeDependencyException exception)
+            {
+                SetErrorColorAndAddToolTip(control, exception.Message);
+                foreach (var dependentControl in _dependentControls[control])
+                {
+                    SetErrorColorAndAddToolTip(dependentControl, exception.Message);
+                }
+            }
+            catch (Exception exception)
+            {
+                SetErrorColorAndAddToolTip(control, exception.Message);
+                RemoveFrontError();
+            }
         }
 
         /// <summary>
@@ -221,7 +272,7 @@ namespace ComputerCaseUI
         /// Установка цвета успешной операции и удаление текста об ошибке
         /// </summary>
         /// <param name="textBox"></param>
-        private void SetSuccessColorAndRemoveToolTip(TextBox textBox)
+        private void SetSuccessColorAndRemoveToolTip(Control textBox)
         {
             textBox.BackColor = _successTextBoxColor;
             toolTip1.SetToolTip(textBox, null);
@@ -232,7 +283,7 @@ namespace ComputerCaseUI
         /// </summary>
         /// <param name="textBox">Поле в которое необходимо добавить</param>
         /// <param name="message">Сообщение об ошибке</param>
-        private void SetErrorColorAndAddToolTip(TextBox textBox, string message)
+        private void SetErrorColorAndAddToolTip(Control textBox, string message)
         {
             toolTip1.SetToolTip(textBox, message);
             textBox.BackColor = _errorTextBoxColor;
