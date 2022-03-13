@@ -16,27 +16,27 @@ namespace ComputerCaseUI
         /// <summary>
         /// Цвет ошибки
         /// </summary>
-        private Color _errorTextBoxColor = Color.LightSalmon;
+        private readonly Color _errorTextBoxColor = Color.LightSalmon;
         
         /// <summary>
         /// Цвет правильно введенного значения
         /// </summary>
-        private Color _successTextBoxColor = Color.LightGreen;
+        private readonly Color _successTextBoxColor = Color.LightGreen;
         
         /// <summary>
         /// Данные корпуса
         /// </summary>
-        private CaseParameters _caseParameter;
+        private readonly CaseParameters _caseParameter;
         
         /// <summary>
         /// Строитель корпуса
         /// </summary>
-        private CaseBuilder _caseBuilder;
+        private readonly CaseBuilder _caseBuilder;
         
         /// <summary>
         /// Словарь, содержащий зависимые контролы
         /// </summary>
-        private Dictionary<Control, List<Control>> _dependentControls; 
+        private readonly Dictionary<Control, List<Control>> _dependentControls = new(); 
 
         /// <summary>
         /// Конструктор главной формы
