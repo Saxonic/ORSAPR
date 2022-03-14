@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasAPI", "KompasAPI\Komp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerCaseUnitTests", "ComputerCaseUnitTests\ComputerCaseUnitTests.csproj", "{4E44C8B7-CD87-46BE-9048-16D1498E7A0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiFactory", "ApiFactory\ApiFactory.csproj", "{54D9C3E9-FD84-4607-8140-BB84C0A4E091}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventorAPI", "InventorAPI\InventorAPI.csproj", "{C7EA412D-E743-452D-8789-303B1DA9BD2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,22 @@ Global
 		{4E44C8B7-CD87-46BE-9048-16D1498E7A0D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E44C8B7-CD87-46BE-9048-16D1498E7A0D}.Release|x86.ActiveCfg = Release|x86
 		{4E44C8B7-CD87-46BE-9048-16D1498E7A0D}.Release|x86.Build.0 = Release|x86
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Debug|x86.Build.0 = Debug|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Release|x86.ActiveCfg = Release|Any CPU
+		{54D9C3E9-FD84-4607-8140-BB84C0A4E091}.Release|x86.Build.0 = Release|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7EA412D-E743-452D-8789-303B1DA9BD2A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

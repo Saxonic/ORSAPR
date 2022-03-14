@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
+using KompasAPI;
+using InventorAPI = InventorAPI.InventorAPI;
+using KompasAPI = KompasAPI.KompasAPI;
 
 namespace ComputerCaseUI
 {
@@ -46,7 +49,7 @@ namespace ComputerCaseUI
             InitializeComponent();
             _caseParameter = new CaseParameters();
             _caseParameter.TryValueChange += CheckButtonActivation;
-            _caseBuilder = new CaseBuilder(new KompasAPI.KompasAPI());
+            _caseBuilder = new CaseBuilder(new global::InventorAPI.InventorAPI());
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;

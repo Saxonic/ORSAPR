@@ -28,9 +28,7 @@ namespace KompasAPI
         private const double CaseThickness = 1;
 
         //TODO: XML
-        /// <summary>
-        /// Открыть компас и создать ноый документ. Если компас уже открыт, создать новый документ
-        /// </summary>
+        /// <inheritdoc/>
         public void OpenAPI()
         {
             _kompasObject = OpenKompas();
@@ -39,11 +37,7 @@ namespace KompasAPI
             _part = (ksPart)document3D.GetPart((int)Part_Type.pTop_Part);
         }
 
-        /// <summary>
-        /// Создать днище корпуса
-        /// </summary>
-        /// <param name="length">Длина корпуса</param>
-        /// <param name="width">Ширина корпуса</param>
+        /// <inheritdoc/>
         public void CreateBottom(double length, double width)
         {
             var sketch = CreateSketch(Obj3dType.o3d_planeXOY);
@@ -54,14 +48,7 @@ namespace KompasAPI
             Extrude(CaseThickness,sketch);
         }
 
-        /// <summary>
-        /// Создать стенки корпуса
-        /// </summary>
-        /// <param name="length">Длина корпуса</param>
-        /// <param name="width">Ширина корпуса</param>
-        /// <param name="height">Высота корпуса</param>
-        /// <param name="fansDiameter">Диаметр отверствий под верхние вентиляторы</param>
-        /// <param name="fansCount">Кол-во верхних вентиляторов</param>
+        /// <inheritdoc/>
         public void CreateSides(double length, double width, double height, double fansDiameter,int fansCount)
         {
             //задняя стенка
@@ -73,14 +60,7 @@ namespace KompasAPI
             CreateFansHoles(width,fansDiameter,fansCount,15,Obj3dType.o3d_planeXOZ,-length);
         }
 
-        /// <summary>
-        /// Создать крышу
-        /// </summary>
-        /// <param name="length">Длина корпуса</param>
-        /// <param name="width">Ширина корпуса</param>
-        /// <param name="height">Высота корпуса</param>
-        /// <param name="upperFansDiameter">Диаметр отверствий под передние вентиляторы</param>
-        /// <param name="fansCount">>Кол-во передних вентиляторов</param>
+        /// <inheritdoc/>
         public void CreteRoof(double length, double width,double height, double upperFansDiameter,int fansCount)
         {
             CreatePlate(0,0,length,width,CaseThickness,Obj3dType.o3d_planeXOY,-height);
