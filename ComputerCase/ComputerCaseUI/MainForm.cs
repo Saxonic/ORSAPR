@@ -61,6 +61,7 @@ namespace ComputerCaseUI
 
         private void CheckDependencyInfo(Control control, ref double field)
         {
+            //todo: сделать через dictionary с action-ами: _caseParameter.Height = value;
             try
             {
                 var value = double.Parse(control.Text);

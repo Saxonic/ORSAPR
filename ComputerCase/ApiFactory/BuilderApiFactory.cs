@@ -19,6 +19,7 @@ namespace ApiFactory
         {
             switch (key)
             {
+                //todo:Сделать enum
                 case "Компас - 3D":
                     return new KompasAPI.KompasAPI();
                 case "Inventor":
