@@ -52,16 +52,19 @@ namespace ComputerCaseUI
         public MainForm()
         {
             InitializeComponent();
+            SetActionDictionary();
+            SetDependentControls();
             _caseParameter = new CaseParameters();
             _caseParameter.TryValueChange += CheckButtonActivation;
             _caseBuilder = new CaseBuilder(new global::InventorAPI.InventorAPI());
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
-            SetActionDictionary();
-            SetDependentControls();
         }
 
+        /// <summary>
+        /// Установка экшенов. Привязка каждого экшена к конкретному элементу на форме
+        /// </summary>
         private void SetActionDictionary()
         {
             _dependentActions[widthTextBox] 
@@ -80,6 +83,9 @@ namespace ComputerCaseUI
                 = delegate (double value) { _caseParameter.FrontFansCount = (int)value; };
         }
 
+        /// <summary>
+        /// Установка зависимых контролов
+        /// </summary>
         private void SetDependentControls()
         {
             _dependentControls[lengthTextBox] = new List<Control> { upperFansDiameterTextBox };
@@ -96,11 +102,17 @@ namespace ComputerCaseUI
                 frontFansDiameterTextBox,
                 heightTextBox
             };
+            _dependentControls[motherboardComboBox] = new List<Control>();
+            _dependentControls[widthTextBox] = new List<Control>();
         }
 
-        private void CheckDependencyInfo(Control control)
+        /// <summary>
+        /// Проверка и внесение данных о корпусе
+        /// </summary>
+        /// <param name="control"></param>
+        private void CheckAndSetInfo(Control control)
         {
-            //todo: сделать через dictionary с action-ами: _caseParameter.Height = value;
+            //todo: duplication
             try
             {
                 var value = double.Parse(control.Text);
@@ -118,38 +130,40 @@ namespace ComputerCaseUI
             catch (Exception exception)
             {
                 SetErrorColorAndAddToolTip(control, exception.Message);
-                RemoveFrontError();
+                RemoveError(control);
+                foreach (var dependentControl in _dependentControls[control])
+                {
+                    RemoveError(dependentControl);
+                }
             }
         }
 
-        private void CheckFansCountDependecy(Control control)
+        /// <summary>
+        /// Проверить и установить кол-во вентиляторов
+        /// </summary>
+        /// <param name="control"></param>
+        private void CheckAndSetFansCount(Control control)
         {
+            //todo: duplication
             try
             {
                 if (int.TryParse(control.Text, out var value))
                 {
                     _dependentActions[control].Invoke(value);
                 }
-                RemoveUpperError();
+                RemoveError(control);
+                foreach (var dependentControl in _dependentControls[control])
+                {
+                    RemoveError(dependentControl);
+                }
             }
             catch (Exception exception)
             {
-                foreach(var dependentConrol in _dependentControls[control])
+                foreach(var dependentControl in _dependentControls[control])
                 {
-                    SetErrorColorAndAddToolTip(dependentConrol, exception.Message);
+                    SetErrorColorAndAddToolTip(dependentControl, exception.Message);
                 }
             }
-        }
-
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за высоту корпуса
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HeightTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //TODO: duplication
-            CheckDependencyInfo((Control)sender);
         }
 
         //TODO: RSDN
@@ -164,54 +178,10 @@ namespace ComputerCaseUI
             var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
             heightBordersLabel.Text = 
                 motherboardType == MotherboardType.ATX
-                ? "(от 391 мм до 500 мм)" 
-                : "(от 330 мм до 500 мм)";
+                ? $"(от {_caseParameter.ATX_PLATE_CASE_MIN_HEIGHT} мм до {_caseParameter.CASE_MAX_SIZE} мм)" 
+                : $"(от {_caseParameter.MICRO_ATX_PLATE_CASE_MIN_HEIGHT} мм до {_caseParameter.CASE_MAX_SIZE} мм)";
             _caseParameter.MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
             
-        }
-
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за кол-во верхних вентиляторов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UpperFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (int.TryParse(upperFansComboBox.Text, out var upperFansCount))
-                {
-                    _caseParameter.UpperFansCount = upperFansCount;
-                }
-                RemoveUpperError();
-            }
-            catch (Exception exception)
-            {
-                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(upperFansDiameterTextBox, exception.Message);
-            }
-        }
-
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за кол-во передних вентиляторов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FrontFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (int.TryParse(frontFansComboBox.Text, out var frontFansCount))
-                {
-                    _caseParameter.FrontFansCount = frontFansCount;
-                }
-                RemoveUpperError();
-            }
-            catch (Exception exception)
-            {
-                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(upperFansDiameterTextBox, exception.Message);
-            }
         }
 
         /// <summary>
@@ -239,38 +209,19 @@ namespace ComputerCaseUI
         /// Проверка и удаление ошибок связанных с зависимыми размерами:
         /// Длина, диаметр верхних вентиляторов и их кол-во
         /// </summary>
-        private void RemoveUpperError()
+        private void RemoveError(Control control)
         {
-            if (toolTip1.GetToolTip(upperFansDiameterTextBox) == Validator.LengthDependencyExceptionMessage)
+            if (toolTip1.GetToolTip(control) == Validator.LengthDependencyExceptionMessage
+            || toolTip1.GetToolTip(control) == Validator.HeightDependencyExceptionMessage)
             {
-                SetSuccessColorAndRemoveToolTip(upperFansDiameterTextBox);
-            }
-            if (toolTip1.GetToolTip(lengthTextBox) == Validator.LengthDependencyExceptionMessage)
-            {
-                SetSuccessColorAndRemoveToolTip(lengthTextBox);
-            }
-        }
-        
-        /// <summary>
-        /// Проверка и удаление ошибок связанных с зависимыми размерами:
-        /// Длина, диаметр верхних вентиляторов и их кол-во
-        /// </summary>
-        private void RemoveFrontError()
-        {
-            if (toolTip1.GetToolTip(frontFansDiameterTextBox) == Validator.HeightDependencyExceptionMessage)
-            {
-                SetSuccessColorAndRemoveToolTip(frontFansDiameterTextBox);
-            }
-            if (toolTip1.GetToolTip(heightTextBox) == Validator.HeightDependencyExceptionMessage)
-            {
-                SetSuccessColorAndRemoveToolTip(heightTextBox);
+                SetSuccessColorAndRemoveToolTip(control);
             }
         }
 
         /// <summary>
         /// Проверка данных для активации/деактивации кнопки построения
         /// </summary>
-        private void CheckButtonActivation()
+        private void CheckButtonActivation(object sender, EventArgs e)
         {
             BuildButton.Enabled = true;
             try
@@ -304,9 +255,24 @@ namespace ComputerCaseUI
             _caseBuilder.CrateCase(_caseParameter);
         }
 
-        private void ParametersTextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Изменение значения текстового поля, отвественного за данные о размерах корпуса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ParametersTextBox_TextChanged(object sender, EventArgs e)
         {
-            CheckDependencyInfo((Control)sender);
+            CheckAndSetInfo((Control)sender);
+        }
+
+        /// <summary>
+        /// Изменение значения кол-ва вентиляторов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FansCountGroupBox_Click(object sender, EventArgs e)
+        {
+            CheckAndSetFansCount((Control)sender);
         }
     }
 }

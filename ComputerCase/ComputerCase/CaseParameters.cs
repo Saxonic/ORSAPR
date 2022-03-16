@@ -1,4 +1,5 @@
-﻿using ComputerCase.Exceptions;
+﻿using System;
+using ComputerCase.Exceptions;
 
 namespace ComputerCase
 {
@@ -23,12 +24,12 @@ namespace ComputerCase
         /// <summary>
         /// Минимальная высота корпуса с ATX платой
         /// </summary>
-        private const int ATX_PLATE_CASE_MIN_HEIGHT = 391;
+        public readonly int ATX_PLATE_CASE_MIN_HEIGHT = 391;
         
         /// <summary>
         /// Минимальная высота корпуса с micro-ATX платой
         /// </summary>
-        private const int MICRO_ATX_PLATE_CASE_MIN_HEIGHT = 330;
+        public readonly int MICRO_ATX_PLATE_CASE_MIN_HEIGHT = 330;
         
         /// <summary>
         /// Ширина блока питания. Определяет минимальнудю ширину корпуса
@@ -41,9 +42,14 @@ namespace ComputerCase
         private const int PLATE_WIDTH = 244;
         
         /// <summary>
-        /// Максимальный размер высоты, длины и ширины корпуса
+        /// Максимальный размер высоты и длины корпуса
         /// </summary>
-        private const int CASE_MAX_SIZE = 500;
+        public readonly int CASE_MAX_SIZE = 500;
+
+        /// <summary>
+        /// Максимальное значение ширины корпуса
+        /// </summary>
+        private const int MAX_WIDTH = 250;
         
         /// <summary>
         /// Максимальный диаметр отверстий под вентиляторы
@@ -100,20 +106,13 @@ namespace ComputerCase
         private MotherboardType _motherboardType;
 
         #endregion
-        
 
-        /// <summary>
-        /// Делегат попытки события попытки изменения данных
-        /// </summary>
-        public delegate void TryValueChangedContainer();
-        
         //TODO:
         /// <summary>
         /// Событие попытки изменения данных
         /// </summary>
-        public event TryValueChangedContainer TryValueChange;
-
-
+        public EventHandler TryValueChange;
+        
         /// <summary>
         /// Высота корпуса
         /// </summary>
@@ -126,11 +125,7 @@ namespace ComputerCase
                 var minValue = MotherboardType == MotherboardType.ATX ? 
                     ATX_PLATE_CASE_MIN_HEIGHT : MICRO_ATX_PLATE_CASE_MIN_HEIGHT;
                 //TODO: duplication
-                if (!Validator.Validate(CASE_MAX_SIZE, minValue, value))
-                {
-                    throw new OutOfBoundsException("Высота корпуса не может быть больше" +
-                                                   $" {CASE_MAX_SIZE} или меньше {minValue} мм.");
-                }
+                Validate(CASE_MAX_SIZE,minValue,value,"Высота корпуса");
                 CheckFrontValues(value,_frontFansDiameter,_frontFansCount);
                 _height = value;
             }
@@ -146,11 +141,7 @@ namespace ComputerCase
             {
                 OnValueTryChange();
                 //TODO: duplication
-                if (!Validator.Validate(CASE_MAX_SIZE, PLATE_WIDTH, value))
-                {
-                    throw new OutOfBoundsException($"Длина корпуса не может быть больше" +
-                                                   $" {CASE_MAX_SIZE} или меньше {PLATE_WIDTH} мм.");
-                }
+                Validate(CASE_MAX_SIZE,PLATE_WIDTH,value,"Длина корпуса");
                 CheckUpperValues(value, _upperFansDiameter, _upperFansCount);
                 _length = value;
             }
@@ -166,11 +157,7 @@ namespace ComputerCase
             {
                 OnValueTryChange();
                 //TODO: duplication
-                if (!Validator.Validate(CASE_MAX_SIZE, ATX_POWER_SUPPLY_WIDTH, value))
-                {
-                    throw new OutOfBoundsException($"Ширина корпуса не может быть больше" +
-                                                   $" {CASE_MAX_SIZE} или меньше {ATX_POWER_SUPPLY_WIDTH} мм.");
-                }
+                Validate(MAX_WIDTH,ATX_POWER_SUPPLY_WIDTH,value,"Ширина корпуса");
                 _width = value;
             }
         }
@@ -185,11 +172,7 @@ namespace ComputerCase
             {
                 OnValueTryChange();
                 //TODO: duplication
-                if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
-                {
-                    throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
-                                                   $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
-                }
+                Validate(MAX_FANS_SIZE,MIN_FANS_SIZE,value,"Диаметр ответрстий");
                 CheckFrontValues(_height, value, _frontFansCount);
                 _frontFansDiameter = value;
             }
@@ -205,11 +188,7 @@ namespace ComputerCase
             {
                 OnValueTryChange();
                 //TODO: duplication
-                if (!Validator.Validate(MAX_FANS_SIZE, MIN_FANS_SIZE, value))
-                {
-                    throw new OutOfBoundsException("Диаметр отверстий не может быть больше" +
-                                                   $" {MAX_FANS_SIZE} или меньше {MIN_FANS_SIZE} мм.");
-                }
+                Validate(MAX_FANS_SIZE,MIN_FANS_SIZE,value,"Диаметр ответрстий");
                 CheckUpperValues(_length,value,_upperFansCount);
                 _upperFansDiameter = value;
             }
@@ -260,8 +239,8 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                CheckUpperValues(_length, _upperFansDiameter, value);
                 _upperFansCount = value;
+                CheckUpperValues(_length, _upperFansDiameter, value);
             }
         }
 
@@ -274,8 +253,8 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                CheckFrontValues(_height,_frontFansDiameter,value);
                 _frontFansCount = value;
+                CheckFrontValues(_height,_frontFansDiameter,value);
             }
         }
 
@@ -297,7 +276,24 @@ namespace ComputerCase
         /// </summary>
         protected virtual void OnValueTryChange()
         {
-            TryValueChange?.Invoke();
+            TryValueChange?.Invoke(this,EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Проверка, входит ли значение в указанный диапазон.
+        /// </summary>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <param name="value"></param>
+        /// <param name="nameOfValidatingValue"></param>
+        /// <exception cref="OutOfBoundsException"></exception>
+        private void Validate(int max, int min,double value, string nameOfValidatingValue)
+        {
+            if (!Validator.Validate(max, min, value))
+            {
+                throw new OutOfBoundsException($"{nameOfValidatingValue} не может быть больше" +
+                                               $" {max} или меньше {min} мм.");
+            }
         }
     }
 }

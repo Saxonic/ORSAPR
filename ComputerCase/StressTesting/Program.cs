@@ -43,7 +43,7 @@ namespace StressTesting
             var streamWriter = new StreamWriter($"log{apiService}.txt", true);
             Process currentProcess = Process.GetCurrentProcess();
             var count = 0;
-            while (count<10)
+            while (true)
             {
                 builder.CrateCase(caseParameters);
                 var computerInfo = new ComputerInfo();
