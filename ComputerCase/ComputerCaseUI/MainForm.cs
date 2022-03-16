@@ -37,9 +37,14 @@ namespace ComputerCaseUI
         private readonly CaseBuilder _caseBuilder;
         
         /// <summary>
+        /// Словарь, содержащий зависимые экшены
+        /// </summary>
+        private readonly Dictionary<Control, Action<double>> _dependentActions = new();
+
+        /// <summary>
         /// Словарь, содержащий зависимые контролы
         /// </summary>
-        private readonly Dictionary<Control, List<Control>> _dependentControls = new(); 
+        private readonly Dictionary<Control, List<Control>> _dependentControls = new();
 
         /// <summary>
         /// Конструктор главной формы
@@ -53,19 +58,53 @@ namespace ComputerCaseUI
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
-            _dependentControls[heightTextBox] = new List<Control> { frontFansDiameterTextBox };
-            _dependentControls[frontFansDiameterTextBox] = new List<Control> { heightTextBox };
-            _dependentControls[widthTextBox] = new List<Control> { UpperFansDiameterTextBox };
-            _dependentControls[UpperFansDiameterTextBox] = new List<Control> { widthTextBox };
+            SetActionDictionary();
+            SetDependentControls();
         }
 
-        private void CheckDependencyInfo(Control control, ref double field)
+        private void SetActionDictionary()
+        {
+            _dependentActions[widthTextBox] 
+                = delegate (double value) { _caseParameter.Width = value; };
+            _dependentActions[heightTextBox] 
+                = delegate (double value) { _caseParameter.Height = value; };
+            _dependentActions[lengthTextBox] 
+                = delegate (double value) { _caseParameter.Length = value; };
+            _dependentActions[upperFansDiameterTextBox] 
+                = delegate (double value) { _caseParameter.UpperFansDiameter = value; };
+            _dependentActions[frontFansDiameterTextBox] 
+                = delegate (double value) { _caseParameter.FrontFansDiameter = value; };
+            _dependentActions[upperFansComboBox]
+                = delegate (double value) { _caseParameter.UpperFansCount = (int)value; };
+            _dependentActions[frontFansComboBox]
+                = delegate (double value) { _caseParameter.FrontFansCount = (int)value; };
+        }
+
+        private void SetDependentControls()
+        {
+            _dependentControls[lengthTextBox] = new List<Control> { upperFansDiameterTextBox };
+            _dependentControls[upperFansDiameterTextBox] = new List<Control> { lengthTextBox };
+            _dependentControls[heightTextBox] = new List<Control> { frontFansDiameterTextBox };
+            _dependentControls[frontFansDiameterTextBox] = new List<Control> { heightTextBox };
+            _dependentControls[upperFansComboBox] = new List<Control> 
+            {
+                upperFansDiameterTextBox,
+                lengthTextBox 
+            };
+            _dependentControls[frontFansComboBox] = new List<Control> 
+            {
+                frontFansDiameterTextBox,
+                heightTextBox
+            };
+        }
+
+        private void CheckDependencyInfo(Control control)
         {
             //todo: сделать через dictionary с action-ами: _caseParameter.Height = value;
             try
             {
                 var value = double.Parse(control.Text);
-                field = value;
+                _dependentActions[control].Invoke(value);
                 SetSuccessColorAndRemoveToolTip(control);
             }
             catch (SizeDependencyException exception)
@@ -83,6 +122,25 @@ namespace ComputerCaseUI
             }
         }
 
+        private void CheckFansCountDependecy(Control control)
+        {
+            try
+            {
+                if (int.TryParse(control.Text, out var value))
+                {
+                    _dependentActions[control].Invoke(value);
+                }
+                RemoveUpperError();
+            }
+            catch (Exception exception)
+            {
+                foreach(var dependentConrol in _dependentControls[control])
+                {
+                    SetErrorColorAndAddToolTip(dependentConrol, exception.Message);
+                }
+            }
+        }
+
         /// <summary>
         /// Изменение текста в поле, отвечающем за высоту корпуса
         /// </summary>
@@ -91,121 +149,7 @@ namespace ComputerCaseUI
         private void HeightTextBox_TextChanged(object sender, EventArgs e)
         {
             //TODO: duplication
-            try
-            {
-                var value = double.Parse(heightTextBox.Text);
-                _caseParameter.Height = value;
-                SetSuccessColorAndRemoveToolTip(heightTextBox);
-                
-            }
-            catch (SizeDependencyException exception)
-            {
-                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
-            }
-            catch (Exception exception)
-            {
-                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
-                RemoveFrontError();
-            }
-        }
-
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за длину корпуса
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LengthTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //TODO: duplication
-            try
-            {
-                var value = double.Parse(lengthTextBox.Text);
-                _caseParameter.Length = value;
-                SetSuccessColorAndRemoveToolTip(lengthTextBox);                
-            }
-            catch (SizeDependencyException exception)
-            {
-                SetErrorColorAndAddToolTip(lengthTextBox,exception.Message);
-                SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
-            }
-            catch (Exception exception)
-            {
-                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
-                RemoveUpperError();
-            }
-        }
-
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за ширину корпуса
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WidthTextBox_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                var value = double.Parse(widthTextBox.Text);
-                _caseParameter.Width = value;
-                SetSuccessColorAndRemoveToolTip(widthTextBox);
-            }
-            catch (Exception exception)
-            {
-                SetErrorColorAndAddToolTip(widthTextBox, exception.Message);
-            }
-        }
-        
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за диаметр верхних отверстий под вентиляторы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UpperFansDiameterTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //TODO: duplication
-            try
-            {
-                var value = double.Parse(UpperFansDiameterTextBox.Text);
-                _caseParameter.UpperFansDiameter = value;
-                SetSuccessColorAndRemoveToolTip(UpperFansDiameterTextBox);
-            }
-            catch (SizeDependencyException exception)
-            {
-                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
-            }
-            catch (Exception exception)
-            {
-                RemoveUpperError();
-                SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
-            }
-        }
-
-        /// <summary>
-        /// Изменение текста в поле, отвечающем за диаметр отверстий под передние вентиляторы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FrontFansDiameterTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //TODO: duplication
-            try
-            {
-                var value = double.Parse(frontFansDiameterTextBox.Text);
-                _caseParameter.FrontFansDiameter = value;
-                SetSuccessColorAndRemoveToolTip(frontFansDiameterTextBox);
-            }
-            catch (SizeDependencyException exception)
-            {
-                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
-            }
-            catch (Exception exception)
-            {
-                RemoveFrontError();
-                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
-            }
-            
+            CheckDependencyInfo((Control)sender);
         }
 
         //TODO: RSDN
@@ -244,9 +188,8 @@ namespace ComputerCaseUI
             catch (Exception exception)
             {
                 SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(UpperFansDiameterTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(upperFansDiameterTextBox, exception.Message);
             }
-            
         }
 
         /// <summary>
@@ -254,7 +197,7 @@ namespace ComputerCaseUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void frontFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void FrontFansComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -262,14 +205,13 @@ namespace ComputerCaseUI
                 {
                     _caseParameter.FrontFansCount = frontFansCount;
                 }
-                RemoveFrontError();
+                RemoveUpperError();
             }
             catch (Exception exception)
             {
-                SetErrorColorAndAddToolTip(heightTextBox, exception.Message);
-                SetErrorColorAndAddToolTip(frontFansDiameterTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(lengthTextBox, exception.Message);
+                SetErrorColorAndAddToolTip(upperFansDiameterTextBox, exception.Message);
             }
-
         }
 
         /// <summary>
@@ -299,9 +241,9 @@ namespace ComputerCaseUI
         /// </summary>
         private void RemoveUpperError()
         {
-            if (toolTip1.GetToolTip(UpperFansDiameterTextBox) == Validator.LengthDependencyExceptionMessage)
+            if (toolTip1.GetToolTip(upperFansDiameterTextBox) == Validator.LengthDependencyExceptionMessage)
             {
-                SetSuccessColorAndRemoveToolTip(UpperFansDiameterTextBox);
+                SetSuccessColorAndRemoveToolTip(upperFansDiameterTextBox);
             }
             if (toolTip1.GetToolTip(lengthTextBox) == Validator.LengthDependencyExceptionMessage)
             {
@@ -342,7 +284,7 @@ namespace ComputerCaseUI
                     Length = int.Parse(lengthTextBox.Text),
                     Width = int.Parse(widthTextBox.Text),
                     UpperFansCount = int.Parse(upperFansComboBox.Text),
-                    UpperFansDiameter = int.Parse(UpperFansDiameterTextBox.Text)
+                    UpperFansDiameter = int.Parse(upperFansDiameterTextBox.Text)
                 };
             }
             catch (Exception)
@@ -360,6 +302,11 @@ namespace ComputerCaseUI
         private void BuildButton_Click(object sender, EventArgs e)
         {
             _caseBuilder.CrateCase(_caseParameter);
+        }
+
+        private void ParametersTextChanged(object sender, EventArgs e)
+        {
+            CheckDependencyInfo((Control)sender);
         }
     }
 }

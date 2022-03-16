@@ -41,8 +41,8 @@ namespace ComputerCaseUI
             this.fansInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.upperFansComboBox = new System.Windows.Forms.ComboBox();
             this.upperFansCountLabel = new System.Windows.Forms.Label();
-            this.upperFansDiametrBordersLabel = new System.Windows.Forms.Label();
-            this.UpperFansDiameterTextBox = new System.Windows.Forms.TextBox();
+            this.upperFansDiameterBordersLabel = new System.Windows.Forms.Label();
+            this.upperFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.upperFansDiametrLabel = new System.Windows.Forms.Label();
             this.motherboardGroupBox = new System.Windows.Forms.GroupBox();
             this.motherboardComboBox = new System.Windows.Forms.ComboBox();
@@ -73,6 +73,7 @@ namespace ComputerCaseUI
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -86,15 +87,17 @@ namespace ComputerCaseUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(590, 330);
-            this.splitContainer1.SplitterDistance = 279;
+            this.splitContainer1.Size = new System.Drawing.Size(876, 482);
+            this.splitContainer1.SplitterDistance = 414;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 0;
             // 
             // BuildButton
             // 
-            this.BuildButton.Location = new System.Drawing.Point(198, 300);
+            this.BuildButton.Location = new System.Drawing.Point(297, 462);
+            this.BuildButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BuildButton.Name = "BuildButton";
-            this.BuildButton.Size = new System.Drawing.Size(75, 23);
+            this.BuildButton.Size = new System.Drawing.Size(112, 35);
             this.BuildButton.TabIndex = 1;
             this.BuildButton.Text = "Построить";
             this.BuildButton.UseVisualStyleBackColor = true;
@@ -107,9 +110,11 @@ namespace ComputerCaseUI
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.frontFansDiameterTextBox);
             this.groupBox1.Controls.Add(this.frontFansDiametrLabel);
-            this.groupBox1.Location = new System.Drawing.Point(3, 227);
+            this.groupBox1.Location = new System.Drawing.Point(4, 349);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(270, 67);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(405, 103);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Передние вентиляторы";
@@ -122,44 +127,49 @@ namespace ComputerCaseUI
             "1",
             "2",
             "3"});
-            this.frontFansComboBox.Location = new System.Drawing.Point(82, 43);
+            this.frontFansComboBox.Location = new System.Drawing.Point(123, 66);
+            this.frontFansComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.frontFansComboBox.Name = "frontFansComboBox";
-            this.frontFansComboBox.Size = new System.Drawing.Size(63, 21);
+            this.frontFansComboBox.Size = new System.Drawing.Size(92, 28);
             this.frontFansComboBox.TabIndex = 20;
-            this.frontFansComboBox.SelectedIndexChanged += new System.EventHandler(this.frontFansComboBox_SelectedIndexChanged);
+            this.frontFansComboBox.SelectedIndexChanged += new System.EventHandler(this.FrontFansComboBox_SelectedIndexChanged);
             // 
             // frontFansCountLabel
             // 
             this.frontFansCountLabel.AutoSize = true;
-            this.frontFansCountLabel.Location = new System.Drawing.Point(6, 46);
+            this.frontFansCountLabel.Location = new System.Drawing.Point(9, 71);
+            this.frontFansCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.frontFansCountLabel.Name = "frontFansCountLabel";
-            this.frontFansCountLabel.Size = new System.Drawing.Size(66, 13);
+            this.frontFansCountLabel.Size = new System.Drawing.Size(100, 20);
             this.frontFansCountLabel.TabIndex = 19;
             this.frontFansCountLabel.Text = "Количество";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(151, 21);
+            this.label3.Location = new System.Drawing.Point(226, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 13);
+            this.label3.Size = new System.Drawing.Size(166, 20);
             this.label3.TabIndex = 18;
             this.label3.Text = "(от 40 мм до 140 мм)";
             // 
             // frontFansDiameterTextBox
             // 
-            this.frontFansDiameterTextBox.Location = new System.Drawing.Point(82, 18);
+            this.frontFansDiameterTextBox.Location = new System.Drawing.Point(123, 28);
+            this.frontFansDiameterTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.frontFansDiameterTextBox.Name = "frontFansDiameterTextBox";
-            this.frontFansDiameterTextBox.Size = new System.Drawing.Size(63, 20);
+            this.frontFansDiameterTextBox.Size = new System.Drawing.Size(92, 26);
             this.frontFansDiameterTextBox.TabIndex = 17;
-            this.frontFansDiameterTextBox.TextChanged += new System.EventHandler(this.FrontFansDiameterTextBox_TextChanged);
+            this.frontFansDiameterTextBox.TextChanged += new System.EventHandler(this.ParametersTextChanged);
             // 
             // frontFansDiametrLabel
             // 
             this.frontFansDiametrLabel.AutoSize = true;
-            this.frontFansDiametrLabel.Location = new System.Drawing.Point(6, 21);
+            this.frontFansDiametrLabel.Location = new System.Drawing.Point(9, 32);
+            this.frontFansDiametrLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.frontFansDiametrLabel.Name = "frontFansDiametrLabel";
-            this.frontFansDiametrLabel.Size = new System.Drawing.Size(69, 13);
+            this.frontFansDiametrLabel.Size = new System.Drawing.Size(102, 20);
             this.frontFansDiametrLabel.TabIndex = 16;
             this.frontFansDiametrLabel.Text = "Диаметр (E)";
             // 
@@ -167,12 +177,14 @@ namespace ComputerCaseUI
             // 
             this.fansInfoGroupBox.Controls.Add(this.upperFansComboBox);
             this.fansInfoGroupBox.Controls.Add(this.upperFansCountLabel);
-            this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrBordersLabel);
-            this.fansInfoGroupBox.Controls.Add(this.UpperFansDiameterTextBox);
+            this.fansInfoGroupBox.Controls.Add(this.upperFansDiameterBordersLabel);
+            this.fansInfoGroupBox.Controls.Add(this.upperFansDiameterTextBox);
             this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrLabel);
-            this.fansInfoGroupBox.Location = new System.Drawing.Point(3, 156);
+            this.fansInfoGroupBox.Location = new System.Drawing.Point(4, 240);
+            this.fansInfoGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fansInfoGroupBox.Name = "fansInfoGroupBox";
-            this.fansInfoGroupBox.Size = new System.Drawing.Size(271, 70);
+            this.fansInfoGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fansInfoGroupBox.Size = new System.Drawing.Size(406, 108);
             this.fansInfoGroupBox.TabIndex = 5;
             this.fansInfoGroupBox.TabStop = false;
             this.fansInfoGroupBox.Text = "Верхние вентиляторы";
@@ -184,53 +196,60 @@ namespace ComputerCaseUI
             this.upperFansComboBox.Items.AddRange(new object[] {
             "1",
             "2"});
-            this.upperFansComboBox.Location = new System.Drawing.Point(82, 44);
+            this.upperFansComboBox.Location = new System.Drawing.Point(123, 68);
+            this.upperFansComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.upperFansComboBox.Name = "upperFansComboBox";
-            this.upperFansComboBox.Size = new System.Drawing.Size(63, 21);
+            this.upperFansComboBox.Size = new System.Drawing.Size(92, 28);
             this.upperFansComboBox.TabIndex = 5;
             this.upperFansComboBox.SelectedIndexChanged += new System.EventHandler(this.UpperFansComboBox_SelectedIndexChanged);
             // 
             // upperFansCountLabel
             // 
             this.upperFansCountLabel.AutoSize = true;
-            this.upperFansCountLabel.Location = new System.Drawing.Point(6, 47);
+            this.upperFansCountLabel.Location = new System.Drawing.Point(9, 72);
+            this.upperFansCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.upperFansCountLabel.Name = "upperFansCountLabel";
-            this.upperFansCountLabel.Size = new System.Drawing.Size(66, 13);
+            this.upperFansCountLabel.Size = new System.Drawing.Size(100, 20);
             this.upperFansCountLabel.TabIndex = 4;
             this.upperFansCountLabel.Text = "Количество";
             // 
-            // upperFansDiametrBordersLabel
+            // upperFansDiameterBordersLabel
             // 
-            this.upperFansDiametrBordersLabel.AutoSize = true;
-            this.upperFansDiametrBordersLabel.Location = new System.Drawing.Point(151, 22);
-            this.upperFansDiametrBordersLabel.Name = "upperFansDiametrBordersLabel";
-            this.upperFansDiametrBordersLabel.Size = new System.Drawing.Size(113, 13);
-            this.upperFansDiametrBordersLabel.TabIndex = 3;
-            this.upperFansDiametrBordersLabel.Text = "(от 40 мм до 140 мм)";
+            this.upperFansDiameterBordersLabel.AutoSize = true;
+            this.upperFansDiameterBordersLabel.Location = new System.Drawing.Point(226, 34);
+            this.upperFansDiameterBordersLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.upperFansDiameterBordersLabel.Name = "upperFansDiameterBordersLabel";
+            this.upperFansDiameterBordersLabel.Size = new System.Drawing.Size(166, 20);
+            this.upperFansDiameterBordersLabel.TabIndex = 3;
+            this.upperFansDiameterBordersLabel.Text = "(от 40 мм до 140 мм)";
             // 
-            // UpperFansDiameterTextBox
+            // upperFansDiameterTextBox
             // 
-            this.UpperFansDiameterTextBox.Location = new System.Drawing.Point(82, 19);
-            this.UpperFansDiameterTextBox.Name = "UpperFansDiameterTextBox";
-            this.UpperFansDiameterTextBox.Size = new System.Drawing.Size(63, 20);
-            this.UpperFansDiameterTextBox.TabIndex = 2;
-            this.UpperFansDiameterTextBox.TextChanged += new System.EventHandler(this.UpperFansDiameterTextBox_TextChanged);
+            this.upperFansDiameterTextBox.Location = new System.Drawing.Point(123, 29);
+            this.upperFansDiameterTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.upperFansDiameterTextBox.Name = "upperFansDiameterTextBox";
+            this.upperFansDiameterTextBox.Size = new System.Drawing.Size(92, 26);
+            this.upperFansDiameterTextBox.TabIndex = 2;
+            this.upperFansDiameterTextBox.TextChanged += new System.EventHandler(this.ParametersTextChanged);
             // 
             // upperFansDiametrLabel
             // 
             this.upperFansDiametrLabel.AutoSize = true;
-            this.upperFansDiametrLabel.Location = new System.Drawing.Point(6, 22);
+            this.upperFansDiametrLabel.Location = new System.Drawing.Point(9, 34);
+            this.upperFansDiametrLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.upperFansDiametrLabel.Name = "upperFansDiametrLabel";
-            this.upperFansDiametrLabel.Size = new System.Drawing.Size(70, 13);
+            this.upperFansDiametrLabel.Size = new System.Drawing.Size(103, 20);
             this.upperFansDiametrLabel.TabIndex = 1;
             this.upperFansDiametrLabel.Text = "Диаметр (D)";
             // 
             // motherboardGroupBox
             // 
             this.motherboardGroupBox.Controls.Add(this.motherboardComboBox);
-            this.motherboardGroupBox.Location = new System.Drawing.Point(3, 110);
+            this.motherboardGroupBox.Location = new System.Drawing.Point(4, 169);
+            this.motherboardGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.motherboardGroupBox.Name = "motherboardGroupBox";
-            this.motherboardGroupBox.Size = new System.Drawing.Size(271, 46);
+            this.motherboardGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.motherboardGroupBox.Size = new System.Drawing.Size(406, 71);
             this.motherboardGroupBox.TabIndex = 4;
             this.motherboardGroupBox.TabStop = false;
             this.motherboardGroupBox.Text = "Тип материнской платы";
@@ -242,9 +261,10 @@ namespace ComputerCaseUI
             this.motherboardComboBox.Items.AddRange(new object[] {
             "ATX",
             "Micro-ATX"});
-            this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
+            this.motherboardComboBox.Location = new System.Drawing.Point(14, 29);
+            this.motherboardComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.motherboardComboBox.Name = "motherboardComboBox";
-            this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
+            this.motherboardComboBox.Size = new System.Drawing.Size(180, 28);
             this.motherboardComboBox.TabIndex = 0;
             this.motherboardComboBox.SelectedIndexChanged += new System.EventHandler(this.MotherboardComboBox_SelectedIndexChanged);
             // 
@@ -259,9 +279,11 @@ namespace ComputerCaseUI
             this.caseInfoGroupBox.Controls.Add(this.widthLabel);
             this.caseInfoGroupBox.Controls.Add(this.heightLabel);
             this.caseInfoGroupBox.Controls.Add(this.heightTextBox);
-            this.caseInfoGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.caseInfoGroupBox.Location = new System.Drawing.Point(4, 5);
+            this.caseInfoGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.caseInfoGroupBox.Name = "caseInfoGroupBox";
-            this.caseInfoGroupBox.Size = new System.Drawing.Size(271, 101);
+            this.caseInfoGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.caseInfoGroupBox.Size = new System.Drawing.Size(406, 155);
             this.caseInfoGroupBox.TabIndex = 3;
             this.caseInfoGroupBox.TabStop = false;
             this.caseInfoGroupBox.Text = "Корпус";
@@ -269,80 +291,89 @@ namespace ComputerCaseUI
             // lengthBordersLabel
             // 
             this.lengthBordersLabel.AutoSize = true;
-            this.lengthBordersLabel.Location = new System.Drawing.Point(151, 52);
+            this.lengthBordersLabel.Location = new System.Drawing.Point(226, 80);
+            this.lengthBordersLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lengthBordersLabel.Name = "lengthBordersLabel";
-            this.lengthBordersLabel.Size = new System.Drawing.Size(119, 13);
+            this.lengthBordersLabel.Size = new System.Drawing.Size(175, 20);
             this.lengthBordersLabel.TabIndex = 20;
             this.lengthBordersLabel.Text = "(от 244 мм до 500 мм)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(151, 78);
+            this.label2.Location = new System.Drawing.Point(226, 120);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 13);
+            this.label2.Size = new System.Drawing.Size(175, 20);
             this.label2.TabIndex = 19;
             this.label2.Text = "(от 140 мм до 250 мм)";
             // 
             // heightBordersLabel
             // 
             this.heightBordersLabel.AutoSize = true;
-            this.heightBordersLabel.Location = new System.Drawing.Point(151, 26);
+            this.heightBordersLabel.Location = new System.Drawing.Point(226, 40);
+            this.heightBordersLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.heightBordersLabel.Name = "heightBordersLabel";
-            this.heightBordersLabel.Size = new System.Drawing.Size(119, 13);
+            this.heightBordersLabel.Size = new System.Drawing.Size(175, 20);
             this.heightBordersLabel.TabIndex = 18;
             this.heightBordersLabel.Text = "(от 330 мм до 500 мм)";
             // 
             // widthTextBox
             // 
-            this.widthTextBox.Location = new System.Drawing.Point(82, 75);
+            this.widthTextBox.Location = new System.Drawing.Point(123, 115);
+            this.widthTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.widthTextBox.Name = "widthTextBox";
-            this.widthTextBox.Size = new System.Drawing.Size(63, 20);
+            this.widthTextBox.Size = new System.Drawing.Size(92, 26);
             this.widthTextBox.TabIndex = 17;
-            this.widthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
+            this.widthTextBox.TextChanged += new System.EventHandler(this.ParametersTextChanged);
             // 
             // lengthTextBox
             // 
-            this.lengthTextBox.Location = new System.Drawing.Point(82, 49);
+            this.lengthTextBox.Location = new System.Drawing.Point(123, 75);
+            this.lengthTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lengthTextBox.Name = "lengthTextBox";
-            this.lengthTextBox.Size = new System.Drawing.Size(63, 20);
+            this.lengthTextBox.Size = new System.Drawing.Size(92, 26);
             this.lengthTextBox.TabIndex = 16;
-            this.lengthTextBox.TextChanged += new System.EventHandler(this.LengthTextBox_TextChanged);
+            this.lengthTextBox.TextChanged += new System.EventHandler(this.ParametersTextChanged);
             // 
             // lengthLabel
             // 
             this.lengthLabel.AutoSize = true;
-            this.lengthLabel.Location = new System.Drawing.Point(6, 52);
+            this.lengthLabel.Location = new System.Drawing.Point(9, 80);
+            this.lengthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lengthLabel.Name = "lengthLabel";
-            this.lengthLabel.Size = new System.Drawing.Size(56, 13);
+            this.lengthLabel.Size = new System.Drawing.Size(83, 20);
             this.lengthLabel.TabIndex = 15;
             this.lengthLabel.Text = "Длина (В)";
             // 
             // widthLabel
             // 
             this.widthLabel.AutoSize = true;
-            this.widthLabel.Location = new System.Drawing.Point(6, 78);
+            this.widthLabel.Location = new System.Drawing.Point(9, 120);
+            this.widthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.widthLabel.Name = "widthLabel";
-            this.widthLabel.Size = new System.Drawing.Size(62, 13);
+            this.widthLabel.Size = new System.Drawing.Size(92, 20);
             this.widthLabel.TabIndex = 14;
             this.widthLabel.Text = "Ширина (С)";
             // 
             // heightLabel
             // 
             this.heightLabel.AutoSize = true;
-            this.heightLabel.Location = new System.Drawing.Point(6, 26);
+            this.heightLabel.Location = new System.Drawing.Point(9, 40);
+            this.heightLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.heightLabel.Name = "heightLabel";
-            this.heightLabel.Size = new System.Drawing.Size(61, 13);
+            this.heightLabel.Size = new System.Drawing.Size(91, 20);
             this.heightLabel.TabIndex = 13;
             this.heightLabel.Text = "Высота (А)";
             // 
             // heightTextBox
             // 
-            this.heightTextBox.Location = new System.Drawing.Point(82, 23);
+            this.heightTextBox.Location = new System.Drawing.Point(123, 35);
+            this.heightTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.heightTextBox.Name = "heightTextBox";
-            this.heightTextBox.Size = new System.Drawing.Size(63, 20);
+            this.heightTextBox.Size = new System.Drawing.Size(92, 26);
             this.heightTextBox.TabIndex = 12;
-            this.heightTextBox.TextChanged += new System.EventHandler(this.HeightTextBox_TextChanged);
+            this.heightTextBox.TextChanged += new System.EventHandler(this.ParametersTextChanged);
             // 
             // pictureBox1
             // 
@@ -350,8 +381,9 @@ namespace ComputerCaseUI
             this.pictureBox1.Image = global::ComputerCaseUI.Properties.Resources.Деталь;
             this.pictureBox1.InitialImage = global::ComputerCaseUI.Properties.Resources.Деталь;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(307, 330);
+            this.pictureBox1.Size = new System.Drawing.Size(456, 482);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -365,12 +397,13 @@ namespace ComputerCaseUI
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 330);
+            this.ClientSize = new System.Drawing.Size(876, 482);
             this.Controls.Add(this.splitContainer1);
-            this.MaximumSize = new System.Drawing.Size(606, 369);
-            this.MinimumSize = new System.Drawing.Size(606, 369);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximumSize = new System.Drawing.Size(898, 538);
+            this.MinimumSize = new System.Drawing.Size(898, 538);
             this.Name = "MainForm";
             this.Text = "ComputerCase";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -395,8 +428,8 @@ namespace ComputerCaseUI
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox fansInfoGroupBox;
         private System.Windows.Forms.Label upperFansCountLabel;
-        private System.Windows.Forms.Label upperFansDiametrBordersLabel;
-        private System.Windows.Forms.TextBox UpperFansDiameterTextBox;
+        private System.Windows.Forms.Label upperFansDiameterBordersLabel;
+        private System.Windows.Forms.TextBox upperFansDiameterTextBox;
         private System.Windows.Forms.Label upperFansDiametrLabel;
         private System.Windows.Forms.GroupBox motherboardGroupBox;
         private System.Windows.Forms.GroupBox caseInfoGroupBox;
