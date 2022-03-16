@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
 using KompasAPI;
@@ -60,6 +61,18 @@ namespace ComputerCaseUI
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
+            SetApiGroupBox();
+        }
+
+        /// <summary>
+        /// Установить значения в groupBox, ответсвенный за выбор api для построения
+        /// </summary>
+        private void SetApiGroupBox()
+        {
+            var enums = Enum.GetValues(typeof(BuilderProgramName))
+                .Cast<BuilderProgramName>().Select(b=>b.ToString()).ToArray();
+            apiTypeComboBox.Items.AddRange(enums);
+            apiTypeComboBox.SelectedIndex = 0;
         }
 
         /// <summary>

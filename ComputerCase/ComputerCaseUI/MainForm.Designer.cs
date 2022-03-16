@@ -31,6 +31,8 @@ namespace ComputerCaseUI
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.apiTypeLabel = new System.Windows.Forms.Label();
+            this.apiTypeComboBox = new System.Windows.Forms.ComboBox();
             this.BuildButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.frontFansComboBox = new System.Windows.Forms.ComboBox();
@@ -77,6 +79,8 @@ namespace ComputerCaseUI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.apiTypeLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.apiTypeComboBox);
             this.splitContainer1.Panel1.Controls.Add(this.BuildButton);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.fansInfoGroupBox);
@@ -86,13 +90,30 @@ namespace ComputerCaseUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(588, 324);
+            this.splitContainer1.Size = new System.Drawing.Size(588, 328);
             this.splitContainer1.SplitterDistance = 277;
             this.splitContainer1.TabIndex = 0;
             // 
+            // apiTypeLabel
+            // 
+            this.apiTypeLabel.Location = new System.Drawing.Point(9, 302);
+            this.apiTypeLabel.Name = "apiTypeLabel";
+            this.apiTypeLabel.Size = new System.Drawing.Size(76, 18);
+            this.apiTypeLabel.TabIndex = 8;
+            this.apiTypeLabel.Text = "Построить в:";
+            // 
+            // apiTypeComboBox
+            // 
+            this.apiTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.apiTypeComboBox.FormattingEnabled = true;
+            this.apiTypeComboBox.Location = new System.Drawing.Point(85, 299);
+            this.apiTypeComboBox.Name = "apiTypeComboBox";
+            this.apiTypeComboBox.Size = new System.Drawing.Size(107, 21);
+            this.apiTypeComboBox.TabIndex = 7;
+            // 
             // BuildButton
             // 
-            this.BuildButton.Location = new System.Drawing.Point(198, 300);
+            this.BuildButton.Location = new System.Drawing.Point(198, 297);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(75, 23);
             this.BuildButton.TabIndex = 1;
@@ -344,7 +365,7 @@ namespace ComputerCaseUI
             this.pictureBox1.InitialImage = global::ComputerCaseUI.Properties.Resources.Деталь;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(307, 324);
+            this.pictureBox1.Size = new System.Drawing.Size(307, 328);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -360,9 +381,9 @@ namespace ComputerCaseUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 324);
+            this.ClientSize = new System.Drawing.Size(588, 328);
             this.Controls.Add(this.splitContainer1);
-            this.MaximumSize = new System.Drawing.Size(604, 363);
+            this.MaximumSize = new System.Drawing.Size(999, 999);
             this.MinimumSize = new System.Drawing.Size(604, 363);
             this.Name = "MainForm";
             this.Text = "ComputerCase";
@@ -380,6 +401,9 @@ namespace ComputerCaseUI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.ComboBox apiTypeComboBox;
+        private System.Windows.Forms.Label apiTypeLabel;
 
         #endregion
 
