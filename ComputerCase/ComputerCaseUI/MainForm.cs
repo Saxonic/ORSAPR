@@ -5,8 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
-using InventorAPI;
-using KompasAPI;
 
 namespace ComputerCaseUI
 {
