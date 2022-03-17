@@ -5,9 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ComputerCase.Exceptions;
+using InventorAPI;
 using KompasAPI;
-using InventorAPI = InventorAPI.InventorAPI;
-using KompasAPI = KompasAPI.KompasAPI;
 
 namespace ComputerCaseUI
 {
@@ -31,12 +30,7 @@ namespace ComputerCaseUI
         /// Данные корпуса
         /// </summary>
         private readonly CaseParameters _caseParameter;
-        
-        /// <summary>
-        /// Строитель корпуса
-        /// </summary>
-        private readonly CaseBuilder _caseBuilder;
-        
+
         /// <summary>
         /// Словарь, содержащий зависимые экшены
         /// </summary>
@@ -57,7 +51,6 @@ namespace ComputerCaseUI
             SetDependentControls();
             _caseParameter = new CaseParameters();
             _caseParameter.TryValueChange += CheckButtonActivation;
-            _caseBuilder = new CaseBuilder(new global::InventorAPI.InventorAPI());
             motherboardComboBox.SelectedIndex = 0;
             upperFansComboBox.SelectedIndex = 0;
             frontFansComboBox.SelectedIndex = 0;
@@ -265,7 +258,17 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            _caseBuilder.CrateCase(_caseParameter);
+            BuilderProgramName test;
+            if (!Enum.TryParse(apiTypeComboBox.Text, out test)) return;
+            switch (test)
+            {
+                case BuilderProgramName.Kompas3D:
+                    new CaseBuilder(new KompasAPI.KompasAPI()).CrateCase(_caseParameter);
+                    break;
+                case BuilderProgramName.Inventor:
+                    new CaseBuilder(new InventorAPI.InventorAPI()).CrateCase(_caseParameter);
+                    break;
+            }
         }
 
         /// <summary>
