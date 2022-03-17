@@ -1,5 +1,8 @@
 ﻿namespace ComputerCase
 {
+    /// <summary>
+    /// Перечисление, содержащее названия программ для построения
+    /// </summary>
     public enum BuilderProgramName
     {
         /// <summary>
