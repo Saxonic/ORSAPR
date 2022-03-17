@@ -7,7 +7,6 @@ namespace ComputerCase.Exceptions
     /// </summary>
     public class SizeDependencyException : Exception
     {
-        //TODO: XML
         /// <summary>
         /// Исключение, содержащее в себе пользовательское сообщение
         /// </summary>

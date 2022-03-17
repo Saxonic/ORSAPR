@@ -8,7 +8,6 @@ using ComputerCase.Exceptions;
 
 namespace ComputerCaseUI
 {
-    //TODO: XML
     /// <summary>
     /// Конструктор главной формы
     /// </summary>
@@ -116,7 +115,6 @@ namespace ComputerCaseUI
         /// <param name="control"></param>
         private void CheckAndSetInfo(Control control)
         {
-            //todo: duplication
             try
             {
                 var value = double.Parse(control.Text);
@@ -148,7 +146,6 @@ namespace ComputerCaseUI
         /// <param name="control"></param>
         private void CheckAndSetFansCount(Control control)
         {
-            //todo: duplication
             try
             {
                 if (int.TryParse(control.Text, out var value))
@@ -178,8 +175,9 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void MotherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO:
+            //TODO: опустить в парраметры
             var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
+            //TODO: RSDN
             heightBordersLabel.Text = 
                 motherboardType == MotherboardType.ATX
                 ? $"(от {_caseParameter.ATX_PLATE_CASE_MIN_HEIGHT} мм до {_caseParameter.CASE_MAX_SIZE} мм)" 
@@ -216,7 +214,7 @@ namespace ComputerCaseUI
         private void RemoveError(Control control)
         {
             if (toolTip1.GetToolTip(control) == Validator.LengthDependencyExceptionMessage
-            || toolTip1.GetToolTip(control) == Validator.HeightDependencyExceptionMessage)
+                || toolTip1.GetToolTip(control) == Validator.HeightDependencyExceptionMessage)
             {
                 SetSuccessColorAndRemoveToolTip(control);
             }
@@ -247,8 +245,7 @@ namespace ComputerCaseUI
                 BuildButton.Enabled = false;
             }
         }
-
-        //TODO: XML
+        
         /// <summary>
         /// Обработчик нажатия на кнопку построения корпуса
         /// </summary>
@@ -258,6 +255,7 @@ namespace ComputerCaseUI
         {
             BuilderProgramName test;
             if (!Enum.TryParse(apiTypeComboBox.Text, out test)) return;
+
             switch (test)
             {
                 case BuilderProgramName.Kompas3D:

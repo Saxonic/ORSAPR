@@ -5,6 +5,7 @@ using Inventor;
 
 namespace InventorAPI
 {
+    //TODO: XML
     public class InventorAPI : IBuilderProgramAPI
     {
         /// <summary>
@@ -80,7 +81,7 @@ namespace InventorAPI
         {
             CreatePlate(0,0,length,width,1,2);
         }
-
+        //TODO: RSDN
         /// <inheritdoc/>
         public void CreateSides(double length, double width, double height, double fansDiameter, int fansCount)
         {
@@ -93,6 +94,7 @@ namespace InventorAPI
             CreateFansHoles(width,fansDiameter,fansCount,15,1,-length,false);
         }
 
+        //TODO: RSDN
         /// <inheritdoc/>
         public void CreteRoof(double length, double width, double height, double upperFansDiameter, int fansCount)
         {
@@ -116,6 +118,7 @@ namespace InventorAPI
             return sketch;
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Создать прямоугольную стенку корпуса
         /// </summary>
@@ -158,6 +161,7 @@ namespace InventorAPI
             objectCollection.Add(extrude);
         }
         
+        //TODO: RSDN
         /// <summary>
         /// Создать отверстия под вентиляторы
         /// </summary>
@@ -171,15 +175,19 @@ namespace InventorAPI
         private void CreateFansHoles(double width,double diameter, int count, double indent,
             int planeType,double offset = 0,bool isReversed = true)
         {
-            var centerX = isReversed? -(indent+diameter/2)/_santimeter : (indent+diameter/2)/_santimeter;
-            var centerY = width / 2 /_santimeter;
+            var centerX = isReversed
+                ? -(indent+diameter / 2) / _santimeter 
+                : (indent+diameter / 2) / _santimeter;
+            var centerY = width / 2 / _santimeter;
             var sketch = CreateSketch(planeType,offset);
             for (var i = 0; i < count; i++)
             {
                 var point = _transientGeometry.CreatePoint2d
                     (centerX, centerY);
                 sketch.SketchCircles.AddByCenterRadius(point, diameter / 2/_santimeter);
-                centerX -= isReversed ? (indent + diameter)/_santimeter : -(indent+diameter)/_santimeter;
+                centerX -= isReversed 
+                    ? (indent + diameter)/_santimeter 
+                    : -(indent+diameter)/_santimeter;
             }
             Extrude(sketch,1,PartFeatureOperationEnum.kCutOperation);
         }

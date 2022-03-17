@@ -3,6 +3,7 @@ using ComputerCase;
 
 namespace ApiFactory
 {
+    //TODO: RSDN
     /// <summary>
     /// Класс, предоставляющий реализацию интерфейса для построения корпуса в програме, соответствующей переданному ключу
     /// </summary>

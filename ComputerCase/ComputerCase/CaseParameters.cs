@@ -3,7 +3,6 @@ using ComputerCase.Exceptions;
 
 namespace ComputerCase
 {
-    //TODO: XML
     /// <summary>
     /// Класс, содержаший данные корпуса
     /// </summary>
@@ -106,8 +105,7 @@ namespace ComputerCase
         private MotherboardType _motherboardType;
 
         #endregion
-
-        //TODO:
+        
         /// <summary>
         /// Событие попытки изменения данных
         /// </summary>
@@ -122,9 +120,10 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                var minValue = MotherboardType == MotherboardType.ATX ? 
-                    ATX_PLATE_CASE_MIN_HEIGHT : MICRO_ATX_PLATE_CASE_MIN_HEIGHT;
-                //TODO: duplication
+                var minValue = 
+                    MotherboardType == MotherboardType.ATX 
+                    ? ATX_PLATE_CASE_MIN_HEIGHT 
+                    : MICRO_ATX_PLATE_CASE_MIN_HEIGHT;
                 Validate(CASE_MAX_SIZE,minValue,value,"Высота корпуса");
                 CheckFrontValues(value,_frontFansDiameter,_frontFansCount);
                 _height = value;
@@ -140,7 +139,6 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                //TODO: duplication
                 Validate(CASE_MAX_SIZE,PLATE_WIDTH,value,"Длина корпуса");
                 CheckUpperValues(value, _upperFansDiameter, _upperFansCount);
                 _length = value;
@@ -156,7 +154,6 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                //TODO: duplication
                 Validate(MAX_WIDTH,ATX_POWER_SUPPLY_WIDTH,value,"Ширина корпуса");
                 _width = value;
             }
@@ -171,7 +168,6 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                //TODO: duplication
                 Validate(MAX_FANS_SIZE,MIN_FANS_SIZE,value,"Диаметр ответрстий");
                 CheckFrontValues(_height, value, _frontFansCount);
                 _frontFansDiameter = value;
@@ -187,7 +183,6 @@ namespace ComputerCase
             set
             {
                 OnValueTryChange();
-                //TODO: duplication
                 Validate(MAX_FANS_SIZE,MIN_FANS_SIZE,value,"Диаметр ответрстий");
                 CheckUpperValues(_length,value,_upperFansCount);
                 _upperFansDiameter = value;

@@ -26,8 +26,7 @@ namespace KompasAPI
         /// Толщина корпуса
         /// </summary>
         private const double CaseThickness = 1;
-
-        //TODO: XML
+        
         /// <inheritdoc/>
         public void OpenAPI()
         {
