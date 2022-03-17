@@ -276,7 +276,7 @@ namespace ComputerCase
         /// </summary>
         protected virtual void OnValueTryChange()
         {
-            TryValueChange?.Invoke(this,EventArgs.Empty);
+            TryValueChange.Invoke(this,EventArgs.Empty);
         }
 
         /// <summary>
