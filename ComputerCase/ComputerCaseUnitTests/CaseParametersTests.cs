@@ -42,6 +42,7 @@ namespace ComputerCaseUnitTests
             Assert.AreEqual(parameter.Width, width);
             Assert.AreEqual(parameter.UpperFansCount, upperFansCount);
             Assert.AreEqual(parameter.UpperFansDiameter, upperFansDiameter);
+            Assert.AreEqual(parameter.CaseHeightLimitText, parameter.CaseHeightLimitText);
         }
 
         [TestCase(10, Description = "Значение меньше допустимого")]
