@@ -9,7 +9,6 @@ namespace ComputerCase
     public class CaseParameters
     {
         #region Constraints
-
         /// <summary>
         /// Расстояние между передними вентиляторами
         /// </summary>
@@ -23,12 +22,12 @@ namespace ComputerCase
         /// <summary>
         /// Минимальная высота корпуса с ATX платой
         /// </summary>
-        public readonly int ATX_PLATE_CASE_MIN_HEIGHT = 391;
+        private readonly int ATX_PLATE_CASE_MIN_HEIGHT = 391;
         
         /// <summary>
         /// Минимальная высота корпуса с micro-ATX платой
         /// </summary>
-        public readonly int MICRO_ATX_PLATE_CASE_MIN_HEIGHT = 330;
+        private readonly int MICRO_ATX_PLATE_CASE_MIN_HEIGHT = 330;
         
         /// <summary>
         /// Ширина блока питания. Определяет минимальнудю ширину корпуса
@@ -43,7 +42,7 @@ namespace ComputerCase
         /// <summary>
         /// Максимальный размер высоты и длины корпуса
         /// </summary>
-        public readonly int CASE_MAX_SIZE = 500;
+        private readonly int CASE_MAX_SIZE = 500;
 
         /// <summary>
         /// Максимальное значение ширины корпуса
@@ -111,6 +110,11 @@ namespace ComputerCase
         /// </summary>
         public EventHandler TryValueChange;
         
+        public string CaseHeightLimitText =>
+            MotherboardType == MotherboardType.ATX
+                ? $"(от {ATX_PLATE_CASE_MIN_HEIGHT} мм до {CASE_MAX_SIZE} мм)" 
+                : $"(от {MICRO_ATX_PLATE_CASE_MIN_HEIGHT} мм до {CASE_MAX_SIZE} мм)";
+
         /// <summary>
         /// Высота корпуса
         /// </summary>
@@ -271,7 +275,7 @@ namespace ComputerCase
         /// </summary>
         protected virtual void OnValueTryChange()
         {
-            TryValueChange.Invoke(this,EventArgs.Empty);
+            TryValueChange?.Invoke(this,EventArgs.Empty);
         }
 
         /// <summary>
@@ -286,8 +290,8 @@ namespace ComputerCase
         {
             if (!Validator.Validate(max, min, value))
             {
-                throw new OutOfBoundsException($"{nameOfValidatingValue} не может быть больше" +
-                                               $" {max} или меньше {min} мм.");
+                throw new OutOfBoundsException($"{nameOfValidatingValue}" +
+                                               $" не может быть больше {max} или меньше {min} мм.");
             }
         }
     }

@@ -64,7 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuilderProgramName.cs" />
     <Compile Include="CaseBuilder.cs" />
     <Compile Include="CaseParameters.cs" />
     <Compile Include="Exceptions\OutOfBoundsException.cs" />

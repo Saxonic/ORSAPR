@@ -6,6 +6,9 @@ using Inventor;
 namespace InventorAPI
 {
     //TODO: XML
+    /// <summary>
+    /// Класс, осуществляющий построение корпуса в программе Inventor
+    /// </summary>
     public class InventorAPI : IBuilderProgramAPI
     {
         /// <summary>
@@ -36,7 +39,7 @@ namespace InventorAPI
         /// <summary>
         /// Кол-во миллиметров в одном сантиметре
         /// </summary>
-        private const double _santimeter = 10;
+        private const double Centimeter = 10;
         
         /// <inheritdoc/>
         public void OpenAPI()
@@ -81,9 +84,11 @@ namespace InventorAPI
         {
             CreatePlate(0,0,length,width,1,2);
         }
+        
         //TODO: RSDN
         /// <inheritdoc/>
-        public void CreateSides(double length, double width, double height, double fansDiameter, int fansCount)
+        public void CreateSides(double length, double width, double height, 
+            double fansDiameter, int fansCount)
         {
             //задняя стенка
             CreatePlate(0, 0, CaseThickness, width, height, 2);
@@ -91,15 +96,18 @@ namespace InventorAPI
             CreatePlate(0, 0, length-1, CaseThickness, height, 2);
             //передняя стенка
             CreatePlate(length-1, 0, CaseThickness, width, height, 2);
-            CreateFansHoles(width,fansDiameter,fansCount,15,1,-length,false);
+            CreateFansHoles(width,fansDiameter,fansCount,15,
+                1,-length,false);
         }
 
         //TODO: RSDN
         /// <inheritdoc/>
-        public void CreteRoof(double length, double width, double height, double upperFansDiameter, int fansCount)
+        public void CreteRoof(double length, double width, double height,
+            double upperFansDiameter, int fansCount)
         {
             CreatePlate(0,0,length,width,CaseThickness,2,height);
-            CreateFansHoles(width,upperFansDiameter, fansCount, 5, 2,height,false);
+            CreateFansHoles(width,upperFansDiameter, fansCount, 5, 
+                2,height,false);
         }
         
         /// <summary>
@@ -112,7 +120,7 @@ namespace InventorAPI
         {
             var mainPlane = _partDefinition.WorkPlanes[n];
             var offsetPlane = _partDefinition.WorkPlanes.AddByPlaneAndOffset(
-                mainPlane, offset/_santimeter);
+                mainPlane, offset/Centimeter);
             offsetPlane.Visible = false;
             var sketch = _partDefinition.Sketches.Add(offsetPlane);
             return sketch;
@@ -129,14 +137,14 @@ namespace InventorAPI
         /// <param name="thickness">Толщина прямоугольника</param>
         /// <param name="n">1 - ZY; 2 - ZX; 3 - XY.</param>
         /// <param name="offset">сдвиг плоскости</param>
-        private void CreatePlate(double startX, double startY, double length, double width, double thickness,
-            int n, double offset = 0)
+        private void CreatePlate(double startX, double startY, double length,
+            double width, double thickness, int n, double offset = 0)
         {
             var sketch = CreateSketch(n,offset);
             var point1 = _transientGeometry.CreatePoint2d
-                (startX/_santimeter, startY/_santimeter);
+                (startX/Centimeter, startY/Centimeter);
             var point2 = _transientGeometry.CreatePoint2d
-                ((startX+length)/_santimeter, (startY+width)/_santimeter);
+                ((startX+length)/Centimeter, (startY+width)/Centimeter);
             sketch.SketchLines.AddAsTwoPointRectangle(point1, point2);
             Extrude(sketch,thickness,PartFeatureOperationEnum.kJoinOperation);
         }
@@ -154,7 +162,7 @@ namespace InventorAPI
             var extrudeDef =
                 _partDefinition.Features.ExtrudeFeatures
                     .CreateExtrudeDefinition(sketchProfile, operationType);
-            extrudeDef.SetDistanceExtent(distance/_santimeter,
+            extrudeDef.SetDistanceExtent(distance/Centimeter,
                 PartFeatureExtentDirectionEnum.kPositiveExtentDirection);
             var extrude = _partDefinition.Features.ExtrudeFeatures.Add(extrudeDef);
             var objectCollection = _invApp.TransientObjects.CreateObjectCollection();
@@ -171,23 +179,24 @@ namespace InventorAPI
         /// <param name="indent">Отсутп между вентиляторами</param>
         /// <param name="planeType">Плоскость, в которой будет строиться отверстие</param>
         /// <param name="offset">Свдиг плоскости</param>
-        /// <param name="isReversed">Инвертировать ли Y(в зависимости от того, в каком направлении растет ось Y)</param>
+        /// <param name="isReversed">Инвертировать ли Y(в зависимости от
+        /// того, в каком направлении растет ось Y)</param>
         private void CreateFansHoles(double width,double diameter, int count, double indent,
             int planeType,double offset = 0,bool isReversed = true)
         {
             var centerX = isReversed
-                ? -(indent+diameter / 2) / _santimeter 
-                : (indent+diameter / 2) / _santimeter;
-            var centerY = width / 2 / _santimeter;
+                ? -(indent+diameter / 2) / Centimeter 
+                : (indent+diameter / 2) / Centimeter;
+            var centerY = width / 2 / Centimeter;
             var sketch = CreateSketch(planeType,offset);
             for (var i = 0; i < count; i++)
             {
                 var point = _transientGeometry.CreatePoint2d
                     (centerX, centerY);
-                sketch.SketchCircles.AddByCenterRadius(point, diameter / 2/_santimeter);
+                sketch.SketchCircles.AddByCenterRadius(point, diameter / 2/Centimeter);
                 centerX -= isReversed 
-                    ? (indent + diameter)/_santimeter 
-                    : -(indent+diameter)/_santimeter;
+                    ? (indent + diameter)/Centimeter 
+                    : -(indent+diameter)/Centimeter;
             }
             Extrude(sketch,1,PartFeatureOperationEnum.kCutOperation);
         }

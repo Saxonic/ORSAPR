@@ -93,17 +93,13 @@
     <None Include="Resources\Деталь.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApiFactory\ApiFactory.csproj">
+      <Project>{54d9c3e9-fd84-4607-8140-bb84c0a4e091}</Project>
+      <Name>ApiFactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ComputerCase\ComputerCase.csproj">
       <Project>{4b09c16b-c867-4c0f-81f6-9c1b604ddc56}</Project>
       <Name>ComputerCase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InventorAPI\InventorAPI.csproj">
-      <Project>{c7ea412d-e743-452d-8789-303b1da9bd2a}</Project>
-      <Name>InventorAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KompasAPI\KompasAPI.csproj">
-      <Project>{aff4de7d-26c7-41ba-9f93-312dddd2a38c}</Project>
-      <Name>KompasAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

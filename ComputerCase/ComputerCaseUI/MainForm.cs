@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ApiFactory;
 using ComputerCase.Exceptions;
 
 namespace ComputerCaseUI
@@ -176,14 +177,11 @@ namespace ComputerCaseUI
         private void MotherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //TODO: опустить в парраметры
-            var motherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
+            _caseParameter.MotherboardType = 
+                (MotherboardType)motherboardComboBox.SelectedIndex;
             //TODO: RSDN
-            heightBordersLabel.Text = 
-                motherboardType == MotherboardType.ATX
-                ? $"(от {_caseParameter.ATX_PLATE_CASE_MIN_HEIGHT} мм до {_caseParameter.CASE_MAX_SIZE} мм)" 
-                : $"(от {_caseParameter.MICRO_ATX_PLATE_CASE_MIN_HEIGHT} мм до {_caseParameter.CASE_MAX_SIZE} мм)";
-            _caseParameter.MotherboardType = (MotherboardType)motherboardComboBox.SelectedIndex;
-            
+            heightBordersLabel.Text = _caseParameter.CaseHeightLimitText;
+
         }
 
         /// <summary>
@@ -253,18 +251,10 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            BuilderProgramName test;
-            if (!Enum.TryParse(apiTypeComboBox.Text, out test)) return;
+            if (!Enum.TryParse(apiTypeComboBox.Text,
+                out BuilderProgramName builderProgramName)) return;
 
-            switch (test)
-            {
-                case BuilderProgramName.Kompas3D:
-                    new CaseBuilder(new KompasAPI.KompasAPI()).CrateCase(_caseParameter);
-                    break;
-                case BuilderProgramName.Inventor:
-                    new CaseBuilder(new InventorAPI.InventorAPI()).CrateCase(_caseParameter);
-                    break;
-            }
+            var builderApi = BuilderApiFactory.GetApi(builderProgramName);
         }
 
         /// <summary>
