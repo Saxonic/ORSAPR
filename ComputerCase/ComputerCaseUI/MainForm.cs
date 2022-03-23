@@ -253,8 +253,9 @@ namespace ComputerCaseUI
         {
             if (!Enum.TryParse(apiTypeComboBox.Text,
                 out BuilderProgramName builderProgramName)) return;
-
             var builderApi = BuilderApiFactory.GetApi(builderProgramName);
+            var builder = new CaseBuilder(builderApi);
+            builder.CrateCase(_caseParameter);
         }
 
         /// <summary>
