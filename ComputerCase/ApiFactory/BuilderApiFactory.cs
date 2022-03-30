@@ -26,7 +26,8 @@ namespace ApiFactory
                 case BuilderProgramName.Inventor:
                     return new InventorAPI.InventorAPI();
                 default:
-                    throw new ArgumentException("Не удалось сгенерировать API по указанному ключу.");
+                    throw new ArgumentException(
+                        "Не удалось сгенерировать API по указанному ключу.");
             }
         }
     }
