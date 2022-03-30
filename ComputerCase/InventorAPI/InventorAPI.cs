@@ -34,12 +34,12 @@ namespace InventorAPI
         /// <summary>
         /// Толщина корпуса
         /// </summary>
-        private const double CaseThickness = 1;
+        private const double CASE_THICKNESS = 1;
 
         /// <summary>
         /// Кол-во миллиметров в одном сантиметре
         /// </summary>
-        private const double Centimeter = 10;
+        private const double CENTIMETER = 10;
         
         /// <inheritdoc/>
         public void OpenAPI()
@@ -91,11 +91,11 @@ namespace InventorAPI
             double fansDiameter, int fansCount)
         {
             //задняя стенка
-            CreatePlate(0, 0, CaseThickness, width, height, 2);
+            CreatePlate(0, 0, CASE_THICKNESS, width, height, 2);
             //боковая стенка
-            CreatePlate(0, 0, length-1, CaseThickness, height, 2);
+            CreatePlate(0, 0, length-1, CASE_THICKNESS, height, 2);
             //передняя стенка
-            CreatePlate(length-1, 0, CaseThickness, width, height, 2);
+            CreatePlate(length-1, 0, CASE_THICKNESS, width, height, 2);
             CreateFansHoles(width,fansDiameter,fansCount,15,
                 1,-length,false);
         }
@@ -105,7 +105,7 @@ namespace InventorAPI
         public void CreteRoof(double length, double width, double height,
             double upperFansDiameter, int fansCount)
         {
-            CreatePlate(0,0,length,width,CaseThickness,2,height);
+            CreatePlate(0,0,length,width,CASE_THICKNESS,2,height);
             CreateFansHoles(width,upperFansDiameter, fansCount, 5, 
                 2,height,false);
         }
@@ -120,7 +120,7 @@ namespace InventorAPI
         {
             var mainPlane = _partDefinition.WorkPlanes[n];
             var offsetPlane = _partDefinition.WorkPlanes.AddByPlaneAndOffset(
-                mainPlane, offset/Centimeter);
+                mainPlane, offset/CENTIMETER);
             offsetPlane.Visible = false;
             var sketch = _partDefinition.Sketches.Add(offsetPlane);
             return sketch;
@@ -142,9 +142,9 @@ namespace InventorAPI
         {
             var sketch = CreateSketch(n,offset);
             var point1 = _transientGeometry.CreatePoint2d
-                (startX/Centimeter, startY/Centimeter);
+                (startX/CENTIMETER, startY/CENTIMETER);
             var point2 = _transientGeometry.CreatePoint2d
-                ((startX+length)/Centimeter, (startY+width)/Centimeter);
+                ((startX+length)/CENTIMETER, (startY+width)/CENTIMETER);
             sketch.SketchLines.AddAsTwoPointRectangle(point1, point2);
             Extrude(sketch,thickness,PartFeatureOperationEnum.kJoinOperation);
         }
@@ -162,7 +162,7 @@ namespace InventorAPI
             var extrudeDef =
                 _partDefinition.Features.ExtrudeFeatures
                     .CreateExtrudeDefinition(sketchProfile, operationType);
-            extrudeDef.SetDistanceExtent(distance/Centimeter,
+            extrudeDef.SetDistanceExtent(distance/CENTIMETER,
                 PartFeatureExtentDirectionEnum.kPositiveExtentDirection);
             var extrude = _partDefinition.Features.ExtrudeFeatures.Add(extrudeDef);
             var objectCollection = _invApp.TransientObjects.CreateObjectCollection();
@@ -185,18 +185,18 @@ namespace InventorAPI
             int planeType,double offset = 0,bool isReversed = true)
         {
             var centerX = isReversed
-                ? -(indent+diameter / 2) / Centimeter 
-                : (indent+diameter / 2) / Centimeter;
-            var centerY = width / 2 / Centimeter;
+                ? -(indent+diameter / 2) / CENTIMETER 
+                : (indent+diameter / 2) / CENTIMETER;
+            var centerY = width / 2 / CENTIMETER;
             var sketch = CreateSketch(planeType,offset);
             for (var i = 0; i < count; i++)
             {
                 var point = _transientGeometry.CreatePoint2d
                     (centerX, centerY);
-                sketch.SketchCircles.AddByCenterRadius(point, diameter / 2/Centimeter);
+                sketch.SketchCircles.AddByCenterRadius(point, diameter / 2/CENTIMETER);
                 centerX -= isReversed 
-                    ? (indent + diameter)/Centimeter 
-                    : -(indent+diameter)/Centimeter;
+                    ? (indent + diameter)/CENTIMETER 
+                    : -(indent+diameter)/CENTIMETER;
             }
             Extrude(sketch,1,PartFeatureOperationEnum.kCutOperation);
         }

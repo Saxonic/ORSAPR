@@ -25,7 +25,7 @@ namespace KompasAPI
         /// <summary>
         /// Толщина корпуса
         /// </summary>
-        private const double CaseThickness = 1;
+        private const double CASE_THICKNESS = 1;
         
         /// <inheritdoc/>
         public void OpenAPI()
@@ -44,26 +44,34 @@ namespace KompasAPI
             var documents2d = (Document2D)sketch.BeginEdit();
             documents2d.ksRectangle(rectangleParameters);
             sketch.EndEdit();
-            Extrude(CaseThickness,sketch);
+            Extrude(CASE_THICKNESS,sketch);
         }
 
         /// <inheritdoc/>
-        public void CreateSides(double length, double width, double height, double fansDiameter,int fansCount)
+        public void CreateSides(double length, double width, double height,
+            double fansDiameter,int fansCount)
         {
             //задняя стенка
-            CreatePlate(0, 0, CaseThickness, width, height, Obj3dType.o3d_planeXOY);
+            CreatePlate(0, 0, CASE_THICKNESS,
+                width, height, Obj3dType.o3d_planeXOY);
             //боковая стенка
-            CreatePlate(0, 1, length-1, CaseThickness, height, Obj3dType.o3d_planeXOY);
+            CreatePlate(0, 1, length-1,
+                CASE_THICKNESS, height, Obj3dType.o3d_planeXOY);
             //передняя стенка
-            CreatePlate(0, length, CaseThickness, width, height, Obj3dType.o3d_planeXOY);
-            CreateFansHoles(width,fansDiameter,fansCount,15,Obj3dType.o3d_planeXOZ,-length);
+            CreatePlate(0, length, CASE_THICKNESS,
+                width, height, Obj3dType.o3d_planeXOY);
+            CreateFansHoles(width,fansDiameter,fansCount,
+                15,Obj3dType.o3d_planeXOZ,-length);
         }
 
         /// <inheritdoc/>
-        public void CreteRoof(double length, double width,double height, double upperFansDiameter,int fansCount)
+        public void CreteRoof(double length, double width,double height,
+            double upperFansDiameter,int fansCount)
         {
-            CreatePlate(0,0,length,width,CaseThickness,Obj3dType.o3d_planeXOY,-height);
-            CreateFansHoles(width,upperFansDiameter, fansCount, 5, Obj3dType.o3d_planeXOY,-height,false);
+            CreatePlate(0,0,length,width,CASE_THICKNESS,
+                Obj3dType.o3d_planeXOY,-height);
+            CreateFansHoles(width,upperFansDiameter, fansCount, 5,
+                Obj3dType.o3d_planeXOY,-height,false);
         }
 
         /// <summary>
@@ -76,8 +84,8 @@ namespace KompasAPI
         /// <param name="thickness">Толщина прямоугольника</param>
         /// <param name="planeType">Плоскость, в которой будет строиться стенка</param>
         /// <param name="offset">сдвиг плоскости</param>
-        private void CreatePlate(double startX, double startY, double length, double width, double thickness,
-            Obj3dType planeType, double offset = 0)
+        private void CreatePlate(double startX, double startY, double length,
+            double width, double thickness, Obj3dType planeType, double offset = 0)
         {
             var sketch = CreateSketch(planeType,offset);
             var rectangleParameters = GetRectangleParameters(startX, startY, length, width);
@@ -96,7 +104,8 @@ namespace KompasAPI
         /// <param name="indent">Отсутп между вентиляторами</param>
         /// <param name="planeType">Плоскость, в которой будет строиться отверстие</param>
         /// <param name="offset">Свдиг плоскости</param>
-        /// <param name="isReversed">Инвертировать ли Y(в зависимости от того, в каком направлении растет ось Y)</param>
+        /// <param name="isReversed">Инвертировать ли Y
+        /// (в зависимости от того, в каком направлении растет ось Y)</param>
         private void CreateFansHoles(double width,double diameter, int count, double indent,
             Obj3dType planeType,double offset = 0,bool isReversed = true)
         {
@@ -127,7 +136,8 @@ namespace KompasAPI
             sketchDefinition.SetPlane(plan);
             if (offset != 0)
             {
-                var offsetEntity = (ksEntity)_part.NewEntity((short)Obj3dType.o3d_planeOffset);
+                var offsetEntity = (ksEntity)_part
+                    .NewEntity((short)Obj3dType.o3d_planeOffset);
                 var offsetDef = (ksPlaneOffsetDefinition)offsetEntity
                     .GetDefinition(); 
                 offsetDef.SetPlane(plan);
@@ -148,7 +158,8 @@ namespace KompasAPI
         /// <param name="side"></param>
         private void Cut(double depth,ksSketchDefinition sketch, bool side = false)
         {
-            var cutExtrusionEntity = (ksEntity)_part.NewEntity((short)ksObj3dTypeEnum.o3d_cutExtrusion);
+            var cutExtrusionEntity = (ksEntity)_part
+                .NewEntity((short)ksObj3dTypeEnum.o3d_cutExtrusion);
             var cutExtrusionDef = (ksCutExtrusionDefinition)cutExtrusionEntity.GetDefinition();
 
             cutExtrusionDef.SetSideParam(side, (short)End_Type.etBlind, depth);
@@ -175,7 +186,9 @@ namespace KompasAPI
                 .GetDefinition();
 
             extrusionDef.SetSideParam(side, (short)End_Type.etBlind, depth);
-            extrusionDef.directionType = side ? (short)Direction_Type.dtNormal : (short)Direction_Type.dtReverse;
+            extrusionDef.directionType = side 
+                ? (short)Direction_Type.dtNormal 
+                : (short)Direction_Type.dtReverse;
             extrusionDef.SetSketch(sketch);
             extrusionEntity.Create();
         }
@@ -208,7 +221,7 @@ namespace KompasAPI
         /// <returns>Возвращает указатель на Компас</returns>
         private KompasObject OpenKompas()
         {
-            if (!GetActiveKompass(out var kompas))
+            if (!GetActiveKompas(out var kompas))
             {
                 CreateActiveKompas(out kompas);
             }
@@ -223,13 +236,12 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasObject">Объект Компас</param>
         /// <returns>Возвращает указатель на Компас</returns>
-        private bool CreateActiveKompas(out KompasObject kompasObject)
+        private void CreateActiveKompas(out KompasObject kompasObject)
         {
             try
             {
-                Type type = Type.GetTypeFromProgID("KOMPAS.Application.5");
+                var type = Type.GetTypeFromProgID("KOMPAS.Application.5");
                 kompasObject = (KompasObject)Activator.CreateInstance(type);
-                return true;
             }
             catch (COMException)
             {
@@ -242,11 +254,12 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasObject">Объект Компаса.</param>
         /// <returns>Возвращает указатель на Компас</returns>
-        private bool GetActiveKompass(out KompasObject kompasObject)
+        private bool GetActiveKompas(out KompasObject kompasObject)
         {
             try
             {
-                kompasObject = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
+                kompasObject = (KompasObject)Marshal
+                    .GetActiveObject("KOMPAS.Application.5");
                 return true;
             }
             catch (COMException)
