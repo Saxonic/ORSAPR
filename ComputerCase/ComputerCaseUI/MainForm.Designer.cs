@@ -90,7 +90,7 @@ namespace ComputerCaseUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(588, 328);
+            this.splitContainer1.Size = new System.Drawing.Size(588, 324);
             this.splitContainer1.SplitterDistance = 277;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -139,7 +139,10 @@ namespace ComputerCaseUI
             // 
             this.frontFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.frontFansComboBox.FormattingEnabled = true;
-            this.frontFansComboBox.Items.AddRange(new object[] { "1", "2", "3" });
+            this.frontFansComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
             this.frontFansComboBox.Location = new System.Drawing.Point(82, 43);
             this.frontFansComboBox.Name = "frontFansComboBox";
             this.frontFansComboBox.Size = new System.Drawing.Size(63, 21);
@@ -199,7 +202,9 @@ namespace ComputerCaseUI
             // 
             this.upperFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.upperFansComboBox.FormattingEnabled = true;
-            this.upperFansComboBox.Items.AddRange(new object[] { "1", "2" });
+            this.upperFansComboBox.Items.AddRange(new object[] {
+            "1",
+            "2"});
             this.upperFansComboBox.Location = new System.Drawing.Point(82, 44);
             this.upperFansComboBox.Name = "upperFansComboBox";
             this.upperFansComboBox.Size = new System.Drawing.Size(63, 21);
@@ -255,7 +260,9 @@ namespace ComputerCaseUI
             // 
             this.motherboardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.motherboardComboBox.FormattingEnabled = true;
-            this.motherboardComboBox.Items.AddRange(new object[] { "ATX", "Micro-ATX" });
+            this.motherboardComboBox.Items.AddRange(new object[] {
+            "ATX",
+            "Micro-ATX"});
             this.motherboardComboBox.Location = new System.Drawing.Point(9, 19);
             this.motherboardComboBox.Name = "motherboardComboBox";
             this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
@@ -365,7 +372,7 @@ namespace ComputerCaseUI
             this.pictureBox1.InitialImage = global::ComputerCaseUI.Properties.Resources.Деталь;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(307, 328);
+            this.pictureBox1.Size = new System.Drawing.Size(307, 324);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -381,9 +388,9 @@ namespace ComputerCaseUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 328);
+            this.ClientSize = new System.Drawing.Size(588, 324);
             this.Controls.Add(this.splitContainer1);
-            this.MaximumSize = new System.Drawing.Size(999, 999);
+            this.MaximumSize = new System.Drawing.Size(604, 363);
             this.MinimumSize = new System.Drawing.Size(604, 363);
             this.Name = "MainForm";
             this.Text = "ComputerCase";
@@ -400,6 +407,7 @@ namespace ComputerCaseUI
             this.caseInfoGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.ComboBox apiTypeComboBox;
