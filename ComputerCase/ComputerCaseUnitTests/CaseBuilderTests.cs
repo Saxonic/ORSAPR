@@ -1,4 +1,5 @@
-﻿using ComputerCase;
+﻿using System;
+using ComputerCase;
 using NUnit.Framework;
 using Moq;
 
@@ -33,6 +34,8 @@ namespace ComputerCaseUnitTests
                 UpperFansCount = upperFansCount,
                 UpperFansDiameter = upperFansDiameter
             };
+            parameter.TryValueChange = delegate {  };
+            parameter.Height = height;
             
             //act
             builder.CrateCase(parameter);
