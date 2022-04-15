@@ -5,7 +5,6 @@ using Inventor;
 
 namespace InventorAPI
 {
-    //TODO: XML
     /// <summary>
     /// Класс, осуществляющий построение корпуса в программе Inventor
     /// </summary>
@@ -85,7 +84,6 @@ namespace InventorAPI
             CreatePlate(0,0,length,width,1,2);
         }
         
-        //TODO: RSDN
         /// <inheritdoc/>
         public void CreateSides(double length, double width, double height, 
             double fansDiameter, int fansCount)
@@ -99,8 +97,7 @@ namespace InventorAPI
             CreateFansHoles(width,fansDiameter,fansCount,15,
                 1,-length,false);
         }
-
-        //TODO: RSDN
+        
         /// <inheritdoc/>
         public void CreteRoof(double length, double width, double height,
             double upperFansDiameter, int fansCount)
@@ -125,8 +122,7 @@ namespace InventorAPI
             var sketch = _partDefinition.Sketches.Add(offsetPlane);
             return sketch;
         }
-
-        //TODO: RSDN
+        
         /// <summary>
         /// Создать прямоугольную стенку корпуса
         /// </summary>
@@ -169,7 +165,6 @@ namespace InventorAPI
             objectCollection.Add(extrude);
         }
         
-        //TODO: RSDN
         /// <summary>
         /// Создать отверстия под вентиляторы
         /// </summary>

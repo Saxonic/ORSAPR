@@ -167,8 +167,7 @@ namespace ComputerCaseUI
                 }
             }
         }
-
-        //TODO: RSDN
+        
         /// <summary>
         /// Изменение текста в поле, отвечающем за тип материнской платы
         /// </summary>
@@ -176,10 +175,8 @@ namespace ComputerCaseUI
         /// <param name="e"></param>
         private void MotherboardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO: опустить в парраметры
             _caseParameter.MotherboardType = 
                 (MotherboardType)motherboardComboBox.SelectedIndex;
-            //TODO: RSDN
             heightBordersLabel.Text = _caseParameter.CaseHeightLimitText;
 
         }
