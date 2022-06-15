@@ -35,13 +35,17 @@ namespace ComputerCaseUI
             this.apiTypeComboBox = new System.Windows.Forms.ComboBox();
             this.BuildButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+
             this.frontFansComboBox = new System.Windows.Forms.ComboBox();
+
             this.frontFansCountLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.frontFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.frontFansDiametrLabel = new System.Windows.Forms.Label();
             this.fansInfoGroupBox = new System.Windows.Forms.GroupBox();
+
             this.upperFansComboBox = new System.Windows.Forms.ComboBox();
+
             this.upperFansCountLabel = new System.Windows.Forms.Label();
             this.upperFansDiameterBordersLabel = new System.Windows.Forms.Label();
             this.upperFansDiameterTextBox = new System.Windows.Forms.TextBox();
@@ -135,6 +139,7 @@ namespace ComputerCaseUI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Передние вентиляторы";
             // 
+
             // frontFansComboBox
             // 
             this.frontFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -148,6 +153,7 @@ namespace ComputerCaseUI
             this.frontFansComboBox.Size = new System.Drawing.Size(63, 21);
             this.frontFansComboBox.TabIndex = 20;
             this.frontFansComboBox.SelectedIndexChanged += new System.EventHandler(this.FansCountGroupBox_Click);
+
             // 
             // frontFansCountLabel
             // 
@@ -198,6 +204,7 @@ namespace ComputerCaseUI
             this.fansInfoGroupBox.TabStop = false;
             this.fansInfoGroupBox.Text = "Верхние вентиляторы";
             // 
+
             // upperFansComboBox
             // 
             this.upperFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -267,7 +274,9 @@ namespace ComputerCaseUI
             this.motherboardComboBox.Name = "motherboardComboBox";
             this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
             this.motherboardComboBox.TabIndex = 0;
+
             this.motherboardComboBox.SelectedIndexChanged += new System.EventHandler(this.MotherboardComboBox_SelectedIndexChanged);
+
             // 
             // caseInfoGroupBox
             // 
@@ -380,9 +389,11 @@ namespace ComputerCaseUI
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 0;
+
             this.toolTip1.AutoPopDelay = 0;
             this.toolTip1.InitialDelay = 1;
             this.toolTip1.ReshowDelay = 0;
+
             // 
             // MainForm
             // 
