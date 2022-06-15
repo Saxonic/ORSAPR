@@ -3,15 +3,15 @@
 namespace ComputerCase.Exceptions
 {
     /// <summary>
-    /// Исключение, герерируемое при значении выходящем за диапазон допустимых значений
+    /// Исключение, генерируемое при несоответсвии зависимых размеров
     /// </summary>
-    public class OutOfBoundsException : Exception
+    public class SizeDependencyException : Exception
     {
         /// <summary>
         /// Исключение, содержащее в себе пользовательское сообщение
         /// </summary>
         /// <param name="message"></param>
-        public OutOfBoundsException(string message) : base(message)
+        public SizeDependencyException(string message) : base(message)
         {
         }
     }

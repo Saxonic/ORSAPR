@@ -31,18 +31,24 @@ namespace ComputerCaseUI
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.apiTypeLabel = new System.Windows.Forms.Label();
+            this.apiTypeComboBox = new System.Windows.Forms.ComboBox();
             this.BuildButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+
+            this.frontFansComboBox = new System.Windows.Forms.ComboBox();
+
             this.frontFansCountLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.FrontFansDiameterTextBox = new System.Windows.Forms.TextBox();
+            this.frontFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.frontFansDiametrLabel = new System.Windows.Forms.Label();
             this.fansInfoGroupBox = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+
+            this.upperFansComboBox = new System.Windows.Forms.ComboBox();
+
             this.upperFansCountLabel = new System.Windows.Forms.Label();
-            this.upperFansDiametrBordersLabel = new System.Windows.Forms.Label();
-            this.UpperFansDiameterTextBox = new System.Windows.Forms.TextBox();
+            this.upperFansDiameterBordersLabel = new System.Windows.Forms.Label();
+            this.upperFansDiameterTextBox = new System.Windows.Forms.TextBox();
             this.upperFansDiametrLabel = new System.Windows.Forms.Label();
             this.motherboardGroupBox = new System.Windows.Forms.GroupBox();
             this.motherboardComboBox = new System.Windows.Forms.ComboBox();
@@ -50,12 +56,12 @@ namespace ComputerCaseUI
             this.lengthBordersLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.heightBordersLabel = new System.Windows.Forms.Label();
-            this.WidthTextBox = new System.Windows.Forms.TextBox();
-            this.LengthTextBox = new System.Windows.Forms.TextBox();
+            this.widthTextBox = new System.Windows.Forms.TextBox();
+            this.lengthTextBox = new System.Windows.Forms.TextBox();
             this.lengthLabel = new System.Windows.Forms.Label();
             this.widthLabel = new System.Windows.Forms.Label();
             this.heightLabel = new System.Windows.Forms.Label();
-            this.HeightTextBox = new System.Windows.Forms.TextBox();
+            this.heightTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -77,6 +83,8 @@ namespace ComputerCaseUI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.apiTypeLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.apiTypeComboBox);
             this.splitContainer1.Panel1.Controls.Add(this.BuildButton);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.fansInfoGroupBox);
@@ -86,26 +94,43 @@ namespace ComputerCaseUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(590, 330);
-            this.splitContainer1.SplitterDistance = 279;
+            this.splitContainer1.Size = new System.Drawing.Size(588, 324);
+            this.splitContainer1.SplitterDistance = 277;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // apiTypeLabel
+            // 
+            this.apiTypeLabel.Location = new System.Drawing.Point(9, 302);
+            this.apiTypeLabel.Name = "apiTypeLabel";
+            this.apiTypeLabel.Size = new System.Drawing.Size(76, 18);
+            this.apiTypeLabel.TabIndex = 8;
+            this.apiTypeLabel.Text = "Построить в:";
+            // 
+            // apiTypeComboBox
+            // 
+            this.apiTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.apiTypeComboBox.FormattingEnabled = true;
+            this.apiTypeComboBox.Location = new System.Drawing.Point(85, 299);
+            this.apiTypeComboBox.Name = "apiTypeComboBox";
+            this.apiTypeComboBox.Size = new System.Drawing.Size(107, 21);
+            this.apiTypeComboBox.TabIndex = 7;
             // 
             // BuildButton
             // 
-            this.BuildButton.Enabled = false;
-            this.BuildButton.Location = new System.Drawing.Point(198, 300);
+            this.BuildButton.Location = new System.Drawing.Point(198, 297);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(75, 23);
             this.BuildButton.TabIndex = 1;
             this.BuildButton.Text = "Построить";
             this.BuildButton.UseVisualStyleBackColor = true;
+            this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox3);
+            this.groupBox1.Controls.Add(this.frontFansComboBox);
             this.groupBox1.Controls.Add(this.frontFansCountLabel);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.FrontFansDiameterTextBox);
+            this.groupBox1.Controls.Add(this.frontFansDiameterTextBox);
             this.groupBox1.Controls.Add(this.frontFansDiametrLabel);
             this.groupBox1.Location = new System.Drawing.Point(3, 227);
             this.groupBox1.Name = "groupBox1";
@@ -114,18 +139,21 @@ namespace ComputerCaseUI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Передние вентиляторы";
             // 
-            // comboBox3
+
+            // frontFansComboBox
             // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.frontFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.frontFansComboBox.FormattingEnabled = true;
+            this.frontFansComboBox.Items.AddRange(new object[] {
             "1",
             "2",
             "3"});
-            this.comboBox3.Location = new System.Drawing.Point(82, 43);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(63, 21);
-            this.comboBox3.TabIndex = 20;
+            this.frontFansComboBox.Location = new System.Drawing.Point(82, 43);
+            this.frontFansComboBox.Name = "frontFansComboBox";
+            this.frontFansComboBox.Size = new System.Drawing.Size(63, 21);
+            this.frontFansComboBox.TabIndex = 20;
+            this.frontFansComboBox.SelectedIndexChanged += new System.EventHandler(this.FansCountGroupBox_Click);
+
             // 
             // frontFansCountLabel
             // 
@@ -145,13 +173,13 @@ namespace ComputerCaseUI
             this.label3.TabIndex = 18;
             this.label3.Text = "(от 40 мм до 140 мм)";
             // 
-            // FrontFansDiameterTextBox
+            // frontFansDiameterTextBox
             // 
-            this.FrontFansDiameterTextBox.Location = new System.Drawing.Point(82, 18);
-            this.FrontFansDiameterTextBox.Name = "FrontFansDiameterTextBox";
-            this.FrontFansDiameterTextBox.Size = new System.Drawing.Size(63, 20);
-            this.FrontFansDiameterTextBox.TabIndex = 17;
-            this.FrontFansDiameterTextBox.TextChanged += new System.EventHandler(this.FrontFansDiameterTextBox_TextChanged);
+            this.frontFansDiameterTextBox.Location = new System.Drawing.Point(82, 18);
+            this.frontFansDiameterTextBox.Name = "frontFansDiameterTextBox";
+            this.frontFansDiameterTextBox.Size = new System.Drawing.Size(63, 20);
+            this.frontFansDiameterTextBox.TabIndex = 17;
+            this.frontFansDiameterTextBox.TextChanged += new System.EventHandler(this.ParametersTextBox_TextChanged);
             // 
             // frontFansDiametrLabel
             // 
@@ -164,10 +192,10 @@ namespace ComputerCaseUI
             // 
             // fansInfoGroupBox
             // 
-            this.fansInfoGroupBox.Controls.Add(this.comboBox2);
+            this.fansInfoGroupBox.Controls.Add(this.upperFansComboBox);
             this.fansInfoGroupBox.Controls.Add(this.upperFansCountLabel);
-            this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrBordersLabel);
-            this.fansInfoGroupBox.Controls.Add(this.UpperFansDiameterTextBox);
+            this.fansInfoGroupBox.Controls.Add(this.upperFansDiameterBordersLabel);
+            this.fansInfoGroupBox.Controls.Add(this.upperFansDiameterTextBox);
             this.fansInfoGroupBox.Controls.Add(this.upperFansDiametrLabel);
             this.fansInfoGroupBox.Location = new System.Drawing.Point(3, 156);
             this.fansInfoGroupBox.Name = "fansInfoGroupBox";
@@ -176,17 +204,19 @@ namespace ComputerCaseUI
             this.fansInfoGroupBox.TabStop = false;
             this.fansInfoGroupBox.Text = "Верхние вентиляторы";
             // 
-            // comboBox2
+
+            // upperFansComboBox
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.upperFansComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.upperFansComboBox.FormattingEnabled = true;
+            this.upperFansComboBox.Items.AddRange(new object[] {
             "1",
             "2"});
-            this.comboBox2.Location = new System.Drawing.Point(82, 44);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(63, 21);
-            this.comboBox2.TabIndex = 5;
+            this.upperFansComboBox.Location = new System.Drawing.Point(82, 44);
+            this.upperFansComboBox.Name = "upperFansComboBox";
+            this.upperFansComboBox.Size = new System.Drawing.Size(63, 21);
+            this.upperFansComboBox.TabIndex = 5;
+            this.upperFansComboBox.SelectedIndexChanged += new System.EventHandler(this.FansCountGroupBox_Click);
             // 
             // upperFansCountLabel
             // 
@@ -197,22 +227,22 @@ namespace ComputerCaseUI
             this.upperFansCountLabel.TabIndex = 4;
             this.upperFansCountLabel.Text = "Количество";
             // 
-            // upperFansDiametrBordersLabel
+            // upperFansDiameterBordersLabel
             // 
-            this.upperFansDiametrBordersLabel.AutoSize = true;
-            this.upperFansDiametrBordersLabel.Location = new System.Drawing.Point(151, 22);
-            this.upperFansDiametrBordersLabel.Name = "upperFansDiametrBordersLabel";
-            this.upperFansDiametrBordersLabel.Size = new System.Drawing.Size(113, 13);
-            this.upperFansDiametrBordersLabel.TabIndex = 3;
-            this.upperFansDiametrBordersLabel.Text = "(от 40 мм до 140 мм)";
+            this.upperFansDiameterBordersLabel.AutoSize = true;
+            this.upperFansDiameterBordersLabel.Location = new System.Drawing.Point(151, 22);
+            this.upperFansDiameterBordersLabel.Name = "upperFansDiameterBordersLabel";
+            this.upperFansDiameterBordersLabel.Size = new System.Drawing.Size(113, 13);
+            this.upperFansDiameterBordersLabel.TabIndex = 3;
+            this.upperFansDiameterBordersLabel.Text = "(от 40 мм до 140 мм)";
             // 
-            // UpperFansDiameterTextBox
+            // upperFansDiameterTextBox
             // 
-            this.UpperFansDiameterTextBox.Location = new System.Drawing.Point(82, 19);
-            this.UpperFansDiameterTextBox.Name = "UpperFansDiameterTextBox";
-            this.UpperFansDiameterTextBox.Size = new System.Drawing.Size(63, 20);
-            this.UpperFansDiameterTextBox.TabIndex = 2;
-            this.UpperFansDiameterTextBox.TextChanged += new System.EventHandler(this.UpperFansDiameterTextBox_TextChanged);
+            this.upperFansDiameterTextBox.Location = new System.Drawing.Point(82, 19);
+            this.upperFansDiameterTextBox.Name = "upperFansDiameterTextBox";
+            this.upperFansDiameterTextBox.Size = new System.Drawing.Size(63, 20);
+            this.upperFansDiameterTextBox.TabIndex = 2;
+            this.upperFansDiameterTextBox.TextChanged += new System.EventHandler(this.ParametersTextBox_TextChanged);
             // 
             // upperFansDiametrLabel
             // 
@@ -244,18 +274,21 @@ namespace ComputerCaseUI
             this.motherboardComboBox.Name = "motherboardComboBox";
             this.motherboardComboBox.Size = new System.Drawing.Size(121, 21);
             this.motherboardComboBox.TabIndex = 0;
+
+            this.motherboardComboBox.SelectedIndexChanged += new System.EventHandler(this.MotherboardComboBox_SelectedIndexChanged);
+
             // 
             // caseInfoGroupBox
             // 
             this.caseInfoGroupBox.Controls.Add(this.lengthBordersLabel);
             this.caseInfoGroupBox.Controls.Add(this.label2);
             this.caseInfoGroupBox.Controls.Add(this.heightBordersLabel);
-            this.caseInfoGroupBox.Controls.Add(this.WidthTextBox);
-            this.caseInfoGroupBox.Controls.Add(this.LengthTextBox);
+            this.caseInfoGroupBox.Controls.Add(this.widthTextBox);
+            this.caseInfoGroupBox.Controls.Add(this.lengthTextBox);
             this.caseInfoGroupBox.Controls.Add(this.lengthLabel);
             this.caseInfoGroupBox.Controls.Add(this.widthLabel);
             this.caseInfoGroupBox.Controls.Add(this.heightLabel);
-            this.caseInfoGroupBox.Controls.Add(this.HeightTextBox);
+            this.caseInfoGroupBox.Controls.Add(this.heightTextBox);
             this.caseInfoGroupBox.Location = new System.Drawing.Point(3, 3);
             this.caseInfoGroupBox.Name = "caseInfoGroupBox";
             this.caseInfoGroupBox.Size = new System.Drawing.Size(271, 101);
@@ -290,21 +323,21 @@ namespace ComputerCaseUI
             this.heightBordersLabel.TabIndex = 18;
             this.heightBordersLabel.Text = "(от 330 мм до 500 мм)";
             // 
-            // WidthTextBox
+            // widthTextBox
             // 
-            this.WidthTextBox.Location = new System.Drawing.Point(82, 75);
-            this.WidthTextBox.Name = "WidthTextBox";
-            this.WidthTextBox.Size = new System.Drawing.Size(63, 20);
-            this.WidthTextBox.TabIndex = 17;
-            this.WidthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
+            this.widthTextBox.Location = new System.Drawing.Point(82, 75);
+            this.widthTextBox.Name = "widthTextBox";
+            this.widthTextBox.Size = new System.Drawing.Size(63, 20);
+            this.widthTextBox.TabIndex = 17;
+            this.widthTextBox.TextChanged += new System.EventHandler(this.ParametersTextBox_TextChanged);
             // 
-            // LengthTextBox
+            // lengthTextBox
             // 
-            this.LengthTextBox.Location = new System.Drawing.Point(82, 49);
-            this.LengthTextBox.Name = "LengthTextBox";
-            this.LengthTextBox.Size = new System.Drawing.Size(63, 20);
-            this.LengthTextBox.TabIndex = 16;
-            this.LengthTextBox.TextChanged += new System.EventHandler(this.LengthTextBox_TextChanged);
+            this.lengthTextBox.Location = new System.Drawing.Point(82, 49);
+            this.lengthTextBox.Name = "lengthTextBox";
+            this.lengthTextBox.Size = new System.Drawing.Size(63, 20);
+            this.lengthTextBox.TabIndex = 16;
+            this.lengthTextBox.TextChanged += new System.EventHandler(this.ParametersTextBox_TextChanged);
             // 
             // lengthLabel
             // 
@@ -333,13 +366,13 @@ namespace ComputerCaseUI
             this.heightLabel.TabIndex = 13;
             this.heightLabel.Text = "Высота (А)";
             // 
-            // HeightTextBox
+            // heightTextBox
             // 
-            this.HeightTextBox.Location = new System.Drawing.Point(82, 23);
-            this.HeightTextBox.Name = "HeightTextBox";
-            this.HeightTextBox.Size = new System.Drawing.Size(63, 20);
-            this.HeightTextBox.TabIndex = 12;
-            this.HeightTextBox.TextChanged += new System.EventHandler(this.HeightTextBox_TextChanged);
+            this.heightTextBox.Location = new System.Drawing.Point(82, 23);
+            this.heightTextBox.Name = "heightTextBox";
+            this.heightTextBox.Size = new System.Drawing.Size(63, 20);
+            this.heightTextBox.TabIndex = 12;
+            this.heightTextBox.TextChanged += new System.EventHandler(this.ParametersTextBox_TextChanged);
             // 
             // pictureBox1
             // 
@@ -348,7 +381,7 @@ namespace ComputerCaseUI
             this.pictureBox1.InitialImage = global::ComputerCaseUI.Properties.Resources.Деталь;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(307, 330);
+            this.pictureBox1.Size = new System.Drawing.Size(307, 324);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -356,13 +389,20 @@ namespace ComputerCaseUI
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 0;
+
+            this.toolTip1.AutoPopDelay = 0;
+            this.toolTip1.InitialDelay = 1;
+            this.toolTip1.ReshowDelay = 0;
+
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 330);
+            this.ClientSize = new System.Drawing.Size(588, 324);
             this.Controls.Add(this.splitContainer1);
+            this.MaximumSize = new System.Drawing.Size(604, 363);
+            this.MinimumSize = new System.Drawing.Size(604, 363);
             this.Name = "MainForm";
             this.Text = "ComputerCase";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -381,35 +421,38 @@ namespace ComputerCaseUI
 
         }
 
+        private System.Windows.Forms.ComboBox apiTypeComboBox;
+        private System.Windows.Forms.Label apiTypeLabel;
+
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox fansInfoGroupBox;
         private System.Windows.Forms.Label upperFansCountLabel;
-        private System.Windows.Forms.Label upperFansDiametrBordersLabel;
-        private System.Windows.Forms.TextBox UpperFansDiameterTextBox;
+        private System.Windows.Forms.Label upperFansDiameterBordersLabel;
+        private System.Windows.Forms.TextBox upperFansDiameterTextBox;
         private System.Windows.Forms.Label upperFansDiametrLabel;
         private System.Windows.Forms.GroupBox motherboardGroupBox;
         private System.Windows.Forms.GroupBox caseInfoGroupBox;
         private System.Windows.Forms.Label lengthBordersLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label heightBordersLabel;
-        private System.Windows.Forms.TextBox WidthTextBox;
-        private System.Windows.Forms.TextBox LengthTextBox;
+        private System.Windows.Forms.TextBox widthTextBox;
+        private System.Windows.Forms.TextBox lengthTextBox;
         private System.Windows.Forms.Label lengthLabel;
         private System.Windows.Forms.Label widthLabel;
         private System.Windows.Forms.Label heightLabel;
-        private System.Windows.Forms.TextBox HeightTextBox;
+        private System.Windows.Forms.TextBox heightTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label frontFansCountLabel;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox FrontFansDiameterTextBox;
+        private System.Windows.Forms.TextBox frontFansDiameterTextBox;
         private System.Windows.Forms.Label frontFansDiametrLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button BuildButton;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox frontFansComboBox;
+        private System.Windows.Forms.ComboBox upperFansComboBox;
         private System.Windows.Forms.ComboBox motherboardComboBox;
     }
 }
